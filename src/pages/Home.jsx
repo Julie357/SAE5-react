@@ -1,7 +1,7 @@
 // src/MonComposant.jsx
 import React from 'react';
-import Eleve from './Compoments/Eleve';
-import Classe from './Compoments/Classe';
+import Eleve from '../composants/Eleve';
+import Classe from '../composants/Classe';
 
 const Home = () => {
   return (
