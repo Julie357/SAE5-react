@@ -39,7 +39,7 @@ function Item(props: BoxProps) {
 const PageEleve = () => {
   return (
     <Box>
-      <Box sx={{p:2, display: 'flex', width: '100%', alignContent: 'center'}}>
+      <Box sx={{p:2, display: 'flex', width: '100%', alignContent: 'center', justifyContent: 'space-between'}}>
         <Box sx={{width: '10%', border: '1px solid red', textAlign: 'center', alignContent: 'center'}}>Logo</Box>
 
         <Box sx={{width: '15%', mx: '5%'}}>
@@ -60,9 +60,6 @@ const PageEleve = () => {
         <Box sx={{width: '20%', border: '1px solid red'}}>Filtre</Box>
 
         <Box sx={{width: '20%', mx: '5%', display:'flex'}}>
-  
-
-         
           <Box sx={{border: '1px solid red'}}>
             <FormControl fullWidth>
               <InputBase
