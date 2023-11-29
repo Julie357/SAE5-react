@@ -41,7 +41,7 @@ const ExercicesList = () => {
 
   return (
     <>
-      <Grid container spacing={5} sx={{ height: "100%", width: "95vw" }}>
+      <Grid container spacing={5} sx={{ height: "100%", width: "95vw", margin: "auto" }}>
         <Grid item xs={12} sx={{ height: "90%", width: "100%" }}>
           <Box
             sx={{
@@ -66,7 +66,7 @@ const ExercicesList = () => {
                   sx={{ width: "95%", margin: "auto" }}
                 >
                   {currentExercices.map((exercice) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={exercice.id}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} key={exercice.id}>
                       <Card>
                         <CardContent>
                           <Typography
