@@ -1,5 +1,6 @@
 import React from "react";
 import Box from "@mui/system/Box";
+import { Typography } from "@mui/material";
 
 const ErrorStats = () => {
   return (
@@ -16,9 +17,9 @@ const ErrorStats = () => {
           padding: '0.8vh 1vw'
         }}
       >
-        <Box component="txt" sx={{
+        <Typography sx={{
           fontSize:'2.6vh'
-        }}>Erreurs récurrentes</Box>
+        }}>Erreurs récurrentes</Typography>
       </Box>
     </>
   );

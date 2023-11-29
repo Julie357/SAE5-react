@@ -8,6 +8,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const StudentData = () => {
   const ITEMS_PER_PAGE = 4;
@@ -90,7 +91,16 @@ const StudentData = () => {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small">Voir l'exercice</Button>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        sx={{
+                          fontFamily: "itim",
+                          mb:"1vh"
+                        }}
+                      >
+                        Voir l'exercice
+                      </Button>
                     </CardActions>
                   </Card>
                 </Grid>
@@ -100,10 +110,23 @@ const StudentData = () => {
               count={Math.ceil(exercicesCorrected.length / ITEMS_PER_PAGE)}
               page={currentPage}
               onChange={handleChangePage}
-              color="primary"
+              color="success"
+              shape="rounded"
+              size="small"
             />
-            <Link href="#" underline="hover" sx={{alignSelf:"end", marginRight:'2%'}}>
-              {"Voir tous les exercices"}
+            <Link
+              href="#"
+              underline="hover"
+              sx={{
+                alignSelf: "end",
+                marginRight: "2%",
+                fontFamily: "itim",
+                color: "#3D6787",
+                display: "flex",
+                alignItems: "center"
+              }}
+            >
+              {"Voir tous les exercices"}<ArrowForwardIcon sx={{fontSize: "16px", marginLeft: "0.3vw"}}/>
             </Link>
           </Box>
         </Grid>

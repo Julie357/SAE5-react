@@ -1,24 +1,37 @@
 import React from "react";
 import StudentProfile from "./components/StudentCardComponents/StudentProfile";
 import StudentData from "./components/StudentCardComponents/StudentData";
-import { Grid } from "@mui/material";
-import Itim from "./fonts/Itim-Regular.ttf";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Grid, ThemeProvider, createTheme } from "@mui/material";
+import "@fontsource/itim";
 
 const StudentCard = () => {
   const theme = createTheme({
     typography: {
-      fontFamily: "Itim",
+      fontFamily: "itim",
+    },
+    palette: {
+      primary: {
+        main: "#FFB5A7",
+        dark: "#FFA08F",
+        light: "#FCD5CE",
+      },
+      secondary: {
+        light: "#757ce8",
+        main: "#D8ECFC",
+        dark: "#3D6787",
+      },
+      success: {
+        main: "#A1CDF1"
+      }
     },
     components: {
       MuiCssBaseline: {
         styleOverrides: `
           @font-face {
-            font-family: 'Itim';
+            font-family: 'itim';
+            font-style: normal;
             font-display: swap;
             font-weight: 400;
-            src: local('Itim'), local('Itim-Regular'), url(${Itim}) format('ttf');
-            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
           }
         `,
       },
@@ -37,7 +50,6 @@ const StudentCard = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            fontFamily: "Itim",
           }}
         >
           <Grid item sx={{ height: "95vh", marginLeft: "2vw" }}>

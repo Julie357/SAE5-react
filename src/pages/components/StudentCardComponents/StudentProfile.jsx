@@ -1,8 +1,11 @@
 import React from "react";
 import Box from "@mui/system/Box";
-import ErrorStats from "../ErrorStats";
+import ErrorStats from "./ErrorStats";
+import { Typography} from "@mui/material";
+import "@fontsource/itim";
 
 const StudentProfile = () => {
+
   return (
     <>
       <Box
@@ -36,11 +39,9 @@ const StudentProfile = () => {
               flexDirection: "column",
             }}
           >
-            <Box component="txt" sx={{ textTransform: "uppercase" }}>
-              Buisson
-            </Box>
-            <Box component="txt">Claire</Box>
-            <Box component="txt">3°6</Box>
+            <Typography variant="h3" sx={{ textTransform: "uppercase" }}>Buisson</Typography>
+            <Typography variant="h3">Claire</Typography>
+            <Typography variant="h4">3°6</Typography>
           </Box>
         </Box>
         <Box
@@ -54,8 +55,8 @@ const StudentProfile = () => {
             flexDirection: "column",
           }}
         >
-          <Box component="txt">Niveau: B2</Box>
-          <Box component="txt">Exercices effectués: 40</Box>
+          <Typography variant="h5">Niveau: B2</Typography>
+          <Typography variant="h5">Exercices effectués: 40</Typography>
         </Box>
         <ErrorStats />
       </Box>

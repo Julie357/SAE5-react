@@ -5,6 +5,8 @@ import Home from './Home';
 import StudentCard from './pages/StudentCard';
 import { useDispatch } from 'react-redux';
 import { loadExercices } from './features/exercices/exerciceAction';
+import '@fontsource/itim';
+
 const App = () => {
     
   const dispatch = useDispatch();
