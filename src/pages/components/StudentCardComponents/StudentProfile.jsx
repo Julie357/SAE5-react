@@ -3,8 +3,18 @@ import Box from "@mui/system/Box";
 import ErrorStats from "./ErrorStats";
 import { Typography} from "@mui/material";
 import "@fontsource/itim";
+import { useSelector } from "react-redux";
+import { selectTotalExercices } from "../../../features/exercices/exerciceSelector";
 
 const StudentProfile = () => {
+  const nbExercices = useSelector(selectTotalExercices);
+  const isThereExercice = () => {
+    if (nbExercices === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   return (
     <>
@@ -30,7 +40,6 @@ const StudentProfile = () => {
         >
           <Box component="img" sx={{ width: "35%", height: "100%" }}></Box>
           <Box
-            component="txt"
             sx={{
               width: "60%",
               textAlign: "start",
@@ -56,7 +65,8 @@ const StudentProfile = () => {
           }}
         >
           <Typography variant="h5">Niveau: B2</Typography>
-          <Typography variant="h5">Exercices effectués: 40</Typography>
+          { !isThereExercice() && (<Typography variant="h5">L'étudiant n'a pas réalisé d'exercice.</Typography>)}
+          {isThereExercice() && (<Typography variant="h5">Exercices effectués: {nbExercices}</Typography>)}
         </Box>
         <ErrorStats />
       </Box>
