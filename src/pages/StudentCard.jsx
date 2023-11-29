@@ -1,42 +1,11 @@
 import React from "react";
 import StudentProfile from "./components/StudentCardComponents/StudentProfile";
 import StudentData from "./components/StudentCardComponents/StudentData";
-import { Grid, ThemeProvider, createTheme } from "@mui/material";
-import "@fontsource/itim";
+import { Grid, ThemeProvider } from "@mui/material";
+import theme from "../theme";
+
 
 const StudentCard = () => {
-  const theme = createTheme({
-    typography: {
-      fontFamily: "itim",
-    },
-    palette: {
-      primary: {
-        main: "#FFB5A7",
-        dark: "#FFA08F",
-        light: "#FCD5CE",
-      },
-      secondary: {
-        light: "#757ce8",
-        main: "#D8ECFC",
-        dark: "#3D6787",
-      },
-      success: {
-        main: "#A1CDF1"
-      }
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: `
-          @font-face {
-            font-family: 'itim';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 400;
-          }
-        `,
-      },
-    },
-  });
 
   return (
     <>

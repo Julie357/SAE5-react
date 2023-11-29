@@ -1,5 +1,4 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 
 export const selectExercices = (state) => state.exercice.exercices;
 export const selectTotalExercices = (state) => state.exercice.exercices.length;
