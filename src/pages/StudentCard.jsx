@@ -1,32 +1,53 @@
 import React from "react";
-import "./styles/StudentCard.css";
+import StudentProfile from "./components/StudentCardComponents/StudentProfile";
+import StudentData from "./components/StudentCardComponents/StudentData";
+import { Grid } from "@mui/material";
+import Itim from "./fonts/Itim-Regular.ttf";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const StudentCard = () => {
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Itim",
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+          @font-face {
+            font-family: 'Itim';
+            font-display: swap;
+            font-weight: 400;
+            src: local('Itim'), local('Itim-Regular'), url(${Itim}) format('ttf');
+            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+          }
+        `,
+      },
+    },
+  });
+
   return (
     <>
-      <main>
-        <div className="profile-info profile-container profile-content">
-          <div className="header-profile-info">
-            <img className="header-profile-info-img"></img>
-            <div className="header-profile-info-txt">
-              <span className="student-name">Buisson</span>
-              <span className="student-surname">Claire</span>
-              <span className="student-classe">3°6</span>
-            </div>
-          </div>
-          <div className="profile-stats">
-            <span className="student-level">Niveau: B2</span>
-            <span className="student-nb-exercises">
-              Exercices effectués: 46
-            </span>
-          </div>
-          <div className="student-regular-mistakes"></div>
-        </div>
-        <div className="profile-perf profile-container">
-          <div className="profile-dashboard profile-content"></div>
-          <div className="profile-exercises profile-content"></div>
-        </div>
-      </main>
+      <ThemeProvider theme={theme}>
+        <Grid
+          container
+          sx={{
+            top: "0",
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            fontFamily: "Itim",
+          }}
+        >
+          <Grid item sx={{ height: "95vh", marginLeft: "2vw" }}>
+            <StudentProfile />
+          </Grid>
+          <Grid item sx={{ height: "95vh", marginRight: "2vw" }}>
+            <StudentData />
+          </Grid>
+        </Grid>
+      </ThemeProvider>
     </>
   );
 };
