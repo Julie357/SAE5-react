@@ -12,6 +12,7 @@ function App() {
         <Route>
         <Route exact path="/" element={<Home/>} />
         <Route exact path="*" element={<Page404/>} />
+        
         </Route>
       </Routes>
       </div>
