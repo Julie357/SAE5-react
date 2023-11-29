@@ -1,33 +1,26 @@
 import React, { useState } from "react";
-import { Grid, Link, Pagination, Stack } from "@mui/material";
-import Box from "@mui/system/Box";
+import "@fontsource/itim";
 import { useSelector } from "react-redux";
+import { selectTotalExercices } from "../features/exercices/exerciceSelector";
 import {
-  selectExercicesUncorrectedSortByDate,
-  selectTotalExercices,
-} from "../../../features/exercices/exerciceSelector";
+  selectExercices,
+  selectExercicesUncorrected,
+} from "../features/exercices/exerciceSelector";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Box from "@mui/system/Box";
+import { Grid, Pagination, Stack } from "@mui/material";
 
-const StudentData = () => {
-  const ITEMS_PER_PAGE = 4;
-  const exercicesUncorrected = useSelector(selectExercicesUncorrectedSortByDate);
-  const totalExercices = useSelector(selectTotalExercices);
-  const nbExercicesUncorrected = exercicesUncorrected.length;
-  
-  const isCorrected = () => {
-    if (nbExercicesUncorrected === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+const ExercicesList = () => {
+  const ITEMS_PER_PAGE = 15;
+  const exercices = useSelector(selectExercices);
+  const nbExercices = useSelector(selectTotalExercices);
+  const uncorrectExercices = useSelector(selectExercicesUncorrected);
   const isThereExercice = () => {
-    if (totalExercices === 0) {
+    if (nbExercices === 0) {
       return false;
     } else {
       return true;
@@ -37,7 +30,7 @@ const StudentData = () => {
 
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentExercices = exercicesUncorrected.slice(
+  const currentExercices = exercices.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -48,18 +41,8 @@ const StudentData = () => {
 
   return (
     <>
-      <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
-        <Grid item xs={12} sx={{ height: "60%", width: "100%" }}>
-          <Box
-            sx={{
-              backgroundColor: "#D8ECFC",
-              borderRadius: "0.6vw",
-              height: "100%",
-              width: "100%",
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} sx={{ height: "43%", width: "100%" }}>
+      <Grid container spacing={5} sx={{ height: "100%", width: "95vw" }}>
+        <Grid item xs={12} sx={{ height: "90%", width: "100%" }}>
           <Box
             sx={{
               backgroundColor: "#D8ECFC",
@@ -73,20 +56,8 @@ const StudentData = () => {
               paddingBottom: "1vh",
             }}
           >
-            {isCorrected() && (
+            {isThereExercice() && (
               <>
-                <Typography
-                  variant="h4"
-                  component="div"
-                  sx={{
-                    fontSize: 26,
-                    alignSelf: "start",
-                    marginLeft: "2.5%",
-                    marginTop: "1vh",
-                  }}
-                >
-                  Exercices non corrigés :
-                </Typography>
                 <Stack
                   direction="row"
                   spacing={2}
@@ -129,62 +100,31 @@ const StudentData = () => {
                   ))}
                 </Stack>
                 <Pagination
-                  count={Math.ceil(exercicesUncorrected.length / ITEMS_PER_PAGE)}
+                  count={Math.ceil(exercices.length / ITEMS_PER_PAGE)}
                   page={currentPage}
                   onChange={handleChangePage}
                   color="success"
                   shape="rounded"
                   size="small"
                 />
-                <Link
-                  href="/exercicesList"
-                  underline="hover"
-                  sx={{
-                    alignSelf: "end",
-                    marginRight: "2%",
-                    fontFamily: "itim",
-                    color: "#3D6787",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {"Voir tous les exercices"}
-                  <ArrowForwardIcon
-                    sx={{ fontSize: "16px", marginLeft: "0.3vw" }}
-                  />
-                </Link>
               </>
             )}
-            {!isCorrected() && (
+            {!isThereExercice() && (
               <>
-                {!isThereExercice() && (
-                  <>
-                    <Typography variant="h5">
-                      L'élève n'a pas encore réalisé d'exercice.
-                    </Typography>
-                  </>
-                )}
-                {isThereExercice() && (
-                  <>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        height: "50%",
-                        alignItems: "center",
-                        justifyContent: "space-around",
-                      }}
-                    >
-                      <Typography variant="h5">
-                        Il n'y a pas d'exercice non corrigé.
-                      </Typography>
-                      <Button variant="contained">
-                        Retrouver tous les exercices
-                      </Button>
-                    </Box>
-                  </>
-                )}
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "50%",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Typography variant="h5">
+                    L'élève n'a pas encore réalisé d'exercice.
+                  </Typography>
+                </Box>
               </>
             )}
           </Box>
@@ -194,4 +134,4 @@ const StudentData = () => {
   );
 };
 
-export default StudentData;
+export default ExercicesList;
