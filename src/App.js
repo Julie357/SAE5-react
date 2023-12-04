@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import StudentCard from './pages/StudentCard';
 import { useDispatch } from 'react-redux';
-import { loadExercices } from './features/exercices/exerciceAction';
+import { loadErrorsStats, loadExercices } from './features/exercices/exerciceAction';
 import '@fontsource/itim';
 import ExercicesList from './pages/ExercicesList';
 import { ThemeProvider } from "@mui/material";
@@ -16,6 +16,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadExercices());
+    dispatch(loadErrorsStats())
   }, [dispatch]);
 
   return (

@@ -19,6 +19,7 @@ const ExercicesList = () => {
   const exercices = useSelector(selectExercices);
   const nbExercices = useSelector(selectTotalExercices);
   const uncorrectExercices = useSelector(selectExercicesUncorrected);
+  
   const isThereExercice = () => {
     if (nbExercices === 0) {
       return false;

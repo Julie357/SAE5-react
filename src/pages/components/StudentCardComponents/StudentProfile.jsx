@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/system/Box";
-import ErrorStats from "./ErrorStats";
+import RecurrentErrors from "./RecurrentErrors";
 import { Typography} from "@mui/material";
 import "@fontsource/itim";
 import { useSelector } from "react-redux";
@@ -68,7 +68,7 @@ const StudentProfile = () => {
           { !isThereExercice() && (<Typography variant="h5">L'étudiant n'a pas réalisé d'exercice.</Typography>)}
           {isThereExercice() && (<Typography variant="h5">Exercices effectués: {nbExercices}</Typography>)}
         </Box>
-        <ErrorStats />
+        <RecurrentErrors />
       </Box>
     </>
   );

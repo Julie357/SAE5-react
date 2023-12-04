@@ -28,3 +28,4 @@ export const selectExercicesUncorrectedSortByDate = createSelector(
       return result;
     })
 );
+export const selectRecurrentErrors = (state) => state.exercice.recurrentErrors

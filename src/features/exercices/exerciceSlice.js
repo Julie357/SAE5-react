@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadExercices } from "./exerciceAction";
+import { loadErrorsStats, loadExercices } from "./exerciceAction";
 
 const exerciceSlice = createSlice({
   name: "exercice",
@@ -7,6 +7,7 @@ const exerciceSlice = createSlice({
     exercices: [],
     loading: false,
     errorApi: null,
+    recurrentErrors: []
   },
   extraReducers: (builder) => {
     builder
@@ -20,6 +21,12 @@ const exerciceSlice = createSlice({
       .addCase(loadExercices.rejected, (state, action) => {
         state.errorApi = action.payload.error.message;
         state.loading = false;
+      })
+      .addCase(loadErrorsStats.fulfilled, (state, action) => {
+        state.recurrentErrors = action.payload;
+      })
+      .addCase(loadErrorsStats.rejected, (state, action) => {
+        state.errorApi = action.payload.error.message;
       });
   },
 });
