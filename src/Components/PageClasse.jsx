@@ -31,6 +31,7 @@ const PageClasse = () => {
   const itemsPerPage = 12;
   // État pour gérer la page actuelle
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectKey, setSelectKey] = useState(0);
 
   // Liste des classes
   const classes = [
@@ -53,8 +54,12 @@ const PageClasse = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   // Récupération des classes à afficher pour la page actuelle
-  const displayedClasses = classes.slice(startIndex, endIndex);
+  const [formControlKey, setFormControlKey] = useState(0);
+  const [showAllClasses, setShowAllClasses] = useState(false);
 
+  const [selectedLevels, setSelectedLevels] = useState(['6eme', '5eme', '4eme', '3eme']);
+  //const displayedClasses = classes.filter(classe => selectedLevels.includes(classe.substring(0, 4))).slice(startIndex, endIndex);
+  const displayedClasses = showAllClasses ? classes : classes.slice(startIndex, endIndex);
   // Gestion du changement de page
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
@@ -156,15 +161,30 @@ const PageClasse = () => {
 
           <Grid item xs={2}>
             <ItemMenu sx={{ boxShadow: 'none' }}>
-              <FormControl fullWidth sx={{ background: '#3D6787', borderRadius: '4px' }}>
+              <FormControl
+                key={formControlKey}
+                fullWidth
+                sx={{ background: '#3D6787', borderRadius: '4px' }}
+              >
                 <InputLabel sx={{ color: 'white', fontWeight: '500' }} id="demo-simple-select-label">
                   Filtre
                 </InputLabel>
-                <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Age">
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="6eme" disabled={false}/>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="5eme" disabled={false}/>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="4eme" disabled={false}/>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="3eme" disabled={false}/>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Age"
+                  multiple
+                  value={selectedLevels}
+                  onChange={(event) => {
+                    setSelectedLevels(event.target.value);
+                    // Mettez à jour la clé lorsqu'il y a un changement dans les niveaux sélectionnés
+                    setFormControlKey(prevKey => prevKey + 1);
+                  }}
+                >
+                  <FormControlLabel value="6eme" control={<Checkbox />} label="6eme" />
+                  <FormControlLabel value="5eme" control={<Checkbox />} label="5eme" />
+                  <FormControlLabel value="4eme" control={<Checkbox />} label="4eme" />
+                  <FormControlLabel value="3eme" control={<Checkbox />} label="3eme" />
                 </Select>
               </FormControl>
             </ItemMenu>
@@ -194,7 +214,14 @@ const PageClasse = () => {
 
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <FormControlLabel control={<Switch color="primary" />} label="Afficher toutes les classes" labelPlacement="start" disabled={false}/>
+          <FormControlLabel
+            control={<Switch color="primary" />}
+            label="Afficher toutes les classes"
+            labelPlacement="start"
+            checked={showAllClasses}
+            onChange={() => setShowAllClasses(!showAllClasses)}
+            disabled={false}
+          />
         </Box>
       </Box>
     // </ThemeProvider>
