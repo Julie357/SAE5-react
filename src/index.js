@@ -1,11 +1,14 @@
-// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@mui/system';
-import Home from './Components/PageClasse';
-import reportWebVitals from './reportWebVitals';
 import { createTheme } from '@mui/system';
 import { lime, purple } from '@mui/material/colors';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import Home from './Components/PageClasse';
+import Eleve from './Components/Eleve';
+import reportWebVitals from './reportWebVitals';
+import PageTexte from './Pages/PageTexte';
 
 const theme = createTheme({
   palette: {
@@ -14,13 +17,18 @@ const theme = createTheme({
   }
 });
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    
-      <Home />
-  </React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <Router>
+          <PageTexte />
+          {/* <Route exact path="/" component={Home} />
+          <Route path="/eleve" component={Eleve} />  Ajoutez cette ligne avec le chemin et le composant About */}
+      </Router>
+    </ThemeProvider>
+  </React.StrictMode>,
 );
+
 
 reportWebVitals();

@@ -69,7 +69,6 @@ const PageClasse = () => {
     color: 'inherit',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
       width: '100%',
@@ -85,7 +84,6 @@ const PageClasse = () => {
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     padding: theme.spacing(1),
     textAlign: 'center',
-    // color: theme.palette.text.secondary, // Utilisez theme.palette.text.secondary au lieu de secondaryColor
   }));
 
   return (
@@ -97,7 +95,6 @@ const PageClasse = () => {
 
           <Grid item xs={1}>
             <ItemMenu sx={{boxShadow: 'none'}}>
-            {/* <img src="../Images/logo.png" alt="" /> */}
               Logo
             </ItemMenu>
           </Grid>
