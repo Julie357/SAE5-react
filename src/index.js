@@ -9,6 +9,7 @@ import Home from './Components/PageClasse';
 import Eleve from './Components/Eleve';
 import reportWebVitals from './reportWebVitals';
 import PageTexte from './Pages/PageTexte';
+import PageClasse from './Components/PageClasse';
 
 const theme = createTheme({
   palette: {
@@ -20,13 +21,13 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    {/* <ThemeProvider theme={theme}> */}
       <Router>
-          <PageTexte />
+          <PageClasse />
           {/* <Route exact path="/" component={Home} />
           <Route path="/eleve" component={Eleve} />  Ajoutez cette ligne avec le chemin et le composant About */}
       </Router>
-    </ThemeProvider>
+    {/* </ThemeProvider> */}
   </React.StrictMode>,
 );
 

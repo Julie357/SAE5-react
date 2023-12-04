@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, FormGroup, Checkbox, FormControlLabel  } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
@@ -70,6 +70,14 @@ const PageTexte = () => {
                 <Button variant="outlined" sx={{color: '#000', background: '#fff', border: 0, my: 1, width: '100%'}}>
                     Voir toutes les erreurs 
                 </Button>
+                <FormGroup sx={{width: '100%'}}>
+                    <FormControlLabel control={<Checkbox defaultChecked />} label="Conjugaison" sx={{m: '8px', background: '#fff', borderRadius: '5px', m: 0, color: '#C62323', textDecoration: 'underline'}} />
+                    
+                    <FormControlLabel control={<Checkbox defaultChecked />} label="Ponctuation" sx={{my: 1, background: '#fff', borderRadius: '5px', m: 0, color: '#2364C6', textDecoration: 'underline'}} />
+                    
+                    <FormControlLabel control={<Checkbox defaultChecked />} label="Syntaxe" sx={{my: 1, background: '#fff', borderRadius: '5px', m: 0, color: '#75C623', textDecoration: 'underline'}} />
+                </FormGroup>
+                
             </Box>
         </Box>
 
