@@ -1,11 +1,20 @@
 // src/MonComposant.jsx
 import React from 'react';
 import Eleve from './Components/Eleve';
-import Classe from './Components/Classe';
-
+import PageClasse from './Components/PageClasse';
+import { Box } from '@mui/system';
+import ListEleve from './Components/ListEleve';
 const Home = () => {
   return (
-      <Classe />
+    <Box>
+      {/* <Classe /> */}
+
+      <Box>
+        <br></br>
+      </Box>
+      <Eleve/>
+    </Box>
+         
   );
 };
 
