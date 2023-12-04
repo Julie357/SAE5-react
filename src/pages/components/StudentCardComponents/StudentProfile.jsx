@@ -15,7 +15,6 @@ const StudentProfile = () => {
       return true;
     }
   };
-
   return (
     <>
       <Box

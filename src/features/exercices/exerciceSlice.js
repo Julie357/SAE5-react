@@ -5,22 +5,22 @@ const exerciceSlice = createSlice({
   name: "exercice",
   initialState: {
     exercices: [],
-    loading: false,
+    loadingExercices: false,
     errorApi: null,
     recurrentErrors: []
   },
   extraReducers: (builder) => {
     builder
       .addCase(loadExercices.pending, (state) => {
-        state.loading = true;
+        state.loadingExercices = true;
       })
       .addCase(loadExercices.fulfilled, (state, action) => {
         state.exercices = action.payload;
-        state.loading = false;
+        state.loadingExercices = false;
       })
       .addCase(loadExercices.rejected, (state, action) => {
         state.errorApi = action.payload.error.message;
-        state.loading = false;
+        state.loadingExercices = false;
       })
       .addCase(loadErrorsStats.fulfilled, (state, action) => {
         state.recurrentErrors = action.payload;

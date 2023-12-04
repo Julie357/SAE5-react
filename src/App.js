@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadExercices());
-    dispatch(loadErrorsStats())
+    dispatch(loadErrorsStats());
   }, [dispatch]);
 
   return (
