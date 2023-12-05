@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 const ExerciceCard = ({ exercice }) => {
   return (
     <>
-      <Card sx={{width: "13vw"}}>
+      <Card sx={{ width: "13vw" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {exercice.date}
