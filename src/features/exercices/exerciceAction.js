@@ -10,7 +10,6 @@ export const loadExercices = createAsyncThunk(
     try {
       const response = await axios.get(URL_API_EXERCICES);
       const exercicesArray = response.data;
-      console.log(exercicesArray);
       return exercicesArray;
     } catch (error) {
       throw new Error(error);
