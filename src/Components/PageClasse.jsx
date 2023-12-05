@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import {
   ViewList as ViewListIcon,
@@ -24,48 +24,39 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import SearchComponent from './SearchComponent';
 import { ThemeProvider } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const PageClasse = () => {
+
   const theme = useTheme();
-  // Nombre d'éléments par page
   const itemsPerPage = 12;
-  // État pour gérer la page actuelle
   const [currentPage, setCurrentPage] = useState(1);
   const [selectKey, setSelectKey] = useState(0);
+  const [displayedClasses, setDisplayedClasses] = useState([]);
+  const [selectedLevels, setSelectedLevels] = useState(['6eme', '5eme', '4eme', '3eme']);
+  const [selectedSort, setSelectedSort] = useState(6);
+  const [showAllClasses, setShowAllClasses] = useState(false);
+  const [formControlKey, setFormControlKey] = useState(0);   // Récupération des classes à afficher pour la page actuelle
+  const startIndex = (currentPage - 1) * itemsPerPage;   // Calcul des indices de début et de fin pour les éléments affichés
+  const endIndex = startIndex + itemsPerPage;
+ 
 
   // Liste des classes
   const classes = [
-    '6°1', '6°2', '6°3', '6°4', '5°1', '5°2', '5°3', '5°4', '4°1', '4°2', '4°3', '4°',
-    '5°7', '6°1', '6°2', '6°3', '4°2', '4°3', '4°',
-    '6°1', '6°2', '6°3', '4°2', '4°3', '4°',
-    '6°1', '6°2', '6°3', '5°3', '4°2', '4°3', '4°',
-    '6°1', '6°2', '6°3', '4°2', '4°3', '4°',
-    '6°1', '6°2', '6°3', '4°2', '4°3', '4°',
-    '6°1', '6°2', '6°3', '4°2', '4°3', '4°',
-    '5°5', '6°5', '6°6', '5°6', '4°5', '4°6', '4°7',
-    '5°8', '6°7', '6°8', '5°9', '4°8', '4°9', '4°10',
-    '5°10', '6°9', '6°10', '5°11', '4°11', '4°12', '4°13',
-    '5°12', '6°11', '6°12', '5°13', '4°14', '4°15', '4°16',
-    '5°14', '6°13', '6°14', '5°15', '4°17', '4°18', '4°19',
-    '5°16', '6°15', '6°16', '5°17', '4°20', '4°21', '4°22',
+    '6°1', '6°2', '6°3', '6°4', '5°1', '5°2', '5°3', '5°4', '4°1', '4°2', '4°3', '4°', '5°7', '6°1', '6°2', '6°3', '4°2', '4°3', '4°', '6°1', '6°2', '6°3', '4°2', '4°3', '4°', '6°1', '6°2', '6°3', '5°3', '4°2', '4°3', '4°', '6°1', '6°2', '6°3', '4°2', '4°3', '4°', '6°1', '6°2', '6°3', '4°2', '4°3', '4°', '6°1', '6°2', '6°3', '4°2', '4°3', '4°', '5°5', '6°5', '6°6', '5°6', '4°5', '4°6', '4°7', '5°8', '6°7', '6°8', '5°9', '4°8', '4°9', '4°10', '5°10', '6°9', '6°10', '5°11', '4°11', '4°12', '4°13', '5°12', '6°11', '6°12', '5°13', '4°14', '4°15', '4°16', '5°14', '6°13', '6°14', '5°15', '4°17', '4°18', '4°19', '5°16', '6°15', '6°16', '5°17', '4°20', '4°21', '4°22',
   ];
 
-  // Calcul des indices de début et de fin pour les éléments affichés
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  // Récupération des classes à afficher pour la page actuelle
-  const [formControlKey, setFormControlKey] = useState(0);
-  const [showAllClasses, setShowAllClasses] = useState(false);
+  useEffect(() => {
+    const filteredClasses = showAllClasses ? classes : classes.filter(classe => selectedLevels.includes(classe.substring(0, 4)));
+    setDisplayedClasses(filteredClasses);
+  }, [selectedLevels, selectedSort, showAllClasses]);
 
-  const [selectedLevels, setSelectedLevels] = useState(['6eme', '5eme', '4eme', '3eme']);
-  //const displayedClasses = classes.filter(classe => selectedLevels.includes(classe.substring(0, 4))).slice(startIndex, endIndex);
-  const displayedClasses = showAllClasses ? classes : classes.slice(startIndex, endIndex);
-  // Gestion du changement de page
+  
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
-  // Styles pour les éléments
+
   const Item = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#FCD5CE',
     padding: theme.spacing(1),
@@ -80,6 +71,11 @@ const PageClasse = () => {
     fontFamily: 'Itim, sans-serif',
     fontWeight: 'bold',
     color: 'black',
+    boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.25)',
+    transition: 'transform 0.3s',
+    ':hover': {
+      transform: 'scale(1.1)',  // Zoom de 10%
+    },
   }));
 
   // const ItemMenu = styled(Paper)(({ theme }) => ({
@@ -130,6 +126,31 @@ const PageClasse = () => {
   //   boxShadow: 'none !important',
   // }));
 
+  // Fonction pour trier les classes en fonction de la valeur sélectionnée dans le menu de tri
+  const sortClasses = (value) => {
+    setSelectedSort(value);
+    const sortedClasses = [...classes];
+  
+    // Logique de tri en fonction de la valeur sélectionnée
+    if (value === 6) {
+      sortedClasses.sort(); // Tri croissant
+    } else if (value === 5) {
+      sortedClasses.sort((a, b) => b.localeCompare(a)); // Tri décroissant
+    } else if (value === 4) {
+      // Trier par classe avec exercice (ajoutez votre logique ici)
+      // Pour l'instant, cela ne fait rien, vous devez ajouter la logique de tri nécessaire
+    } else if (value === 3) {
+      // Trier par classe sans exercice (ajoutez votre logique ici)
+      // Pour l'instant, cela ne fait rien, vous devez ajouter la logique de tri nécessaire
+    }
+  
+    // Mettez à jour les classes affichées avec les classes triées
+    setDisplayedClasses(sortedClasses);
+  };
+
+  const StyledLink = styled(Link)({
+    textDecoration: 'none', // Désactiver le soulignement du lien
+  });
  
 
   return (
@@ -138,7 +159,9 @@ const PageClasse = () => {
         {/* Menu */}
         <Grid container spacing={4} sx={{ mb: 3, mt: 1, mx: 'auto', maxWidth: '1500px' }}>
           <Grid item xs={1}>
-            <ItemMenu sx={{ boxShadow: 'none' }}>Logo</ItemMenu>
+            <ItemMenu sx={{ boxShadow: 'none' }}>
+              <img src="../Images/logo A4ll.png" alt="" />
+            </ItemMenu>
           </Grid>
 
           <Grid item xs={4}>
@@ -149,7 +172,13 @@ const PageClasse = () => {
             <ItemMenu sx={{ boxShadow: 'none' }}>
               <FormControl fullWidth sx={{ background: '#3D6787', borderRadius: '4px' }}>
                 <InputLabel sx={{ color: 'white', fontWeight: '500', border: 'none' }}>Trier</InputLabel>
-                <Select labelId="demo-simple-select-label" id="" label="Age">
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Age"
+                  value={selectedSort}
+                  onChange={(event) => sortClasses(event.target.value)}
+                >
                   <MenuItem value={6}>Croissant</MenuItem>
                   <MenuItem value={5}>Decroissant</MenuItem>
                   <MenuItem value={4}>Classe avec exercice</MenuItem>
@@ -176,8 +205,8 @@ const PageClasse = () => {
                   multiple
                   value={selectedLevels}
                   onChange={(event) => {
+                    console.log("Selected levels:", event.target.value);
                     setSelectedLevels(event.target.value);
-                    // Mettez à jour la clé lorsqu'il y a un changement dans les niveaux sélectionnés
                     setFormControlKey(prevKey => prevKey + 1);
                   }}
                 >
@@ -199,16 +228,17 @@ const PageClasse = () => {
 
         {/* Classe */}
         <Box sx={{ mx: 2, p: 2, maxWidth: '800px', m: 'auto' }}>
-          {/* Affichage des classes */}
           <Stack spacing={{ xs: 1, sm: 2 }} sx={{ my: 2, justifyContent: 'center' }} direction="row" useFlexGap flexWrap="wrap">
-            {displayedClasses.map((classe, index) => (
-              <Item key={index}>{classe}</Item>
+            {displayedClasses.slice(startIndex, endIndex).map((classe, index) => (
+              // <Link key={index} to={`/classe/${classe}`} sx={{textDecoration: 'none'}}>
+              <StyledLink  key={index} to={`/classe/3`} sx={{textDecoration: 'none'}}>
+                <Item>{classe}</Item>
+              </StyledLink >
             ))}
           </Stack>
 
-          {/* Pagination */}
           <Box sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
-            <Pagination count={Math.ceil(classes.length / itemsPerPage)} page={currentPage} onChange={handlePageChange} />
+            <Pagination count={Math.ceil(displayedClasses.length / itemsPerPage)} page={currentPage} onChange={handlePageChange} />
           </Box>
         </Box>
 
