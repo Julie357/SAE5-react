@@ -42,7 +42,7 @@ const ExercicesList = () => {
     let exercicesSorted;
     if (sort === "alphabetique") {
       exercicesSorted = sortByAlphabet;
-    } else if (sort === "recent") {
+    } else if (sort === "ascending") {
       exercicesSorted = sortByDateAscending;
     } else {
       exercicesSorted = sortByDateDescending;
@@ -77,7 +77,7 @@ const ExercicesList = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            paddingTop: "5vh",
+            paddingTop: "3vh",
             paddingBottom: "1vh",
           }}
         >
@@ -88,8 +88,8 @@ const ExercicesList = () => {
               {isThereExercice() && (
                 <>
                   <Stack direction="row" gap={2.5} alignItems="center" justifyContent="center" flexWrap="wrap" sx={{ width: "95%" }}>
-                    {currentExercices.map((exercice) => (
-                      <Grid item xs={12} sm={9} md={2} lg={2} key={exercice.id}>
+                    {currentExercices.map((exercice, index) => (
+                      <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
                         <Badge color="primary" badgeContent=" " invisible={exercice.correction}>
                           <ExerciceCard exercice={exercice} />
                         </Badge>
@@ -103,7 +103,7 @@ const ExercicesList = () => {
                     color="success"
                     shape="rounded"
                     size="small"
-                    sx={{ marginTop: "25vh" }}
+                    sx={{ position: 'fixed', bottom: "7vh" }}
                   />
                 </>
               )}

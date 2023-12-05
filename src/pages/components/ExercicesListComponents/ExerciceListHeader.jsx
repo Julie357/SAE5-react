@@ -4,10 +4,15 @@ import TuneIcon from "@mui/icons-material/Tune";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
-import { FormControl, FormControlLabel, FormLabel, Grid, Menu, Radio, RadioGroup } from "@mui/material";
+import {
+  Grid,
+  Menu
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
+import SortForm from "./SortForm";
+import FilterForm from "./FilterForm";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -50,17 +55,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
   const [openSort, setOpenSort] = useState(false);
   const [anchorSort, setAnchorSort] = useState(null);
-  const [sortValue, setSortValue] = useState("alphabetique");
+  const [anchorFilter, setAnchorFilter] = useState(null);
+  const [openFilter, setOpenFilter] = useState(false);
 
   const toggleSort = (event) => {
     setAnchorSort(event.currentTarget);
     setOpenSort((prevOpenSort) => !prevOpenSort);
   };
 
-  const handleSortChange = (event) => {
-    const value = event.target.value;
-    setSortValue(value);
-    updateSort(value);
+  const toggleFilter = (event) => {
+    setAnchorFilter(event.currentTarget);
+    setOpenFilter((prevOpenSort) => !prevOpenSort);
+  };
+
+  const handleSortChange = (newSort) => {
+    updateSort(newSort);
   };
 
   return (
@@ -74,8 +83,15 @@ const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
             alignItems: "center",
           }}
         >
-          <Box component="img" sx={{ width: "10%", height: "100%", margin: "0 0.7vw" }}></Box>
-          <Typography fontSize={26} textTransform="uppercase" sx={{ marginRight: "0.4vw" }}>
+          <Box
+            component="img"
+            sx={{ width: "10%", height: "100%", margin: "0 0.7vw" }}
+          ></Box>
+          <Typography
+            fontSize={26}
+            textTransform="uppercase"
+            sx={{ marginRight: "0.4vw" }}
+          >
             Buisson
           </Typography>
           <Typography fontSize={26}> Claire</Typography>
@@ -87,14 +103,18 @@ const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={5} container sx={{ marginLeft: "25vw" }}>
+      <Grid item xs={5} container sx={{ marginLeft: "23vw" }}>
         <Grid item xs={2}>
-          <Button variant="contained" startIcon={<FilterListIcon />} onClick={toggleSort}>
+          <Button
+            variant="contained"
+            startIcon={<FilterListIcon />}
+            onClick={toggleSort}
+          >
             Tri
           </Button>
           <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
+            id="sort-menu"
+            aria-labelledby="sort-menu-button"
             open={openSort}
             anchorEl={anchorSort}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
@@ -102,33 +122,25 @@ const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
             sx={{ marginTop: "7vh" }}
             onClose={() => setOpenSort(false)}
           >
-            <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label" sx={{ paddingLeft: "0.4vw" }}>
-                Trier par :
-              </FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={sortValue}
-                name="radio-buttons-group"
-                sx={{ paddingLeft: "0.4vw" }}
-              >
-                {["alphabetique", "recent", "ancien"].map((value) => (
-                  <FormControlLabel
-                    key={value}
-                    value={value}
-                    control={<Radio />}
-                    onChange={handleSortChange}
-                    label={value === "alphabetique" ? "Ordre alphabétique" : value === "recent" ? "Le + récent" : "Le + ancien"}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
+            <SortForm onSortChange={handleSortChange} />
           </Menu>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="contained" startIcon={<TuneIcon />}>
+          <Button variant="contained" onClick={toggleFilter} startIcon={<TuneIcon />}>
             Filtres
           </Button>
+          <Menu
+            id="filter-menu"
+            aria-labelledby="filter-menu-button"
+            open={openFilter}
+            anchorEl={anchorFilter}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            transformOrigin={{ vertical: "bottom", horizontal: "left" }}
+            sx={{ marginTop: "7vh" }}
+            onClose={() => setOpenFilter(false)}
+          >
+            <FilterForm onFilterChange={handleSortChange} />
+          </Menu>
         </Grid>
         <Grid item xs={7}>
           <Search>
