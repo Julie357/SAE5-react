@@ -8,49 +8,9 @@ import {
   Grid,
   Menu
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
-import { styled } from "@mui/material/styles";
 import SortForm from "./SortForm";
 import FilterForm from "./FilterForm";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: "#FCD5CE",
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import SearchComponent from "./SearchComponent";
 
 const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
   const [openSort, setOpenSort] = useState(false);
@@ -136,23 +96,14 @@ const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
             anchorEl={anchorFilter}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             transformOrigin={{ vertical: "bottom", horizontal: "left" }}
-            sx={{ marginTop: "7vh" }}
+            sx={{ marginTop: "7.5vh" }}
             onClose={() => setOpenFilter(false)}
           >
             <FilterForm onFilterChange={handleSortChange} />
           </Menu>
         </Grid>
         <Grid item xs={7}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              onChange={(event) => onQueryChange(event.target.value)}
-            />
-          </Search>
+          <SearchComponent onQueryChange={onQueryChange} />
         </Grid>
       </Grid>
     </>

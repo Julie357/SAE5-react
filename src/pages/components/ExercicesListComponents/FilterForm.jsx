@@ -1,52 +1,74 @@
 import React, { useState } from "react";
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Checkbox, FormControlLabel } from "@mui/material";
 
 const FilterForm = ({ onFilterChange }) => {
-  const [filterValue, setFilterValue] = useState("alphabetique");
+  const [filters, setFilters] = useState({
+    level: "",
+    date: "",
+    correction: false,
+  });
 
   const handleFilterChange = (event) => {
-    const value = event.target.value;
-    setFilterValue(value);
-    onFilterChange(value);
+    const { name, value, type, checked } = event.target;
+
+    const filterValue = type === "checkbox" ? checked : value;
+
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: filterValue,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onFilterChange(filters);
   };
 
   return (
-    <FormControl>
-      <FormLabel
-        id="filter-menu-buttons-group-label"
-        sx={{ paddingLeft: "0.4vw" }}
-      >
-        Filter par :
-      </FormLabel>
-      <RadioGroup
-        aria-labelledby="filter-menu-buttons-group-label"
-        defaultValue={filterValue}
-        name="radio-buttons-group"
-        sx={{ paddingLeft: "0.4vw" }}
-      >
-        {["alphabetique", "ascending", "descending"].map((value) => (
-          <FormControlLabel
-            key={value}
-            value={value}
-            control={<Radio />}
+    <Box p={2}>
+      <form onSubmit={handleSubmit}>
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel id="level-label">Niveau</InputLabel>
+          <Select
+            labelId="level-label"
+            id="level"
+            name="level"
+            value={filters.level}
+            label="Niveau"
             onChange={handleFilterChange}
-            label={
-              value === "alphabetique"
-                ? "Ordre alphabétique"
-                : value === "ascending"
-                ? "Le + récent"
-                : "Le + ancien"
-            }
+          >
+            <MenuItem value="">Sélectionnez un niveau</MenuItem>
+            <MenuItem value="A1">A1</MenuItem>
+            <MenuItem value="A2">A2</MenuItem>
+            <MenuItem value="B1">B1</MenuItem>
+            <MenuItem value="B2">B2</MenuItem>
+            <MenuItem value="C1">C1</MenuItem>
+            <MenuItem value="C2">C2</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <TextField
+            id="date"
+            name="date"
+            label="Date"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={filters.date}
+            onChange={handleFilterChange}
           />
-        ))}
-      </RadioGroup>
-    </FormControl>
+        </FormControl>
+
+        <FormControlLabel
+          control={<Checkbox checked={filters.correction} onChange={handleFilterChange} name="correction" />}
+          label="Corrigé"
+        />
+
+        <Button type="submit" variant="contained" color="primary">
+          Filtrer
+        </Button>
+      </form>
+    </Box>
   );
 };
 
