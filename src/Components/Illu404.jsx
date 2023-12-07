@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { useEffect } from "react";
+// import { ReactComponent as Svg } from "../assets/illu_404.svg";
 import { ReactComponent as Svg } from "../assets/illu_404.svg";
 
 const Illu404 = () => {

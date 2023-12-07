@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import Page404 from './pages/Page404';
 import Home from './Home';
 import PageClasses from './Pages/PageClasse';
 import ClasseInformations from './Pages/ClasseInformations';
 import PageTexte from './Pages/PageTexte'
 import EnsembleClasse from './Pages/EnsembleClasse';
+import Page404 from './Pages/Page404';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -2,9 +2,9 @@ import { Button } from '@mui/material';
 import React from 'react';
 import svg2 from "../assets/logo-A4ll.svg";
 import { NavLink } from 'react-router-dom';
-import "../css/page404.css";
-import Illu404 from '../composants/Illu404';
-import '@fontsource/itim';
+import "./stylePage.css";
+import Illu404 from '../Components/Illu404';
+//import '@fontsource/itim';
 
 const Page404 = () => {
     return (
