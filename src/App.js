@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { loadErrorsStats, loadExercices } from './features/exercices/exerciceAction';
 import '@fontsource/itim';
 import ExercicesList from './pages/ExercicesList';
-import PageClasse from './pages/PageClasse';
+import PageClasses from './pages/PageClasses';
 import PageTexte from './pages/PageTexte'
 import EnsembleClasse from './pages/EnsembleClasse';
 import Page404 from './pages/Page404';
@@ -31,7 +31,7 @@ const App = () => {
           <Route exact path="/" element={<Home/>} />
           <Route path="/studentCard" element={<StudentCard/>} />
           <Route path="/exercicesList" element={<ExercicesList/>} />
-          <Route path="/pageClasse" element={<PageClasse/>} />
+          <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/classe-informations" element={<ClasseInformations/>} />
           <Route path="/texte" element={<PageTexte />} />
           <Route path="/classe" element={<EnsembleClasse />}/>
