@@ -72,7 +72,6 @@ const RecurrentErrors = () => {
                           height: "5vh",
                           borderRadius: "0.8vw",
                           overflow: "hidden",
-                          marginLeft: "-1.3vw"
                         }}
                       >
                         <LinearProgress

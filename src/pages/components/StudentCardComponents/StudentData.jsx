@@ -36,7 +36,7 @@ const StudentData = () => {
       <Grid item xs={12} sx={{ height: "60%", width: "100%" }}>
         <Box sx={{ backgroundColor: "#D8ECFC", borderRadius: "0.6vw", height: "100%", width: "100%" }} />
       </Grid>
-      <Grid item xs={12} sx={{ height: "43%", width: "100%" }}>
+      <Grid item xs={12} sx={{ height: "45%", width: "100%" }}>
         <Box
           sx={{
             backgroundColor: "#D8ECFC",
@@ -83,6 +83,7 @@ const StudentData = () => {
                     color="success"
                     shape="rounded"
                     size="small"
+                    sx={{marginTop:"1vh"}}
                   />
                   <Link
                     href="/exercicesList"
