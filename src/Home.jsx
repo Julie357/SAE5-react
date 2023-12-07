@@ -1,7 +1,7 @@
 // src/MonComposant.jsx
 import React from 'react';
 import Eleve from './Components/Eleve';
-import PageClasse from './Components/PageClasse';
+import PageClasse from './Pages/PageClasse';
 import { Box } from '@mui/system';
 import ListEleve from './Components/ListEleve';
 

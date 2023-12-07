@@ -22,7 +22,7 @@ import Select from '@mui/material/Select';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import SearchComponent from './SearchComponent';
+import SearchComponent from '../Components/SearchComponent';
 import { ThemeProvider } from '@mui/system';
 import { Link } from 'react-router-dom';
 

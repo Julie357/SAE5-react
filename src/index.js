@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 import Home from './Home';
-import PageClasses from './Components/PageClasse';
+import PageClasses from './Pages/PageClasse';
 import ClasseInformations from './Pages/ClasseInformations';
 import PageTexte from './Pages/PageTexte'
-
+import EnsembleClasse from './Pages/EnsembleClasse';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +18,7 @@ root.render(
         <Route exact path="/" element={<PageClasses />} />
         <Route path="/classe-informations" element={<ClasseInformations />} />
         <Route path="/texte" element={<PageTexte />} />
+        <Route path="/classe" element={<EnsembleClasse />}/>
 
       </Routes>
     </Router>

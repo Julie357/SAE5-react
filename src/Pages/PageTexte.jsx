@@ -4,7 +4,7 @@ import { ToggleButton, ToggleButtonGroup, FormGroup, Checkbox, FormControlLabel,
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
-import './PageTexte.css';
+import './stylePage.css';
 
 const PageTexte = () => {
     
@@ -89,13 +89,14 @@ const PageTexte = () => {
 
                 {/* Contenu spécifique à chaque onglet */}
                 {selectedTab === 'tab1' && (
-                    <Box sx={{background: "#CFD6E7", p: 4, borderRadius: '0 10px 10px 10px ', fontFamily: 'Itim'}}>
-                        <FormControlLabel
-                        control={<Switch checked={displayTextInlineTab1} onChange={handleDisplayTextInlineChangeTab1} />}
-                        label="Afficher en ligne"
-                        />
-                        {/* Contenu de l'onglet 1 */}
-                        <p>
+            <Box sx={{ background: "#CFD6E7", p: 4, borderRadius: '0 10px 10px 10px ', fontFamily: 'Itim' }}>
+                <FormControlLabel
+                control={<Switch checked={displayTextInlineTab1} onChange={handleDisplayTextInlineChangeTab1} />}
+                label="Afficher en ligne"
+              />
+              {/* Contenu de l'onglet 1 */}
+                <p>
+                        
                             Lorem ipsum dolor sit amet. <a href='a' className='err-conjugaison'>Ea sunt</a> harum qui distinctio <a className='err-syntaxe' href='a'>possimus</a> hic maxime atque quo voluptatem <a className='err-conjugaison' href='a'>voluptatem</a>. Sit aperiam itaque et accusamus illum ut pased aperiam autem et commodi quam qui  <a className='err-syntaxe' href='a'>quis eius</a> eum doloribus pariatur est doloremque autem. Aut quasi corporis<a className='err-ponctuation' href='a'>? </a> et sint nemo quo vitae quasi eum dolorum galisum eos quae <a className='err-conjugaison' href='a'>reprehenderit</a>  est aperiam senescent id voluptatem earum ?
                             Et accusamus 🤔  <a className='err-conjugaison' href='a'>assumenda</a> in facilis soluta ut eaque facere ex placeat ipsa et galisum facere in consequatur pariatur<a className='err-ponctuation' href='a'>,</a> id quia quia. Est omnis odio et sint nobis ex dicta possimus qui enim sint ut facere ipsa <a className='err-syntaxe ' href='a'>eum ipsum</a> numquam qui ratione consectetur. Non galisum molestias et <a className='err-conjugaison' href='a'>natus</a> nemo qui maiores harum est adipisci dignissimos.
                         </p>
