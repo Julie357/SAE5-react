@@ -1,0 +1,22 @@
+[
+  {
+    "Collocation": {
+      "-ing": 43,
+      "-es": 51,
+      "-is": 31
+    }
+  },
+  {
+    "Cohésion": {
+      "-ing": 43,
+      "-es": 51,
+      "-is": 31
+    }
+  },
+  {
+    "Conjugaison": {
+      "Participe passé -ed": 43,
+      "-Conjugaison verbe “have” ": 51
+    }
+  }
+]
