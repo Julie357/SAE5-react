@@ -1,35 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@mui/system';
-import { createTheme } from '@mui/system';
-import { lime, purple } from '@mui/material/colors';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-import Home from './Components/PageClasse';
-import Eleve from './Components/Eleve';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import PageTexte from './Pages/PageTexte';
-import PageClasse from './Components/PageClasse';
 
-const theme = createTheme({
-  palette: {
-    primary: lime,
-    secondary: purple,
-  }
-});
+import Home from './Home';
+import PageClasses from './Components/PageClasse';
+import ClasseInformations from './Pages/ClasseInformations';
+import PageTexte from './Pages/PageTexte'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <ThemeProvider theme={theme}> */}
-      <Router>
-          <PageClasse />
-          {/* <Route exact path="/" component={Home} />
-          <Route path="/eleve" component={Eleve} />  Ajoutez cette ligne avec le chemin et le composant About */}
-      </Router>
-    {/* </ThemeProvider> */}
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route exact path="/" element={<PageClasses />} />
+        <Route path="/classe-informations" element={<ClasseInformations />} />
+        <Route path="/texte" element={<PageTexte />} />
+
+      </Routes>
+    </Router>
   </React.StrictMode>,
 );
-
 
 reportWebVitals();

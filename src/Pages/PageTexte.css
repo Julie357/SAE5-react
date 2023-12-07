@@ -1,0 +1,12 @@
+.err-conjugaison{
+    color: #C62323;
+    text-decoration: underline;
+}
+.err-ponctuation{
+    color: #2364C6;
+    text-decoration: underline;
+}
+.err-syntaxe{
+    color: #75C623;
+    text-decoration: underline;
+}

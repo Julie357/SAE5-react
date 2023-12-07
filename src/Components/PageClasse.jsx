@@ -26,7 +26,7 @@ import SearchComponent from './SearchComponent';
 import { ThemeProvider } from '@mui/system';
 import { Link } from 'react-router-dom';
 
-const PageClasse = () => {
+const PageClasses = () => {
 
   const theme = useTheme();
   const itemsPerPage = 12;
@@ -231,7 +231,7 @@ const PageClasse = () => {
           <Stack spacing={{ xs: 1, sm: 2 }} sx={{ my: 2, justifyContent: 'center' }} direction="row" useFlexGap flexWrap="wrap">
             {displayedClasses.slice(startIndex, endIndex).map((classe, index) => (
               // <Link key={index} to={`/classe/${classe}`} sx={{textDecoration: 'none'}}>
-              <StyledLink  key={index} to={`/classe/3`} sx={{textDecoration: 'none'}}>
+              <StyledLink  key={index} to="/classe-informations" sx={{textDecoration: 'none'}}>
                 <Item>{classe}</Item>
               </StyledLink >
             ))}
@@ -258,4 +258,4 @@ const PageClasse = () => {
   );
 };
 
-export default PageClasse;
+export default PageClasses;

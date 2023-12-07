@@ -8,7 +8,7 @@ import ListEleve from './Components/ListEleve';
 const Home = () => {
   return (
     <Box>
-      <Eleve/>
+      <PageClasse/>
     </Box>
          
   );
