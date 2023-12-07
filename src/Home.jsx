@@ -1,12 +1,16 @@
 // src/MonComposant.jsx
 import React from 'react';
+import Eleve from './Components/Eleve';
+import PageClasse from './Pages/PageClasse';
+import { Box } from '@mui/system';
+import ListEleve from './Components/ListEleve';
 
 const Home = () => {
   return (
-    <div>
-      <h1>Bienvenue dans mon projet React</h1>
-      <p>Ceci est un composant JSX de base.</p>
-    </div>
+    <Box>
+      <PageClasse/>
+    </Box>
+         
   );
 };
 
