@@ -1,0 +1,71 @@
+.hover-info{
+    background-color: black;
+    color :#d9d9d9;
+    width: 50px;
+}
+
+.timeline-cells{
+display: inline-flex;
+flex-direction: column;
+flex-wrap: wrap;
+height: 108px;
+}
+
+.cell{
+height: 10px;
+width: 10px;
+margin: 2px;
+border-radius: 2px;
+}
+
+.cell:hover{
+    opacity: 0.9;
+}
+
+.timeline-body{
+display: flex;
+}
+
+.week{
+font-size: 10px;
+font-family: 'Itim';
+height: 10px;
+margin: 2px;
+text-align: center;
+vertical-align: middle;
+
+}
+
+.timeline-weeks{
+    display: inline-flex;
+    flex-direction: column;
+    width: 30px;
+}
+
+.mois{
+  width: 10px;
+  margin: 2px;
+  font-size: 10px;
+font-family: 'Itim';
+
+}
+
+.timeline-mois{
+    display: flex;
+    padding-left: 30px;
+}
+
+.Jan~.Jan,
+.Feb~.Feb,
+.Mar~.Mar,
+.Apr~.Apr,
+.May~.May,
+.Jun~.Jun,
+.Jul~.Jul,
+.Aug~.Aug,
+.Sep~.Sep,
+.Oct~.Oct,
+.Nov~.Nov,
+.Dec~.Dec{
+    visibility: hidden;
+}
