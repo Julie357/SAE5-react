@@ -97,28 +97,18 @@ const EnsembleClasse = () => {
             avatar={<FilterListIcon sx={{ marginRight: 0.5, color: '#fff !important' }} />}
           />
           <Chip
-            label={`${eleves.length} élèves`}
+            label='Tri'
             component="a"
             variant="outlined"
             sx={{ background: '#3D6787', color: '#fff', fontFamily: 'Itim', fontSize: '15px', fontWeight: 400 }}
             avatar={<FilterListIcon sx={{ marginRight: 0.5, color: '#fff !important' }} />}
           />
-          <Autocomplete
-            multiple
-            sx={{ width: '250px' }}
-            id="tags-outlined"
-            options={eleves}
-            getOptionLabel={(option) => `${option.nom} ${option.prenom}`}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField {...params} label="filterSelectedOptions" placeholder="Favorites" sx={{ fontSize: '14px' }} />
-            )}
-          />
         </Stack>
+        
       </Box>
 
       <Drawer anchor="top" open={drawerOpen} onClose={handleDrawerClose}>
-        <Box sx={{ p: 2 }}>
+        <Box>
           <DrawerClasse />
           <Button variant="outlined" onClick={handleDrawerClose}>
             Fermer
