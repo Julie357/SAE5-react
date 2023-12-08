@@ -33,6 +33,7 @@ const App = () => {
           <Route path="/exercicesList" element={<ExercicesList/>} />
           <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/classe-informations" element={<ClasseInformations/>} />
+          <Route path="/ensemble-classe" element={<EnsembleClasse/>} />
           <Route path="/texte" element={<PageTexte />} />
           <Route path="/classe" element={<EnsembleClasse />}/>
           <Route exact path="*" element={<Page404/>} />
