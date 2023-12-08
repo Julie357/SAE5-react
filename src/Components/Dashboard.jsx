@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../css/dashboard.css";
+import "../Styles/dashboard.css";
 import '@fontsource/itim';
 import moment from 'moment';
 
