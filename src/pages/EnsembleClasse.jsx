@@ -2,9 +2,7 @@ import React from 'react';
 import { Chip, Stack, Box, Autocomplete, TextField } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import './stylePage.css';
-
 const EnsembleClasse = () => {
-
     // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -34,7 +32,6 @@ const top100Films = [
       title: 'The Lord of the Rings: The Two Towers',
       year: 2002,
     }]
-
   return (
     <>
     <Box sx={{ display: 'flex', justifyContent: 'space-between', mx: '10%'}}>
@@ -82,5 +79,4 @@ const top100Films = [
     </>
   );
 };
-
 export default EnsembleClasse;
