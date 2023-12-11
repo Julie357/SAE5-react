@@ -9,24 +9,31 @@ import DrawerClasse from './DashClasse.jsx'
 const EnsembleClasse = () => {
   const [eleves, setEleves] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   useEffect(() => {
     const nombreEleves = Math.floor(Math.random() * (35 - 25 + 1)) + 25;
+
     const listeEleves = Array.from({ length: nombreEleves }, (_, index) => ({
       id: index + 1,
       nom: `Nom${index + 1}`,
       prenom: `Prenom${index + 1}`,
       classe: '3°6',
     }));
+
     setEleves(listeEleves);
   }, []);
+
   const itemsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+
   const theme = useTheme();
+
   const StyledLink = styled(Link)({
     textDecoration: 'none',
   });
+
   const Item = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#FCD5CE',
     padding: theme.spacing(1),
@@ -47,12 +54,15 @@ const EnsembleClasse = () => {
       transform: 'scale(1.1)',
     },
   }));
+
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
   };
+
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
+
   return (
     <>
       <Box sx={{background: '#D9D9D9', boxShadow: '0px 3px 4px 0px rgba(0, 0, 0, 0.25)',  width: '100%', height: '5%'}} onClick={handleDrawerOpen}>
@@ -62,6 +72,7 @@ const EnsembleClasse = () => {
           </Button>
         </Box>
       </Box>
+
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', m: '5% 10%' }}>
         <Stack direction="row" spacing={1}>
           <Chip
@@ -95,6 +106,7 @@ const EnsembleClasse = () => {
         </Stack>
         
       </Box>
+
       <Drawer anchor="top" open={drawerOpen} onClose={handleDrawerClose}>
         <Box>
           <DrawerClasse />
@@ -103,6 +115,7 @@ const EnsembleClasse = () => {
           </Button>
         </Box>
       </Drawer>
+
       <Box sx={{ mx: 2, p: 2, maxWidth: '900px', m: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
         <Stack spacing={{ xs: 2, sm: 3 }} sx={{ my: 2, justifyContent: 'center', maxWidth: '800px' }} direction="row" useFlexGap flexWrap="wrap">
           {eleves.slice(startIndex, endIndex).map((eleve, index) => (
@@ -117,4 +130,6 @@ const EnsembleClasse = () => {
     </>
   );
 };
+
 export default EnsembleClasse;
+ 
