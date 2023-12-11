@@ -132,16 +132,30 @@ const PageClasses = () => {
     const sortedClasses = [...classes];
   
     // Logique de tri en fonction de la valeur sélectionnée
-    if (value === 6) {
-      sortedClasses.sort(); // Tri croissant
-    } else if (value === 5) {
-      sortedClasses.sort((a, b) => b.localeCompare(a)); // Tri décroissant
-    } else if (value === 4) {
-      // Trier par classe avec exercice (ajoutez votre logique ici)
-      // Pour l'instant, cela ne fait rien, vous devez ajouter la logique de tri nécessaire
-    } else if (value === 3) {
-      // Trier par classe sans exercice (ajoutez votre logique ici)
-      // Pour l'instant, cela ne fait rien, vous devez ajouter la logique de tri nécessaire
+    if (value === 'decroissant') {
+      sortedClasses.sort((a, b) => {
+        // Extraire le numéro de classe
+        const numA = parseInt(a.split('°')[1]);
+        const numB = parseInt(b.split('°')[1]);
+    
+        // Trier par numéro de classe de manière décroissante
+        return numB - numA;
+      });
+    } else if (value === 'croissant') {
+      sortedClasses.sort((a, b) => {
+        // Extraire le numéro de classe
+        const numA = parseInt(a.split('°')[1]);
+        const numB = parseInt(b.split('°')[1]);
+    
+        // Trier par numéro de classe de manière croissante
+        return numA - numB;
+      });
+    } else if (value === 'classeAvecExercice') {
+      // Filtrez les classes avec exercice
+      //sortedClasses = sortedClasses.filter(classe => /* condition pour les classes avec exercice */);
+    } else if (value === 'classeSansExercice') {
+      // Filtrez les classes sans exercice
+     // sortedClasses = sortedClasses.filter(classe => /* condition pour les classes sans exercice */);
     }
   
     // Mettez à jour les classes affichées avec les classes triées
@@ -179,10 +193,10 @@ const PageClasses = () => {
                   value={selectedSort}
                   onChange={(event) => sortClasses(event.target.value)}
                 >
-                  <MenuItem value={6}>Croissant</MenuItem>
-                  <MenuItem value={5}>Decroissant</MenuItem>
-                  <MenuItem value={4}>Classe avec exercice</MenuItem>
-                  <MenuItem value={3}>Classe sans exercice</MenuItem>
+                  <MenuItem value={'croissant'}>Croissant</MenuItem>
+                  <MenuItem value={'decroissant'}>Decroissant</MenuItem>
+                  <MenuItem value={'classeAvecExercice'}>Classe avec exercice</MenuItem>
+                  <MenuItem value={'classeSansExercice'}>Classe sans exercice</MenuItem>
                 </Select>
               </FormControl>
             </ItemMenu>
