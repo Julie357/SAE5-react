@@ -8,6 +8,7 @@ const exerciceSlice = createSlice({
     loadingExercices: false,
     errorApi: null,
     recurrentErrors: []
+    
   },
   extraReducers: (builder) => {
     builder
@@ -30,5 +31,4 @@ const exerciceSlice = createSlice({
       });
   },
 });
-
 export default exerciceSlice.reducer;

@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import exercicesData from "./data/exercices.json";
 import errorsData from "./data/recurrentErrors.json";
 import axios from "axios";
-import { URL_API_EXERCICES } from "../utils/config"
+import { URL_API_EXERCICES } from "../utils/config";
 
 export const loadExercices = createAsyncThunk(
   "exercice/loadExercices",
@@ -26,4 +25,4 @@ export const loadErrorsStats = createAsyncThunk(
       throw new Error(error);
     }
   }
-)
+);

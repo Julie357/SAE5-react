@@ -16,12 +16,15 @@ const StudentCard = () => {
           alignItems: "center",
           justifyContent: "space-between",
         }}
+      
       >
         <Grid item sx={{ height: "95vh", marginLeft: "2vw" }}>
           <StudentProfile />
+    
         </Grid>
         <Grid item sx={{ height: "95vh", marginRight: "2vw" }}>
-          <StudentData />
+          <StudentData/>
+        
         </Grid>
       </Grid>
     </>
