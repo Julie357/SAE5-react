@@ -60,6 +60,7 @@ const ExercicesList = () => {
   };
 
   const handleSortChange = (newSort) => {
+    console.log(newSort);
     setSort(newSort);
   };
 
@@ -68,7 +69,7 @@ const ExercicesList = () => {
       <Grid item xs={11} sx={{ height: "10vh", margin: "auto", marginTop: "2vh", display: "flex", alignItems: "center" }}>
         <ExerciceListHeader onQueryChange={handleQueryChange} updateSort={handleSortChange} />
       </Grid>
-      <Grid item xs={11} sx={{ height: "75vh", margin: "auto" }}>
+      <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
         <Box
           sx={{
             backgroundColor: "#D8ECFC",
@@ -103,7 +104,7 @@ const ExercicesList = () => {
                     color="success"
                     shape="rounded"
                     size="small"
-                    sx={{ position: 'fixed', bottom: "7vh" }}
+                    sx={{ position: 'fixed', bottom: "5vh" }}
                   />
                 </>
               )}
