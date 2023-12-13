@@ -13,6 +13,7 @@ import Page404 from './pages/Page404';
 import ClasseInformations from './pages/ClasseInformations';
 import { ThemeProvider } from "@mui/material";
 import theme from './theme';
+import { loadStudents } from './features/students/studentAction';
 
 const App = () => {
     
@@ -21,6 +22,7 @@ const App = () => {
   useEffect(() => {
     dispatch(loadExercices());
     dispatch(loadErrorsStats());
+    dispatch(loadStudents());
   }, [dispatch]);
 
   return (
@@ -29,7 +31,7 @@ const App = () => {
       <div>
         <Routes>
           <Route exact path="/" element={<Home/>} />
-          <Route path="/studentCard" element={<StudentCard/>} />
+          <Route path="/studentCard/:idStudent" element={<StudentCard />} />
           <Route path="/exercicesList" element={<ExercicesList/>} />
           <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/classe-informations" element={<ClasseInformations/>} />

@@ -6,7 +6,7 @@ import "@fontsource/itim";
 import { useSelector } from "react-redux";
 import { selectTotalExercices } from "../../../features/exercices/exerciceSelector";
 
-const StudentProfile = () => {
+const StudentProfile = ({currentStudent}) => {
   const nbExercices = useSelector(selectTotalExercices);
   const isThereExercice = nbExercices > 0;
 
@@ -42,10 +42,10 @@ const StudentProfile = () => {
           }}
         >
           <Typography variant="h3" sx={{ textTransform: "uppercase" }}>
-            Buisson
+            {currentStudent.name}
           </Typography>
-          <Typography variant="h3">Claire</Typography>
-          <Typography variant="h4">3°6</Typography>
+          <Typography variant="h3">{currentStudent.firstName}</Typography>
+          <Typography variant="h4">{currentStudent.studentClassName}</Typography>
         </Box>
       </Box>
       <Box

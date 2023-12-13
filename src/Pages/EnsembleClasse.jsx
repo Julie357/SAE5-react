@@ -1,85 +1,149 @@
-import React from 'react';
-import { Chip, Stack, Box, Autocomplete, TextField } from '@mui/material';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import './stylePage.css';
+import React, { useState } from "react";
+import {
+  Chip,
+  Stack,
+  Box,
+  Autocomplete,
+  TextField,
+  Drawer,
+  Button,
+  Grid,
+  Link,
+  CircularProgress,
+  Pagination,
+  Typography,
+} from "@mui/material";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import Eleve from "../Components/Eleve";
+import { styled } from "@mui/system";
+import { Link as RouterLink } from "react-router-dom";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useSelector } from "react-redux";
+import {
+  selectLoadingStudents,
+  selectStudents,
+  selectTotalStudents,
+} from "../features/students/studentSelector";
+import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
+// import DrawerClasse from './DashClasse.jsx'
 
 const EnsembleClasse = () => {
+  const students = useSelector(selectStudents);
+  const totalStudents = useSelector(selectTotalStudents);
+  const isThereStudent = () => totalStudents > 0;
 
-    // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
-    {
-      title: 'The Lord of the Rings: The Return of the King',
-      year: 2003,
-    },
-    { title: 'The Good, the Bad and the Ugly', year: 1966 },
-    { title: 'Fight Club', year: 1999 },
-    {
-      title: 'The Lord of the Rings: The Fellowship of the Ring',
-      year: 2001,
-    },
-    {
-      title: 'Star Wars: Episode V - The Empire Strikes Back',
-      year: 1980,
-    },
-    { title: 'Forrest Gump', year: 1994 },
-    { title: 'Inception', year: 2010 },
-    {
-      title: 'The Lord of the Rings: The Two Towers',
-      year: 2002,
-    }]
+  const loading = useSelector(selectLoadingStudents);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 15;
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentStudents = students.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const StyledLink = styled(Link)({
+    textDecoration: "none",
+  });
+
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  };
 
   return (
-    <>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', mx: '10%'}}>
-        <Stack direction="row" spacing={1}>
-            <Chip label="3°6" component="a" href="#basic-chip" clickable sx={{background: "#3D6787", color: "#fff", fontFamily: "Itim", fontSize: '15px', fontWeight: 400}} />
-            <Chip
-                label="33 élèves"
-                component="a"
-                variant="outlined"
-                sx={{background: "#3D6787", color: "#fff", fontFamily: "Itim", fontSize: '15px', fontWeight: 400}}
-            />
-        </Stack>
-        <Stack direction="row" spacing={1}>
-            <Chip label="3°6" component="a" sx={{background: "#3D6787", color: "#fff", fontFamily: "Itim", fontSize: '15px', fontWeight: 400}}
-            avatar={<FilterListIcon sx={{ marginRight: 0.5, color: '#fff !important' }}/>}
-            />
-            <Chip
-                label="33 élèves"
-                component="a"
-                variant="outlined"
-                sx={{background: "#3D6787", color: "#fff", fontFamily: "Itim", fontSize: '15px', fontWeight: 400}}
-                avatar={<FilterListIcon sx={{ marginRight: 0.5, color: '#fff !important' }}/>}
-            />
-            <Autocomplete
-                multiple
-                sx={{width: '250px'}}
-                id="tags-outlined"
-                options={top100Films}
-                getOptionLabel={(option) => option.title}
-                defaultValue={[top100Films[13]]}
-                filterSelectedOptions
-                renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="filterSelectedOptions"
-                    placeholder="Favorites"
-                    sx={{fontSize: '14px'}}
-                />
-                )}
-            />
-        </Stack>
-    </Box>
-    
-    
-    </>
+    <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
+      <Grid
+        item
+        xs={11}
+        sx={{
+          height: "10vh",
+          margin: "auto",
+          marginTop: "2vh",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <ExerciceListHeader
+        />
+      </Grid>
+      <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
+        <Box
+          sx={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: "3vh",
+            paddingBottom: "1vh",
+          }}
+        >
+          {loading ? (
+            <CircularProgress color="primary" sx={{ marginTop: "42vh" }} />
+          ) : (
+            <>
+              {isThereStudent() && (
+                <>
+                  <Stack
+                    direction="row"
+                    gap={2.5}
+                    alignItems="center"
+                    justifyContent="center"
+                    flexWrap="wrap"
+                    sx={{ width: "95%" }}
+                  >
+                    {currentStudents.map((student, index) => (
+                      <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
+                          <RouterLink
+                            to={`/studentCard/${student.idStudent}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Eleve
+                              nom={student.name}
+                              prenom={student.firstName}
+                              level={student.skillLevel}
+                            />
+                          </RouterLink>
+                      </Grid>
+                    ))}
+                  </Stack>
+                  <Pagination
+                    count={Math.ceil(totalStudents / ITEMS_PER_PAGE)}
+                    page={currentPage}
+                    onChange={handleChangePage}
+                    color="success"
+                    shape="rounded"
+                    size="small"
+                    sx={{ position: "fixed", bottom: "5vh" }}
+                  />
+                </>
+              )}
+              {!isThereStudent() && (
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "50%",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Typography variant="h5">Aucun élève enregistré.</Typography>
+                </Box>
+              )}
+            </>
+          )}
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 
