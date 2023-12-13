@@ -1,30 +1,21 @@
 import React, { useState } from "react";
 import {
-  Chip,
   Stack,
   Box,
-  Autocomplete,
-  TextField,
-  Drawer,
-  Button,
   Grid,
-  Link,
   CircularProgress,
   Pagination,
   Typography,
 } from "@mui/material";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import Eleve from "../Components/Eleve";
-import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useSelector } from "react-redux";
 import {
   selectLoadingStudents,
   selectStudents,
   selectTotalStudents,
 } from "../features/students/studentSelector";
-import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
+import StudentListHeader from "./components/StudentList/StudentListHeader";
 // import DrawerClasse from './DashClasse.jsx'
 
 const EnsembleClasse = () => {
@@ -46,10 +37,6 @@ const EnsembleClasse = () => {
     setCurrentPage(newPage);
   };
 
-  const StyledLink = styled(Link)({
-    textDecoration: "none",
-  });
-
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
   };
@@ -62,7 +49,7 @@ const EnsembleClasse = () => {
     <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
       <Grid
         item
-        xs={11}
+        xs={10}
         sx={{
           height: "10vh",
           margin: "auto",
@@ -71,7 +58,7 @@ const EnsembleClasse = () => {
           alignItems: "center",
         }}
       >
-        <ExerciceListHeader
+        <StudentListHeader
         />
       </Grid>
       <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
