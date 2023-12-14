@@ -8,7 +8,7 @@ import '@fontsource/itim';
 import ExercicesList from './pages/ExercicesList';
 import PageClasses from './pages/PageClasses';
 import PageTexte from './pages/PageTexte'
-import EnsembleClasse from './pages/EnsembleClasse';
+import StudentsList from './pages/StudentsList';
 import Page404 from './pages/Page404';
 import ClasseInformations from './pages/ClasseInformations';
 import { ThemeProvider } from "@mui/material";
@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/classe-informations" element={<ClasseInformations/>} />
           <Route path="/texte" element={<PageTexte />} />
-          <Route path="/classe" element={<EnsembleClasse />}/>
+          <Route path="/classe" element={<StudentsList />}/>
           <Route exact path="*" element={<Page404/>} />
         </Routes>
       </div>

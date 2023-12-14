@@ -60,7 +60,6 @@ const ExercicesList = () => {
   };
 
   const handleSortChange = (newSort) => {
-    console.log(newSort);
     setSort(newSort);
   };
 

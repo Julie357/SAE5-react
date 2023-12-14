@@ -3,9 +3,7 @@ import { Grid, Link, Pagination, Stack } from "@mui/material";
 import Box from "@mui/system/Box";
 import { useSelector } from "react-redux";
 import {
-  selectExercicesUncorrectedSortByDate,
   selectLoadingExercices,
-  selectTotalExercices,
 } from "../../../features/exercices/exerciceSelector";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -13,18 +11,13 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExerciceCard from "../Card";
 
-const StudentData = ({ studentExercises }) => {
+const StudentData = ({ studentExercises, studentExercisesUncorrected }) => {
   const ITEMS_PER_PAGE = 4;
-  const exercicesUncorrected = useSelector(
-    selectExercicesUncorrectedSortByDate
-  );
-  const totalExercices = useSelector(selectTotalExercices);
   const loading = useSelector(selectLoadingExercices);
-  const [studentExercisesUncorrected, setStudentExercises] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const isCorrected = exercicesUncorrected.length > 0;
-  const isThereExercice = totalExercices > 0;
+  const isCorrected = studentExercisesUncorrected.length > 0;
+  const isThereExercice = studentExercises.length > 0;
 
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
@@ -32,21 +25,6 @@ const StudentData = ({ studentExercises }) => {
     indexOfFirstItem,
     indexOfLastItem
   );
-
-  useEffect(() => {
-    const foundedExercises = [];
-    const idExercises = studentExercises.idExercises;
-    idExercises.map((exercise) => {
-      foundedExercises.push(
-        exercicesUncorrected.find(
-          (exerciseImp) => exerciseImp.idExercises == exercise.idExercises
-        )
-      );
-    });
-    if (foundedExercises) {
-      setStudentExercises(foundedExercises);
-    }
-  });
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
@@ -111,7 +89,7 @@ const StudentData = ({ studentExercises }) => {
                   </Stack>
                   <Pagination
                     count={Math.ceil(
-                      exercicesUncorrected.length / ITEMS_PER_PAGE
+                      studentExercisesUncorrected.length / ITEMS_PER_PAGE
                     )}
                     page={currentPage}
                     onChange={handleChangePage}

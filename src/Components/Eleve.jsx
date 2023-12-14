@@ -1,12 +1,17 @@
 import React from "react";
 import { Badge, IconButton, Chip, Typography, Box } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import FetchStudentExercises from "../pages/fonctions/FetchStudentExercises";
 
-const PageEleve = ({ nom, prenom, level }) => {
+const PageEleve = ({ nom, prenom, level, id }) => {
+  const { studentExercisesUncorrected } = FetchStudentExercises(id);
+  const totalExercisesUncorrected = studentExercisesUncorrected.length;
+
   return (
-    <Box sx={{width: '10vw', overflow: 'hidden'}}>
+    <Box sx={{ width: "10vw", overflow: "hidden" }}>
       <Badge
-        badgeContent={+4}
+        badgeContent={`+${totalExercisesUncorrected}`}
+        invisible={!totalExercisesUncorrected}
         color="primary"
         sx={{
           color: "FFB5A7",
@@ -14,7 +19,7 @@ const PageEleve = ({ nom, prenom, level }) => {
           flexDirection: "column",
           alignItems: "center",
           position: "absolute",
-          marginRight: "10px"
+          marginRight: "10px",
         }}
       >
         <IconButton

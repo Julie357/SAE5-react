@@ -16,9 +16,8 @@ import {
   selectTotalStudents,
 } from "../features/students/studentSelector";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
-// import DrawerClasse from './DashClasse.jsx'
 
-const EnsembleClasse = () => {
+const StudentsList = () => {
   const students = useSelector(selectStudents);
   const totalStudents = useSelector(selectTotalStudents);
   const isThereStudent = () => totalStudents > 0;
@@ -64,6 +63,8 @@ const EnsembleClasse = () => {
       <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
         <Box
           sx={{
+            backgroundColor: "#EDF6F9",
+            borderRadius: "0.6vw",
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -96,6 +97,7 @@ const EnsembleClasse = () => {
                               nom={student.name}
                               prenom={student.firstName}
                               level={student.skillLevel}
+                              id={student.idStudent}
                             />
                           </RouterLink>
                       </Grid>
@@ -134,4 +136,4 @@ const EnsembleClasse = () => {
   );
 };
 
-export default EnsembleClasse;
+export default StudentsList;
