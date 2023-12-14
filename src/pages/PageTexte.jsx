@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
 import './stylePage.css';
+import D3GraphBulle from './components/GraphBulle/D3GraphBulle';
 
 const PageTexte = () => {
     
@@ -140,7 +141,8 @@ const PageTexte = () => {
         </Box>
 
         <Box sx={{m:8, p: 4, background: "#CFD6E7", borderRadius: '10px'}}>
-        Graphics... 
+            Graphics... 
+            <D3GraphBulle />
         </Box>
     </ThemeProvider>
     
