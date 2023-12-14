@@ -12,7 +12,7 @@ import SortForm from "./SortForm";
 import FilterForm from "./FilterForm";
 import SearchComponent from "./SearchComponent";
 
-const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
+const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
   const [openSort, setOpenSort] = useState(false);
   const [anchorSort, setAnchorSort] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
@@ -52,14 +52,14 @@ const ExerciceListHeader = ({ onQueryChange, updateSort }) => {
             textTransform="uppercase"
             sx={{ marginRight: "0.4vw" }}
           >
-            Buisson
+            {student.name}
           </Typography>
-          <Typography fontSize={26}> Claire</Typography>
+          <Typography fontSize={26}> {student.firstName}</Typography>
           <Typography fontSize={26} sx={{ marginLeft: "0.8vw" }}>
-            3°6
+            {student.studentClassName}
           </Typography>
           <Typography fontSize={24} sx={{ marginLeft: "11vw" }}>
-            Niveau: B2
+            Niveau: {student.skillLevel}
           </Typography>
         </Box>
       </Grid>

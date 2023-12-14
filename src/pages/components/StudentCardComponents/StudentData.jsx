@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Grid, Link, Pagination, Stack } from "@mui/material";
 import Box from "@mui/system/Box";
 import { useSelector } from "react-redux";
-import {
-  selectLoadingExercices,
-} from "../../../features/exercices/exerciceSelector";
+import { selectLoadingExercices } from "../../../features/exercices/exerciceSelector";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExerciceCard from "../Card";
+import { useNavigate } from "react-router-dom";
 
-const StudentData = ({ studentExercises, studentExercisesUncorrected }) => {
+const StudentData = ({
+  studentExercises,
+  studentExercisesUncorrected,
+  student,
+}) => {
   const ITEMS_PER_PAGE = 4;
   const loading = useSelector(selectLoadingExercices);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,10 +29,12 @@ const StudentData = ({ studentExercises, studentExercisesUncorrected }) => {
     indexOfLastItem
   );
 
+  const navigate = useNavigate();
+
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
-
+  
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
       <Grid item xs={12} sx={{ height: "60%", width: "100%" }}>
@@ -99,7 +104,7 @@ const StudentData = ({ studentExercises, studentExercisesUncorrected }) => {
                     sx={{ marginTop: "1vh" }}
                   />
                   <Link
-                    href="/exercicesList"
+                    href={`/exercicesList/${student.idStudent}`}
                     underline="hover"
                     sx={{
                       alignSelf: "end",

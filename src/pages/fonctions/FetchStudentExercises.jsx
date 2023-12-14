@@ -13,13 +13,12 @@ const FetchStudentExercises = (idStudent) => {
   const students = useSelector(selectStudents);
   const loadingStudents = useSelector(selectLoadingStudents);
   const [currentStudent, setCurrentStudent] = useState(null);
-
   const allExercises = useSelector(selectExercices);
   const loadingExercises = useSelector(selectLoadingExercices);
   const [studentExercises, setStudentExercises] = useState(null);
   const [studentExercisesUncorrected, setStudentExercisesUncorrected] = useState([]);
 
-  useEffect(() => {
+  useEffect( () => {
     if (!loadingStudents && students.length > 0) {
       const foundStudent = students.find(
         (student) => student.idStudent == idStudent
@@ -54,7 +53,12 @@ const FetchStudentExercises = (idStudent) => {
     }
   }, [loadingStudents, idStudent, students, loadingExercises, allExercises]);
 
-  return { loadingStudents, currentStudent, studentExercises, studentExercisesUncorrected };
+  return {
+    loadingStudents,
+    currentStudent,
+    studentExercises,
+    studentExercisesUncorrected,
+  };
 };
 
 export default FetchStudentExercises;

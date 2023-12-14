@@ -47,6 +47,7 @@ const StudentCard = () => {
             <StudentData
               studentExercises={studentExercises}
               studentExercisesUncorrected={studentExercisesUncorrected}
+              student= {currentStudent}
             />
           </Grid>
         </Grid>
