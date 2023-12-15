@@ -25,17 +25,18 @@ import Stack from '@mui/material/Stack';
 import SearchComponent from '../Components/SearchComponent';
 import { ThemeProvider } from '@mui/system';
 import { Link } from 'react-router-dom';
+import svg2 from "../assets/logo-A4ll.svg";
 
 const PageClasses = () => {
 
   const theme = useTheme();
-  const itemsPerPage = 12;
+  const itemsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectKey, setSelectKey] = useState(0);
   const [displayedClasses, setDisplayedClasses] = useState([]);
   const [selectedLevels, setSelectedLevels] = useState(['6eme', '5eme', '4eme', '3eme']);
-  const [selectedSort, setSelectedSort] = useState(6);
-  const [showAllClasses, setShowAllClasses] = useState(false);
+  const [selectedSort, setSelectedSort] = useState();
+  const [showAllClasses, setShowAllClasses] = useState(true);
   const [formControlKey, setFormControlKey] = useState(0);   // Récupération des classes à afficher pour la page actuelle
   const startIndex = (currentPage - 1) * itemsPerPage;   // Calcul des indices de début et de fin pour les éléments affichés
   const endIndex = startIndex + itemsPerPage;
@@ -174,7 +175,10 @@ const PageClasses = () => {
         <Grid container spacing={4} sx={{ mb: 3, mt: 1, mx: 'auto', maxWidth: '1500px' }}>
           <Grid item xs={1}>
             <ItemMenu sx={{ boxShadow: 'none' }}>
-              <img src="../Images/logo A4ll.png" alt="" />
+              <img src="../assets/logo-A4ll.svg" alt="" />
+              <div className="logodelapage">
+                <img className="logo" src={svg2} alt="logo A4ll" />
+            </div>
             </ItemMenu>
           </Grid>
 
@@ -219,7 +223,6 @@ const PageClasses = () => {
                   multiple
                   value={selectedLevels}
                   onChange={(event) => {
-                    console.log("Selected levels:", event.target.value);
                     setSelectedLevels(event.target.value);
                     setFormControlKey(prevKey => prevKey + 1);
                   }}
@@ -241,13 +244,13 @@ const PageClasses = () => {
         </Grid>
 
         {/* Classe */}
-        <Box sx={{ mx: 2, p: 2, maxWidth: '800px', m: 'auto' }}>
-          <Stack spacing={{ xs: 1, sm: 2 }} sx={{ my: 2, justifyContent: 'center' }} direction="row" useFlexGap flexWrap="wrap">
+        <Box sx={{ mx: 2, p: 2, maxWidth: '800px', m: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <Stack spacing={{ xs: 1, sm: 2 }} sx={{ my: 2, justifyContent: 'center', maxWidth: '679px', }} direction="row" useFlexGap flexWrap="wrap">
             {displayedClasses.slice(startIndex, endIndex).map((classe, index) => (
               // <Link key={index} to={`/classe/${classe}`} sx={{textDecoration: 'none'}}>
-              <StyledLink  key={index} to="/classe-informations" sx={{textDecoration: 'none'}}>
+              <StyledLink  key={index} to="/ensemble-classe" sx={{textDecoration: 'none'}}>
                 <Item>{classe}</Item>
-              </StyledLink >
+              </StyledLink > //fleDirection: 'column',  alignItems: 'center'
             ))}
           </Stack>
 

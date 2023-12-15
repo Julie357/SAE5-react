@@ -1,18 +1,51 @@
-import React from 'react';
-import { Badge, IconButton, Chip, Typography  } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
+import React from "react";
+import { Badge, IconButton, Chip, Typography, Box } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import FetchStudentExercises from "../pages/fonctions/FetchStudentExercises";
 
-const PageEleve = () => {
+const PageEleve = ({ nom, prenom, level, id }) => {
+  const { studentExercisesUncorrected } = FetchStudentExercises(id);
+  const totalExercisesUncorrected = studentExercisesUncorrected.length;
+
   return (
-      <Badge badgeContent={+4} color="secondary" sx={{color: 'FFB5A7', width: '120px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <IconButton color="primary" fontSize="large" sx={{ fontSize: 100, p:0}}>
-          <PersonIcon sx={{ fontSize: 120, color: '#3D6787' }}/>
+    <Box sx={{ width: "10vw", overflow: "hidden" }}>
+      <Badge
+        badgeContent={`+${totalExercisesUncorrected}`}
+        invisible={!totalExercisesUncorrected}
+        color="primary"
+        sx={{
+          color: "FFB5A7",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          position: "absolute",
+          marginRight: "10px",
+        }}
+      >
+        <IconButton
+          color="primary"
+          fontSize="large"
+          sx={{ fontSize: 100, p: 0 }}
+        >
+          <PersonIcon sx={{ fontSize: 120, color: "#3D6787" }} />
         </IconButton>
         <Typography variant="body1">
-          Nom Prenom
+          {nom} {prenom}
         </Typography>
-        <Chip sx={{ m: 1, p: 1, fontWeight: '600', fontSize: '1rem', background: '#A1CDF1', color: 'white', borderRadius: '10px'}} label="B2" />
+        <Chip
+          sx={{
+            m: 1,
+            p: 1,
+            fontWeight: "600",
+            fontSize: "1rem",
+            background: "#A1CDF1",
+            color: "white",
+            borderRadius: "10px",
+          }}
+          label={level}
+        />
       </Badge>
+    </Box>
   );
 };
 
