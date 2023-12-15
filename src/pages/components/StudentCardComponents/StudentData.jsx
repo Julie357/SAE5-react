@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExerciceCard from "../Card";
-import { useNavigate } from "react-router-dom";
+import Dashboard from "../Dashboard";
 
 const StudentData = ({
   studentExercises,
@@ -29,23 +29,35 @@ const StudentData = ({
     indexOfLastItem
   );
 
-  const navigate = useNavigate();
-
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
-  
+
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
-      <Grid item xs={12} sx={{ height: "60%", width: "100%" }}>
+      <Grid item xs={12} sx={{ height: "20%", width: "100%" }}>
+        <Box
+          sx={{
+            borderRadius: "0.6vw",
+            height: "100%",
+            width: "100%",
+            display: "flex",
+          }}
+        >
+          <Dashboard />
+        </Box>
+      </Grid>
+      <Grid item xs={12} sx={{ height: "40%", width: "100%" }}>
         <Box
           sx={{
             backgroundColor: "#D8ECFC",
             borderRadius: "0.6vw",
             height: "100%",
             width: "100%",
+            display: "flex",
           }}
-        />
+        >
+        </Box>
       </Grid>
       <Grid item xs={12} sx={{ height: "45%", width: "100%" }}>
         <Box
@@ -143,7 +155,10 @@ const StudentData = ({
                       <Typography variant="h5">
                         Il n'y a pas d'exercice non corrigé.
                       </Typography>
-                      <Button variant="contained">
+                      <Button
+                        variant="contained"
+                        href={`/exercicesList/${student.idStudent}`}
+                      >
                         Retrouver tous les exercices
                       </Button>
                     </Box>

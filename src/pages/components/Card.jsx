@@ -27,6 +27,7 @@ const ExerciceCard = ({ exercice }) => {
               fontFamily: "itim",
               mb: "1vh",
             }}
+            href='/texte'
           >
             Voir l'exercice
           </Button>
