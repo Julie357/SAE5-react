@@ -8,10 +8,11 @@ import '@fontsource/itim';
 import ExercicesList from './pages/ExercicesList';
 import PageClasses from './pages/PageClasses';
 import PageTexte from './pages/PageTexte'
-import EnsembleClasse from './pages/EnsembleClasse';
+import StudentsList from './pages/StudentsList';
 import Page404 from './pages/Page404';
 import { ThemeProvider } from "@mui/material";
 import theme from './theme';
+import { loadStudents } from './features/students/studentAction';
 
 const App = () => {
     
@@ -20,6 +21,7 @@ const App = () => {
   useEffect(() => {
     dispatch(loadExercices());
     dispatch(loadErrorsStats());
+    dispatch(loadStudents());
   }, [dispatch]);
 
   return (
@@ -28,11 +30,11 @@ const App = () => {
       <div>
         <Routes>
           <Route exact path="/" element={<Home/>} />
-          <Route path="/studentCard" element={<StudentCard/>} />
-          <Route path="/exercicesList" element={<ExercicesList/>} />
+          <Route path="/studentCard/:idStudent" element={<StudentCard />} />
+          <Route path="/exercicesList/:idStudent" element={<ExercicesList />} />
           <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/texte" element={<PageTexte />} />
-          <Route path="/classe" element={<EnsembleClasse />}/>
+          <Route path="/classe" element={<StudentsList />}/>
           <Route exact path="*" element={<Page404/>} />
         </Routes>
       </div>
