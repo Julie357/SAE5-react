@@ -15,6 +15,12 @@ import ExerciceCard from "./components/Card";
 import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
 import { useParams } from "react-router-dom";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";
+import {
+  sortByAlphabet,
+  sortByDateAscending,
+  sortByDateDescending,
+  sortByQuery,
+} from "./fonctions/sortFunctions";
 
 const ExercicesList = () => {
   const { idStudent } = useParams();
@@ -24,66 +30,45 @@ const ExercicesList = () => {
     studentExercises,
     studentExercisesUncorrected,
   } = FetchStudentExercises(idStudent);
-  console.log(studentExercises);
 
   const ITEMS_PER_PAGE = 15;
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("alphabetique");
-  const [filteredExercises, setFilteredexercises] = useState(studentExercises);
+  const [filteredExercises, setFilteredExercises] = useState([]);
   const loading = useSelector(selectLoadingExercices);
   const [currentPage, setCurrentPage] = useState(1);
+  const [nbExercises, setNbExercises] = useState(0);
 
-  const isThereExercise = () => studentExercises.length > 0;
-
-  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentexercises = filteredExercises?.slice(
-    indexOfFirstItem,
-    indexOfLastItem
+  const currentExercises = filteredExercises.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
   );
-
-  const sortByDateAscending = () => {
-    [...studentExercises].sort((a, b) => {
-      const date1 = new Date(a.date);
-      const date2 = new Date(b.date);
-      return date1 - date2;
-    });
-  };
-
-  const sortByDateDescending = () => {
-    [...studentExercises].sort((a, b) => {
-      const date1 = new Date(a.date);
-      const date2 = new Date(b.date);
-      return date2 - date1;
-    });
-  };
-
-  const sortByAlphabet = () => {
-    [...studentExercises].sort((a, b) => a.title.localeCompare(b.title));
-  };
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
-  // useEffect(() => {
-  //   let exercisesSorted;
-  //   if (sort === "alphabetique") {
-  //     exercisesSorted = sortByAlphabet;
-  //   } else if (sort === "ascending") {
-  //     exercisesSorted = sortByDateAscending;
-  //   } else {
-  //     exercisesSorted = sortByDateDescending;
-  //   }
+  useEffect(() => {
+    const handleSortAndFilterChange = () => {
+      if (studentExercises) {
+        setNbExercises(studentExercises.length);
+        setFilteredExercises([...studentExercises]); // Copie du tableau pour éviter la mutation directe
+        if (sort === "alphabetique") {
+          setFilteredExercises(sortByAlphabet(studentExercises));
+        } else if (sort === "ascending") {
+          setFilteredExercises(sortByDateAscending(studentExercises));
+        } else {
+          setFilteredExercises(sortByDateDescending(studentExercises));
+        }
 
-  //   const filteredExercisesQuery = exercisesSorted.filter(
-  //     (exercise) =>
-  //       query === "" ||
-  //       exercise.title.toLowerCase().includes(query.toLowerCase())
-  //   );
+        if (query) {
+          setFilteredExercises(sortByQuery(filteredExercises, query));
+        }
+      }
+    };
 
-  //   setFilteredexercises(filteredExercisesQuery);
-  // }, [query, sort, sortByAlphabet, sortByDateAscending, sortByDateDescending]);
+    handleSortAndFilterChange();
+  }, [query, sort, studentExercises]);
 
   const handleQueryChange = (newQuery) => {
     setQuery(newQuery);
@@ -95,7 +80,7 @@ const ExercicesList = () => {
 
   return (
     <>
-      {studentExercises ? (
+      {currentStudent && (
         <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
           <Grid
             item
@@ -131,7 +116,7 @@ const ExercicesList = () => {
                 <CircularProgress color="primary" sx={{ marginTop: "42vh" }} />
               ) : (
                 <>
-                  {isThereExercise() && (
+                  {nbExercises > 0 && (
                     <>
                       <Stack
                         direction="row"
@@ -141,7 +126,7 @@ const ExercicesList = () => {
                         flexWrap="wrap"
                         sx={{ width: "95%" }}
                       >
-                        {studentExercises.map((exercise, index) => (
+                        {currentExercises.map((exercise, index) => (
                           <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
                             <Badge
                               color="primary"
@@ -155,7 +140,7 @@ const ExercicesList = () => {
                       </Stack>
                       <Pagination
                         count={Math.ceil(
-                          studentExercises.length / ITEMS_PER_PAGE
+                          filteredExercises.length / ITEMS_PER_PAGE
                         )}
                         page={currentPage}
                         onChange={handleChangePage}
@@ -166,7 +151,7 @@ const ExercicesList = () => {
                       />
                     </>
                   )}
-                  {!isThereExercise() && (
+                  {nbExercises < 1 && (
                     <Box
                       sx={{
                         width: "100%",
@@ -187,11 +172,6 @@ const ExercicesList = () => {
             </Box>
           </Grid>
         </Grid>
-      ) : (
-        <CircularProgress
-          color="primary"
-          sx={{ marginTop: "48vh", marginLeft: "48vw" }}
-        />
       )}
     </>
   );
