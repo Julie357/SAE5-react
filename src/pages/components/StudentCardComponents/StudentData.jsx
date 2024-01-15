@@ -14,8 +14,14 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExerciceCard from "../Card";
 import Dashboard from "../../../Components/Dashboard";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import { styled } from "@mui/system";
 
 const StudentData = () => {
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const ITEMS_PER_PAGE = 4;
   const exercicesUncorrected = useSelector(
     selectExercicesUncorrectedSortByDate
@@ -38,6 +44,18 @@ const StudentData = () => {
     setCurrentPage(newPage);
   };
 
+  const StyledDialog = styled(Dialog)({
+    width: "100vw",
+    height: "100vh",
+    margin: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "& .MuiDialog-paper": {
+      maxWidth: "none",
+    },
+  });
+
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
       <Grid item xs={12} sx={{ height: "60%", width: "100%" }}>
@@ -48,6 +66,7 @@ const StudentData = () => {
             height: "100%",
             width: "100%",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -59,9 +78,28 @@ const StudentData = () => {
           ) : (
             <>
               <Dashboard exercices={exercices} />
+              <Button
+                variant="contained"
+                onClick={() => setPopupOpen(true)}
+                sx={{ marginTop: 2 }}
+              >
+                Afficher en grand
+              </Button>
             </>
           )}
         </Box>
+        <StyledDialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
+  <DialogTitle>Composant Dashboard en grand</DialogTitle>
+  <DialogContent sx={{ width: "80vw", height: "80vh" }}>
+    <div style={{ width: "100%", height: "100%" }}>
+      <Dashboard exercices={exercices} />
+    </div>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setPopupOpen(false)}>Fermer</Button>
+  </DialogActions>
+</StyledDialog>
+
       </Grid>
       <Grid item xs={12} sx={{ height: "43%", width: "100%" }}>
         <Box

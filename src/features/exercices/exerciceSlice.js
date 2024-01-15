@@ -7,8 +7,7 @@ const exerciceSlice = createSlice({
     exercices: [],
     loadingExercices: false,
     errorApi: null,
-    recurrentErrors: []
-    
+    recurrentErrors: [],
   },
   extraReducers: (builder) => {
     builder
@@ -20,15 +19,18 @@ const exerciceSlice = createSlice({
         state.loadingExercices = false;
       })
       .addCase(loadExercices.rejected, (state, action) => {
-        state.errorApi = action.payload.error.message;
+        // Utilisez action.error pour accéder à l'erreur
+        state.errorApi = action.error.message;
         state.loadingExercices = false;
       })
       .addCase(loadErrorsStats.fulfilled, (state, action) => {
         state.recurrentErrors = action.payload;
       })
       .addCase(loadErrorsStats.rejected, (state, action) => {
-        state.errorApi = action.payload.error.message;
+        // Utilisez action.error pour accéder à l'erreur
+        state.errorApi = action.error.message;
       });
   },
 });
+
 export default exerciceSlice.reducer;

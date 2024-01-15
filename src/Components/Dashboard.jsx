@@ -25,6 +25,7 @@ const Cell = ({ date, alpha }) => {
     color: "#2b3643",
     fontFamily: "Itim",
     paddingTop: "2px",
+    
   };
   return (
     <div
@@ -129,7 +130,11 @@ const Dashboard = ({ exercices }) => {
 
   console.log("ex:" + infosExercices);
   if (infosExercices.length > 0) {
-    return <Timeline range={dateRange} data={infosExercices} />;
+    return (
+      <div style={{ width: "100%", height: "100%" }}>
+        <Timeline range={dateRange} data={infosExercices} />
+      </div>
+    );
   } else {
     return <p>No exercise information available.</p>;
   }
