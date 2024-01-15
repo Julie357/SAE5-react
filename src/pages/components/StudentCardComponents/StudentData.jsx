@@ -20,6 +20,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import { styled } from "@mui/system";
 
+
 const StudentData = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const ITEMS_PER_PAGE = 4;
@@ -89,17 +90,16 @@ const StudentData = () => {
           )}
         </Box>
         <StyledDialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
-  <DialogTitle>Composant Dashboard en grand</DialogTitle>
-  <DialogContent sx={{ width: "80vw", height: "80vh" }}>
-    <div style={{ width: "100%", height: "100%" }}>
-      <Dashboard exercices={exercices} />
-    </div>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={() => setPopupOpen(false)}>Fermer</Button>
-  </DialogActions>
-</StyledDialog>
-
+          <DialogTitle>Composant Dashboard en grand</DialogTitle>
+          <DialogContent sx={{ width: "80vw", height: "80vh" }}>
+            <div style={{ width: "100%", height: "100%" }}>
+              <Dashboard exercices={exercices} />
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setPopupOpen(false)}>Fermer</Button>
+          </DialogActions>
+        </StyledDialog>
       </Grid>
       <Grid item xs={12} sx={{ height: "43%", width: "100%" }}>
         <Box

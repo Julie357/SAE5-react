@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../Styles/dashboard.css";
 import "@fontsource/itim";
 import moment from "moment";
+import "../Styles/dashboard-popup.css";
 // import { useSelector } from "react-redux";
 // import { selectExercices } from "../features/exercices/exerciceSelector";
 
@@ -131,9 +132,7 @@ const Dashboard = ({ exercices }) => {
   console.log("ex:" + infosExercices);
   if (infosExercices.length > 0) {
     return (
-      <div style={{ width: "100%", height: "100%" }}>
-        <Timeline range={dateRange} data={infosExercices} />
-      </div>
+      <div className="dashboard-popup"><Timeline range={dateRange} data={infosExercices} /></div>
     );
   } else {
     return <p>No exercise information available.</p>;
