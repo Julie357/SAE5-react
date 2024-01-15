@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 
 const FilterForm = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
@@ -37,7 +47,7 @@ const FilterForm = ({ onFilterChange }) => {
             label="Niveau"
             onChange={handleFilterChange}
           >
-            <MenuItem value="">Sélectionnez un niveau</MenuItem>
+            <MenuItem value="">Tous les niveaux</MenuItem>
             <MenuItem value="A1">A1</MenuItem>
             <MenuItem value="A2">A2</MenuItem>
             <MenuItem value="B1">B1</MenuItem>
@@ -60,7 +70,13 @@ const FilterForm = ({ onFilterChange }) => {
         </FormControl>
 
         <FormControlLabel
-          control={<Checkbox checked={filters.correction} onChange={handleFilterChange} name="correction" />}
+          control={
+            <Checkbox
+              checked={filters.correction}
+              onChange={handleFilterChange}
+              name="correction"
+            />
+          }
           label="Corrigé"
         />
 

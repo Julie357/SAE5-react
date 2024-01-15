@@ -10,12 +10,16 @@ import {
   Stack,
   CircularProgress,
   Badge,
+  Chip,
 } from "@mui/material";
 import ExerciceCard from "./components/Card";
 import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
 import { useParams } from "react-router-dom";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";
 import {
+  filterByCorrection,
+  filterByDate,
+  filterByLevel,
   sortByAlphabet,
   sortByDateAscending,
   sortByDateDescending,
@@ -35,6 +39,12 @@ const ExercicesList = () => {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("alphabetique");
   const [filteredExercises, setFilteredExercises] = useState([]);
+  const [filters, setFilters] = useState({
+    level: "",
+    date: "",
+    correction: false,
+  });
+  const [currentFilters, setCurrentFilters] = useState([]);
   const loading = useSelector(selectLoadingExercices);
   const [currentPage, setCurrentPage] = useState(1);
   const [nbExercises, setNbExercises] = useState(0);
@@ -49,29 +59,61 @@ const ExercicesList = () => {
   };
 
   useEffect(() => {
-    const handleSortAndFilterChange = () => {
+    const handleSortAndFilterChange = async () => {
+      setCurrentFilters([]);
       if (studentExercises) {
         setNbExercises(studentExercises.length);
-        setFilteredExercises([...studentExercises]); // Copie du tableau pour éviter la mutation directe
+        let updatedExercises = [...studentExercises];
+        console.log(filters);
+        console.log(currentFilters);
+
+        if (filters.level) {
+          updatedExercises = filterByLevel(updatedExercises, filters.level);
+          setCurrentFilters([...currentFilters, `level: ${filters.level}`]);
+        }
+        if (filters.date) {
+          updatedExercises = filterByDate(updatedExercises, filters.date);
+          var date = new Date(filters.date).toLocaleDateString("fr");
+          setCurrentFilters([...currentFilters, `date: ${date}`]);
+        }
+        if (filters.correction) {
+          updatedExercises = filterByCorrection(
+            updatedExercises,
+            filters.correction
+          );
+          setCurrentFilters([...currentFilters, "corrigé"]);
+        }
+
         if (sort === "alphabetique") {
-          setFilteredExercises(sortByAlphabet(studentExercises));
+          updatedExercises = sortByAlphabet(updatedExercises);
         } else if (sort === "ascending") {
-          setFilteredExercises(sortByDateAscending(studentExercises));
+          updatedExercises = sortByDateAscending(updatedExercises);
         } else {
-          setFilteredExercises(sortByDateDescending(studentExercises));
+          updatedExercises = sortByDateDescending(updatedExercises);
         }
 
         if (query) {
-          setFilteredExercises(sortByQuery(filteredExercises, query));
+          updatedExercises = sortByQuery(updatedExercises, query);
         }
+
+        setFilteredExercises(updatedExercises);
       }
     };
 
     handleSortAndFilterChange();
-  }, [query, sort, studentExercises]);
+  }, [query, sort, filters, studentExercises]);
 
   const handleQueryChange = (newQuery) => {
     setQuery(newQuery);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ["level"]: newFilter.level,
+      ["date"]: newFilter.date,
+      ["correction"]: newFilter.correction,
+    }));
   };
 
   const handleSortChange = (newSort) => {
@@ -96,8 +138,29 @@ const ExercicesList = () => {
             <ExerciceListHeader
               onQueryChange={handleQueryChange}
               updateSort={handleSortChange}
+              updateFilter={handleFilterChange}
               student={currentStudent}
             />
+          </Grid>
+          <Grid
+            item
+            xs={11}
+            sx={{
+              height: "0.5vh",
+              margin: "auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+              marginTop: "-3vh",
+            }}
+          >
+            {currentFilters.length > 0 && (
+              <>
+                {currentFilters.map((filter, index) => (
+                  <Chip key={index} label={filter} />
+                ))}
+              </>
+            )}
           </Grid>
           <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
             <Box
@@ -110,6 +173,7 @@ const ExercicesList = () => {
                 alignItems: "center",
                 paddingTop: "3vh",
                 paddingBottom: "1vh",
+                marginTop: "-2vh",
               }}
             >
               {loading ? (

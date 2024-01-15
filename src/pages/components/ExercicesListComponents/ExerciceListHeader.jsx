@@ -9,7 +9,7 @@ import SortForm from "./SortForm";
 import FilterForm from "./FilterForm";
 import SearchComponent from "./SearchComponent";
 
-const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
+const ExerciceListHeader = ({ onQueryChange, updateSort, student, updateFilter }) => {
   const [openSort, setOpenSort] = useState(false);
   const [anchorSort, setAnchorSort] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
@@ -28,6 +28,10 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
   const handleSortChange = (newSort) => {
     updateSort(newSort);
   };
+
+  const handleFilterChange = (newFilter) => {
+    updateFilter(newFilter);
+  }
 
   return (
     <>
@@ -106,7 +110,7 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
             sx={{ marginTop: "7.5vh" }}
             onClose={() => setOpenFilter(false)}
           >
-            <FilterForm onFilterChange={handleSortChange} />
+            <FilterForm onFilterChange={handleFilterChange} />
           </Menu>
         </Grid>
         <Grid item xs={7}>
