@@ -2,7 +2,7 @@ import { Button, Typography, FormControl, InputLabel, Select, MenuItem } from '@
 import React from 'react';
 import svg2 from "../assets/logo-A4ll.svg";
 import { NavLink } from 'react-router-dom';
-import "./stylePage.css";
+import "../Styles/stylePage.css";
 import { Box, Stack, Chip, Accordion, styled , AccordionSummary, AccordionDetails, BorderLinearProgress } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';

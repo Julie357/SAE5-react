@@ -223,7 +223,6 @@ const PageClasses = () => {
                   multiple
                   value={selectedLevels}
                   onChange={(event) => {
-                    console.log("Selected levels:", event.target.value);
                     setSelectedLevels(event.target.value);
                     setFormControlKey(prevKey => prevKey + 1);
                   }}

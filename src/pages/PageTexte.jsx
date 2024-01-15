@@ -4,8 +4,8 @@ import { ToggleButton, ToggleButtonGroup, FormGroup, Checkbox, FormControlLabel,
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
-import './stylePage.css';
 import D3GraphBulle from './components/GraphBulle/D3GraphBulle'
+import "../Styles/stylePage.css";
 const PageTexte = () => {
     
 

@@ -16,7 +16,7 @@ const ExerciceCard = ({ exercice }) => {
             {exercice.title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            <b>Niveau :</b> {exercice.niveau}
+            <b>Niveau :</b> {exercice.exercisesSkillLevel}
           </Typography>
         </CardContent>
         <CardActions>
@@ -27,6 +27,7 @@ const ExerciceCard = ({ exercice }) => {
               fontFamily: "itim",
               mb: "1vh",
             }}
+            href='/texte'
           >
             Voir l'exercice
           </Button>
