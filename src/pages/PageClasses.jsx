@@ -243,16 +243,15 @@ const PageClasses = () => {
           </Grid>
         </Grid>
 
-        {/* Classe */}
-        <Box sx={{ mx: 2, p: 2, maxWidth: '800px', m: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-          <Stack spacing={{ xs: 1, sm: 2 }} sx={{ my: 2, justifyContent: 'center', maxWidth: '679px', }} direction="row" useFlexGap flexWrap="wrap">
-            {displayedClasses.slice(startIndex, endIndex).map((classe, index) => (
-              // <Link key={index} to={`/classe/${classe}`} sx={{textDecoration: 'none'}}>
-              <StyledLink  key={index} to="/ensemble-classe" sx={{textDecoration: 'none'}}>
-                <Item>{classe}</Item>
-              </StyledLink > //fleDirection: 'column',  alignItems: 'center'
-            ))}
-          </Stack>
+      {/* Classe */}
+      <Box sx={{background: '#EDF6F9', borderRadius: 4, mx: 2, p: 2, maxWidth: '800px', m: 'auto',textDecoration: 'none', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+        <Stack spacing={{ xs: 1, sm: 2 }} sx={{ my: 2, justifyContent: 'center', maxWidth: '679px', textDecoration: 'none' }} direction="row" useFlexGap flexWrap="wrap">
+          {displayedClasses.slice(startIndex, endIndex).map((classe, index) => (
+            <Link key={index} to="/classe" sx={{ textDecoration: 'none' }}>
+              <Item sx={{textDecoration: 'none'}}>{classe}</Item>
+            </Link>
+          ))}
+        </Stack>
 
           <Box sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
             <Pagination count={Math.ceil(displayedClasses.length / itemsPerPage)} page={currentPage} onChange={handlePageChange} />

@@ -12,6 +12,7 @@ import StudentsList from './pages/StudentsList';
 import Page404 from './pages/Page404';
 import { ThemeProvider } from "@mui/material";
 import theme from './theme';
+import D3GraphBulle from './pages/components/GraphBulle/D3GraphBulle';
 import { loadStudents } from './features/students/studentAction';
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/exercicesList/:idStudent" element={<ExercicesList />} />
           <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/texte" element={<PageTexte />} />
+          <Route path="/vizu-j" element={<D3GraphBulle />}/>
           <Route path="/classe" element={<StudentsList />}/>
           <Route exact path="*" element={<Page404/>} />
         </Routes>
