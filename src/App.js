@@ -12,6 +12,7 @@ import EnsembleClasse from './pages/EnsembleClasse';
 import Page404 from './pages/Page404';
 import { ThemeProvider } from "@mui/material";
 import theme from './theme';
+import D3GraphBulle from './pages/components/GraphBulle/D3GraphBulle';
 
 const App = () => {
     
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/texte" element={<PageTexte />} />
           <Route path="/classe" element={<EnsembleClasse />}/>
+          <Route path="/vizu-j" element={<D3GraphBulle />}/>
           <Route exact path="*" element={<Page404/>} />
         </Routes>
       </div>

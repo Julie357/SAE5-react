@@ -4,7 +4,8 @@ import "@fontsource/itim";
 const theme = createTheme({
     typography: {
       fontFamily: "itim",
-      color: "#2B3643"
+      color: "#2B3643",
+      fontSize: 14,
     },
     palette: {
       text: {

@@ -5,7 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
 import './stylePage.css';
-
+import D3GraphBulle from './components/GraphBulle/D3GraphBulle'
 const PageTexte = () => {
     
 
@@ -139,8 +139,17 @@ const PageTexte = () => {
             </Box>
         </Box>
 
-        <Box sx={{m:8, p: 4, background: "#CFD6E7", borderRadius: '10px'}}>
-        Graphics... 
+        <Box sx={{m:8, p: 4, background: "#CFD6E7", borderRadius: '10px', display:'flex'}}>
+            <D3GraphBulle />
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <p>Légende :</p>
+                <Box sx={{display: 'flex'}}>
+                    <Box><p>   </p></Box>
+                    <Box sx={{width:'30px', height: '30px', backgroundColor: '#fff', border: '2px solid black', borderRadius: '50%'}}></Box>
+                    <p>1 erreur</p>
+                </Box>
+                
+            </Box>
         </Box>
     </ThemeProvider>
     
