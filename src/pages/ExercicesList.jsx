@@ -10,11 +10,21 @@ import {
   Stack,
   CircularProgress,
   Badge,
+  Chip,
 } from "@mui/material";
 import ExerciceCard from "./components/Card";
 import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
 import { useParams } from "react-router-dom";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";
+import {
+  filterByCorrection,
+  filterByDate,
+  filterByLevel,
+  sortByAlphabet,
+  sortByDateAscending,
+  sortByDateDescending,
+  sortByQuery,
+} from "./fonctions/sortFunctions";
 
 const ExercicesList = () => {
   const { idStudent } = useParams();
@@ -24,69 +34,90 @@ const ExercicesList = () => {
     studentExercises,
     studentExercisesUncorrected,
   } = FetchStudentExercises(idStudent);
-  console.log(studentExercises);
 
   const ITEMS_PER_PAGE = 15;
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("alphabetique");
-  const [filteredExercises, setFilteredexercises] = useState(studentExercises);
+  const [filteredExercises, setFilteredExercises] = useState([]);
+  const [filters, setFilters] = useState({
+    level: "",
+    date: "",
+    correction: false,
+  });
+  const [currentFilters, setCurrentFilters] = useState([]);
   const loading = useSelector(selectLoadingExercices);
   const [currentPage, setCurrentPage] = useState(1);
+  const [nbExercises, setNbExercises] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(false);
 
-  const isThereExercise = () => studentExercises.length > 0;
-
-  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentexercises = filteredExercises?.slice(
-    indexOfFirstItem,
-    indexOfLastItem
+  const currentExercises = filteredExercises.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
   );
-
-  const sortByDateAscending = () => {
-    [...studentExercises].sort((a, b) => {
-      const date1 = new Date(a.date);
-      const date2 = new Date(b.date);
-      return date1 - date2;
-    });
-  };
-
-  const sortByDateDescending = () => {
-    [...studentExercises].sort((a, b) => {
-      const date1 = new Date(a.date);
-      const date2 = new Date(b.date);
-      return date2 - date1;
-    });
-  };
-
-  const sortByAlphabet = () => {
-    [...studentExercises].sort((a, b) => a.title.localeCompare(b.title));
-  };
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
-  // useEffect(() => {
-  //   let exercisesSorted;
-  //   if (sort === "alphabetique") {
-  //     exercisesSorted = sortByAlphabet;
-  //   } else if (sort === "ascending") {
-  //     exercisesSorted = sortByDateAscending;
-  //   } else {
-  //     exercisesSorted = sortByDateDescending;
-  //   }
+  useEffect(() => {
+    const handleSortAndFilterChange = async () => {
+      setCurrentFilters([]);
+      if (studentExercises) {
+        setNbExercises(studentExercises.length);
+        let updatedExercises = [...studentExercises];
+        console.log(filters);
+        console.log(currentFilters);
 
-  //   const filteredExercisesQuery = exercisesSorted.filter(
-  //     (exercise) =>
-  //       query === "" ||
-  //       exercise.title.toLowerCase().includes(query.toLowerCase())
-  //   );
+        if (filters.level) {
+          updatedExercises = filterByLevel(updatedExercises, filters.level);
+          setCurrentFilters([...currentFilters, `level: ${filters.level}`]);
+        }
+        if (filters.date) {
+          updatedExercises = filterByDate(updatedExercises, filters.date);
+          var date = new Date(filters.date).toLocaleDateString("fr");
+          setCurrentFilters([...currentFilters, `date: ${date}`]);
+        }
+        if (filters.correction) {
+          updatedExercises = filterByCorrection(
+            updatedExercises,
+            filters.correction
+          );
+          setCurrentFilters([...currentFilters, "corrigé"]);
+        }
 
-  //   setFilteredexercises(filteredExercisesQuery);
-  // }, [query, sort, sortByAlphabet, sortByDateAscending, sortByDateDescending]);
+        if (sort === "alphabetique") {
+          updatedExercises = sortByAlphabet(updatedExercises);
+        } else if (sort === "ascending") {
+          updatedExercises = sortByDateAscending(updatedExercises);
+        } else {
+          updatedExercises = sortByDateDescending(updatedExercises);
+        }
+
+        if (query) {
+          updatedExercises = sortByQuery(updatedExercises, query);
+        }
+
+        if (updatedExercises.length == 0) {
+          setErrorMessage(true);
+        }
+        setFilteredExercises(updatedExercises);
+      }
+    };
+
+    handleSortAndFilterChange();
+  }, [query, sort, filters, studentExercises]);
 
   const handleQueryChange = (newQuery) => {
     setQuery(newQuery);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ["level"]: newFilter.level,
+      ["date"]: newFilter.date,
+      ["correction"]: newFilter.correction,
+    }));
   };
 
   const handleSortChange = (newSort) => {
@@ -95,7 +126,7 @@ const ExercicesList = () => {
 
   return (
     <>
-      {studentExercises ? (
+      {currentStudent && (
         <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
           <Grid
             item
@@ -111,8 +142,29 @@ const ExercicesList = () => {
             <ExerciceListHeader
               onQueryChange={handleQueryChange}
               updateSort={handleSortChange}
+              updateFilter={handleFilterChange}
               student={currentStudent}
             />
+          </Grid>
+          <Grid
+            item
+            xs={11}
+            sx={{
+              height: "0.5vh",
+              margin: "auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+              marginTop: "-3vh",
+            }}
+          >
+            {currentFilters.length > 0 && (
+              <>
+                {currentFilters.map((filter, index) => (
+                  <Chip key={index} label={filter} />
+                ))}
+              </>
+            )}
           </Grid>
           <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
             <Box
@@ -125,13 +177,14 @@ const ExercicesList = () => {
                 alignItems: "center",
                 paddingTop: "3vh",
                 paddingBottom: "1vh",
+                marginTop: "-2vh",
               }}
             >
               {loading ? (
                 <CircularProgress color="primary" sx={{ marginTop: "42vh" }} />
               ) : (
                 <>
-                  {isThereExercise() && (
+                  {nbExercises > 0 && (
                     <>
                       <Stack
                         direction="row"
@@ -141,7 +194,7 @@ const ExercicesList = () => {
                         flexWrap="wrap"
                         sx={{ width: "95%" }}
                       >
-                        {studentExercises.map((exercise, index) => (
+                        {currentExercises.map((exercise, index) => (
                           <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
                             <Badge
                               color="primary"
@@ -152,10 +205,17 @@ const ExercicesList = () => {
                             </Badge>
                           </Grid>
                         ))}
+                        {errorMessage && (
+                          <>
+                            <Typography variant="h5">
+                              Aucun exercice ne correspond au(x) filtre(s) indiqué(s).
+                            </Typography>
+                          </>
+                        )}
                       </Stack>
                       <Pagination
                         count={Math.ceil(
-                          studentExercises.length / ITEMS_PER_PAGE
+                          filteredExercises.length / ITEMS_PER_PAGE
                         )}
                         page={currentPage}
                         onChange={handleChangePage}
@@ -166,7 +226,7 @@ const ExercicesList = () => {
                       />
                     </>
                   )}
-                  {!isThereExercise() && (
+                  {nbExercises < 1 && (
                     <Box
                       sx={{
                         width: "100%",
@@ -187,11 +247,6 @@ const ExercicesList = () => {
             </Box>
           </Grid>
         </Grid>
-      ) : (
-        <CircularProgress
-          color="primary"
-          sx={{ marginTop: "48vh", marginLeft: "48vw" }}
-        />
       )}
     </>
   );

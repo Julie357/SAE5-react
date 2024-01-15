@@ -26,7 +26,7 @@ const SortForm = ({ onSortChange }) => {
       </FormLabel>
       <RadioGroup
         aria-labelledby="sort-menu-buttons-group-label"
-        defaultValue={sortValue}
+        value={sortValue}
         name="radio-buttons-group"
         sx={{ paddingLeft: "0.4vw" }}
       >

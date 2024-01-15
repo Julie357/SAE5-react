@@ -4,15 +4,12 @@ import TuneIcon from "@mui/icons-material/Tune";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
-import {
-  Grid,
-  Menu
-} from "@mui/material";
+import { Grid, Link, Menu } from "@mui/material";
 import SortForm from "./SortForm";
 import FilterForm from "./FilterForm";
 import SearchComponent from "./SearchComponent";
 
-const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
+const ExerciceListHeader = ({ onQueryChange, updateSort, student, updateFilter }) => {
   const [openSort, setOpenSort] = useState(false);
   const [anchorSort, setAnchorSort] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
@@ -32,6 +29,10 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
     updateSort(newSort);
   };
 
+  const handleFilterChange = (newFilter) => {
+    updateFilter(newFilter);
+  }
+
   return (
     <>
       <Grid item xs={6}>
@@ -47,18 +48,24 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
             component="img"
             sx={{ width: "10%", height: "100%", margin: "0 0.7vw" }}
           ></Box>
-          <Typography
-            fontSize={26}
-            textTransform="uppercase"
-            sx={{ marginRight: "0.4vw" }}
+          <Link
+            href={`http://localhost:3000/studentCard/${student.idStudent}`}
+            underline="hover"
+            sx={{display: "flex", color: "#3D6787"}}
           >
-            {student.name}
-          </Typography>
-          <Typography fontSize={26}> {student.firstName}</Typography>
-          <Typography fontSize={26} sx={{ marginLeft: "0.8vw" }}>
+            <Typography
+              fontSize={26}
+              textTransform="uppercase"
+              sx={{ marginRight: "0.4vw" }}
+            >
+              {student.name}
+            </Typography>
+            <Typography fontSize={26}>{student.firstName}</Typography>
+          </Link>
+          <Typography fontSize={26} sx={{ marginLeft: "1.2vw" }}>
             {student.studentClassName}
           </Typography>
-          <Typography fontSize={24} sx={{ marginLeft: "11vw" }}>
+          <Typography fontSize={24} sx={{ marginLeft: "10vw" }}>
             Niveau: {student.skillLevel}
           </Typography>
         </Box>
@@ -86,7 +93,11 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
           </Menu>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="contained" onClick={toggleFilter} startIcon={<TuneIcon />}>
+          <Button
+            variant="contained"
+            onClick={toggleFilter}
+            startIcon={<TuneIcon />}
+          >
             Filtres
           </Button>
           <Menu
@@ -99,7 +110,7 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student }) => {
             sx={{ marginTop: "7.5vh" }}
             onClose={() => setOpenFilter(false)}
           >
-            <FilterForm onFilterChange={handleSortChange} />
+            <FilterForm onFilterChange={handleFilterChange} />
           </Menu>
         </Grid>
         <Grid item xs={7}>
