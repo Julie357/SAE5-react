@@ -48,6 +48,7 @@ const ExercicesList = () => {
   const loading = useSelector(selectLoadingExercices);
   const [currentPage, setCurrentPage] = useState(1);
   const [nbExercises, setNbExercises] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const currentExercises = filteredExercises.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -96,6 +97,9 @@ const ExercicesList = () => {
           updatedExercises = sortByQuery(updatedExercises, query);
         }
 
+        if (updatedExercises.length == 0) {
+          setErrorMessage(true);
+        }
         setFilteredExercises(updatedExercises);
       }
     };
@@ -201,6 +205,13 @@ const ExercicesList = () => {
                             </Badge>
                           </Grid>
                         ))}
+                        {errorMessage && (
+                          <>
+                            <Typography variant="h5">
+                              Aucun exercice ne correspond au(x) filtre(s) indiqué(s).
+                            </Typography>
+                          </>
+                        )}
                       </Stack>
                       <Pagination
                         count={Math.ceil(
