@@ -15,7 +15,7 @@ const PageTexte = () => {
   const [displayTextInlineTab3, setDisplayTextInlineTab3] = useState(true);
   const [conjugaisonChecked, setConjugaisonChecked] = useState(true);
   const [ponctuationChecked, setPonctuationChecked] = useState(true);
-  const [syntaxeChecked, setsyntaxeChecked] = useState(true);
+  const [syntaxeChecked, setSyntaxeChecked] = useState(true);
 
   const handleTabChange = (event, newTab) => {
     if (newTab !== null) {
@@ -31,6 +31,10 @@ const PageTexte = () => {
   };
   const handleDisplayTextInlineChangeTab3 = () => {
     setDisplayTextInlineTab3((prev) => !prev);
+  };
+
+  const handleResetConjugaison = () => {
+    setConjugaisonChecked(false);
   };
 
   const theme = createTheme({
@@ -53,7 +57,40 @@ const PageTexte = () => {
             aria-label="text alignment"
             sx={{ borderRadius: '0 0 0 0 !important', border: 0 }}
           >
-            {/* ... (codes inchangés) */}
+            <ToggleButton
+                        value="tab1"
+                        aria-label="left aligned"
+                        sx={{
+                            px: 1,
+                            mr: 1,
+                            background: selectedTab === 'tab1' ? '#CFD6E7 !important' : '#CFD6E7 !important',
+                            color: selectedTab === 'tab1' ? '#414755' : '#414755',
+                            fontSize: '18px',
+                            borderRadius: '10px 10px 0 0 !important', border: 0
+                        }}
+                        >
+                        Cohésion/Niveau
+                    </ToggleButton>
+                    <ToggleButton value="tab2" aria-label="centered" sx={{
+                            px: 1,
+                            mx: 1,
+                            background: selectedTab === 'tab1' ? '#DFE7CF !important' : '#DFE7CF !important',
+                            color: selectedTab === 'tab1' ? '#59683C' : '#59683C',
+                            fontSize: '18px',
+                            borderRadius: '10px 10px 0 0 !important', border: 0
+                        }}>
+                    Fautes
+                    </ToggleButton>
+                    <ToggleButton value="tab3" aria-label="right aligned" sx={{
+                            px: 1,
+                            ml: 1,
+                            background: selectedTab === 'tab1' ? '#E7D8CF !important' : '#E7D8CF !important',
+                            color: selectedTab === 'tab1' ? '#8D6750' : '#8D6750',
+                            fontSize: '18px',
+                            borderRadius: '10px 10px 0 0 !important', border: 0
+                        }}>
+                    Vitesse
+                    </ToggleButton>
           </ToggleButtonGroup>
 
           {/* Contenu spécifique à chaque onglet */}
@@ -93,8 +130,13 @@ const PageTexte = () => {
                 <Button variant="outlined" startIcon={<InsightsIcon />} sx={{color: '#000', background: "#fff", border: 0, my: 1, width: '100%'}}>
                     Statistiques du texte
                 </Button>
-                <Button variant="outlined" sx={{color: '#000', background: '#fff', border: 0, my: 1, width: '100%'}}>
-                    Voir toutes les erreurs 
+                <Button
+                    variant="outlined"
+                    onClick={handleResetConjugaison}
+                    startIcon={<InsightsIcon />}
+                    sx={{ color: '#000', background: "#fff", border: 0, my: 1, width: '100%' }}
+                >
+                    Voir toutes les erreurs
                 </Button>
                 <FormGroup sx={{width: '100%'}}>
                    {/**<FormControlLabel control={<Checkbox defaultChecked />} label="Conjugaison" sx={{m: '8px', background: '#fff', borderRadius: '5px', m: 0, color: '#C62323', textDecoration: 'underline'}} /> */} 
@@ -125,7 +167,7 @@ const PageTexte = () => {
                     <FormControlLabel control={
                         <Checkbox
                             checked={syntaxeChecked}
-                            onChange={() => setPonctuationChecked((prev) => !prev)}
+                            onChange={() => setSyntaxeChecked((prev) => !prev)}
                         />
                     } label="Syntaxe" sx={{my: 1, background: '#fff', borderRadius: '5px', m: 0, color: '#75C623', textDecoration: 'underline'}} />
                 </FormGroup>
