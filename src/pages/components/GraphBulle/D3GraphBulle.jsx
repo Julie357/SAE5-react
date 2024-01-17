@@ -8,8 +8,8 @@ const ForceDirectedGraph = () => {
   const recurrentErrors = useSelector(selectRecurrentErrors);
 
   useEffect(() => {
-    const width = 400;
-    const height = 400;
+    const width = 600;
+    const height = 350;
 
     const x = d3.scaleOrdinal()
       .domain([1, 2, 3, 4, 5])
@@ -17,7 +17,7 @@ const ForceDirectedGraph = () => {
 
     const color = d3.scaleOrdinal()
       .domain([1, 2, 3, 4, 5])
-      .range(["#FFE6E2", "#D8ECFC", "#FFB5A7", "#3D6787", "#A1CDF1", "#D8ECFC"]);
+      .range(["#A1CDF1", "#FFB5A7", "#FFE6E2", "#3D6787", "#A1CDF1", "#D8ECFC"]);
 
     const data1 = [
       { "name": "nom", "group": 1, "size": 20 },

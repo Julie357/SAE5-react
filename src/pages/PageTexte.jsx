@@ -194,7 +194,7 @@ const PageTexte = () => {
             </Box>
 
             {/* Right Content */}
-            <RecurrentErrorsBulles />
+            {/* <RecurrentErrorsBulles /> */}
         </Box>
 
         {/* <D3GraphBulle2 /> */}
