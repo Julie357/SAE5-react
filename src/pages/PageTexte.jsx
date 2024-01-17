@@ -37,7 +37,9 @@ const PageTexte = () => {
   };
 
   const handleResetConjugaison = () => {
-    setConjugaisonChecked(false);
+    setConjugaisonChecked(true);
+    setPonctuationChecked(true);
+    setSyntaxeChecked(true);
   };
 
   const theme = createTheme({
@@ -144,21 +146,22 @@ const PageTexte = () => {
                 <FormGroup sx={{width: '100%'}}>
                    {/**<FormControlLabel control={<Checkbox defaultChecked />} label="Conjugaison" sx={{m: '8px', background: '#fff', borderRadius: '5px', m: 0, color: '#C62323', textDecoration: 'underline'}} /> */} 
                    <FormControlLabel
-                        control={
-                            <Checkbox
+                    control={
+                        <Checkbox
                             checked={conjugaisonChecked}
                             onChange={() => setConjugaisonChecked((prev) => !prev)}
-                            />
-                        }
-                        label="Conjugaison"
-                        sx={{
-                            my: 1,
-                            background: '#fff',
-                            borderRadius: '5px',
-                            m: 0,
-                            color: '#C62323'
-                        }}
                         />
+                    }
+                    label="Conjugaison"
+                    sx={{
+                        mb: 1, // Ajout de la marge en bas
+                        background: '#fff',
+                        borderRadius: '5px',
+                        m: 0,
+                        color: '#C62323',
+                        textDecoration: 'underline',
+                    }}
+                />
                     <FormControlLabel control={
                         <Checkbox
                             checked={ponctuationChecked}

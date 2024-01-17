@@ -9,7 +9,7 @@ const ForceDirectedGraph = () => {
 
   useEffect(() => {
     const width = 600;
-    const height = 350;
+    const height = 450;
 
     const x = d3.scaleOrdinal()
       .domain([1, 2, 3, 4, 5])
@@ -63,7 +63,7 @@ const ForceDirectedGraph = () => {
 
     // Ajouter le cercle à chaque groupe
     node.append("circle")
-      .attr("r", d => d.size || 29)
+      .attr("r", d => (d.size || 29) * 1.3)
       .style("fill", d => color(d.group))
       .style("fill-opacity", 0.8)
       .attr("stroke", "black")
@@ -81,7 +81,8 @@ const ForceDirectedGraph = () => {
       .force("y", d3.forceY().strength(0.05)) // Force verticale
       .force("center", d3.forceCenter().x(width / 2).y(height / 2))
       .force("charge", d3.forceManyBody().strength(-50)) // Force de répulsion, ajustez la force ici
-      .force("collide", d3.forceCollide().strength(0.1).radius(d => d.size || 32).iterations(1));
+      .force("collide", d3.forceCollide().strength(0.1).radius(d => (d.size || 29) * 1.3).iterations(1));
+
 
     simulation
       .nodes(data)
