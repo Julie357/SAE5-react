@@ -18,6 +18,14 @@ export const sortByAlphabet = (exercises) => {
   return [...exercises].sort((a, b) => a.title.localeCompare(b.title));
 };
 
+export const sortByClasses = (classes) => {
+  return [...classes].sort((a, b) => a.classname.localeCompare(b.classname));
+};
+
+export const sortByClassesDescending = (classes) => {
+  return [...classes].sort((a, b) => b.classname.localeCompare(a.classname));
+};
+
 export const sortByQuery = (exercises, query) => {
   return exercises.filter(
     (exercise) =>
@@ -25,6 +33,12 @@ export const sortByQuery = (exercises, query) => {
   );
 };
 
+export const sortClassesByQuery = (classes, query) => {
+  return classes.filter(
+    (clazz) =>
+      query === "" || clazz.classname.toLowerCase().includes(query.toLowerCase())
+  );
+};
 export const filterByLevel = (exercises, level) => {
   if (!level) {
     return exercises;

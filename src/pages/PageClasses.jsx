@@ -175,7 +175,7 @@ const PageClasses = () => {
         <Grid container spacing={4} sx={{ mb: 3, mt: 1, mx: 'auto', maxWidth: '1500px' }}>
           <Grid item xs={1}>
             <ItemMenu sx={{ boxShadow: 'none' }}>
-              <img src="../assets/logo-A4ll.svg" alt="" />
+              <img src="./assets/logo-A4ll.svg" alt="" />
               <div className="logodelapage">
                 <img className="logo" src={svg2} alt="logo A4ll" />
             </div>
