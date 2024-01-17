@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { useSelector } from "react-redux";
+import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
 
 const ForceDirectedGraph = () => {
   const svgRef = useRef(null);
+  const recurrentErrors = useSelector(selectRecurrentErrors);
 
   useEffect(() => {
     const width = 400;
-    const height = 300;
+    const height = 400;
 
     const x = d3.scaleOrdinal()
       .domain([1, 2, 3, 4, 5])
@@ -16,7 +19,7 @@ const ForceDirectedGraph = () => {
       .domain([1, 2, 3, 4, 5])
       .range(["#FFE6E2", "#D8ECFC", "#FFB5A7", "#3D6787", "#A1CDF1", "#D8ECFC"]);
 
-    const data = [
+    const data1 = [
       { "name": "nom", "group": 1, "size": 20 },
       { "name": "conjugaison", "group": 2, "size": 60 },
       { "name": "be + ing", "group": 3, "size": 40 },
@@ -24,7 +27,21 @@ const ForceDirectedGraph = () => {
       { "name": "adjectif", "group": 5, "size": 30 },
       { "name": "verbe", "group": 6, "size": 40 }
     ];
+    const data = [];
+    recurrentErrors.forEach((recurrentError, index) => {
+      const category = Object.keys(recurrentError)[0];
+      const errors = Object.entries(recurrentError[category]);
 
+      errors.forEach(([error, percentage]) => {
+        data.push({
+          name: error,
+          group: index + 1,
+          size: percentage,
+        });
+      });
+    });
+
+    console.log("Data:", data);
     const svg = d3.select("#my_dataviz");
 
     // Remove existing SVG elements

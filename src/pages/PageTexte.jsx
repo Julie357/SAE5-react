@@ -5,8 +5,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
 import D3GraphBulle from './components/GraphBulle/D3GraphBulle';
+import D3GraphBulle2 from './components/GraphBulle/D3GraphBulle2';
 import "../Styles/stylePage.css";
-
+import RecurrentErrors from './components/StudentCardComponents/RecurrentErrors';
+import RecurrentErrorsBulles from './components/StudentCardComponents/RecurrentErrorsBulles';
+import CombinedComponent from './components/GraphBulle/CombinedComponent';
 const PageTexte = () => {
 
   const [selectedTab, setSelectedTab] = useState('tab1');
@@ -174,18 +177,27 @@ const PageTexte = () => {
             </Box>
         </Box>
 
-        <Box sx={{m:8, p: 4, background: "#CFD6E7", borderRadius: '10px', display:'flex'}}>
+        <Box sx={{ m: 8, p: 4, background: "#CFD6E7", borderRadius: '10px', display: 'flex' }}>
+            {/* Left Content */}
             <D3GraphBulle />
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+
+            {/* Legend */}
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <p>Légende :</p>
-                <Box sx={{display: 'flex'}}>
-                    <Box><p>   </p></Box>
-                    <Box sx={{width:'30px', height: '30px', backgroundColor: '#fff', border: '2px solid black', borderRadius: '50%'}}></Box>
-                    <p>1 erreur</p>
+                <Box sx={{ display: 'flex' }}>
+                <Box>
+                    <p> </p>
                 </Box>
-                
+                <Box sx={{ width: '30px', height: '30px', backgroundColor: '#fff', border: '2px solid black', borderRadius: '50%' }}></Box>
+                <p>1 erreur</p>
+                </Box>
             </Box>
+
+            {/* Right Content */}
+            <RecurrentErrorsBulles />
         </Box>
+
+        {/* <D3GraphBulle2 /> */}
     </ThemeProvider>
     
   );
