@@ -153,8 +153,7 @@ const PageTexte = () => {
                             background: '#fff',
                             borderRadius: '5px',
                             m: 0,
-                            color: conjugaisonChecked ? '#C62323' : '#000',
-                            textDecoration: conjugaisonChecked ? 'underline' : 'none',
+                            color: '#C62323'
                         }}
                         />
                     <FormControlLabel control={
