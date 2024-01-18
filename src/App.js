@@ -15,6 +15,7 @@ import theme from './theme';
 import D3GraphBulle from './pages/components/GraphBulle/D3GraphBulle';
 import { loadStudents } from './features/students/studentAction';
 import {loadClasses} from './features/classes/classAction';
+import { loadLexical } from './features/lexical/lexicalAction';
 
 const App = () => {
     
@@ -25,6 +26,7 @@ const App = () => {
     dispatch(loadErrorsStats());
     dispatch(loadStudents());
     dispatch(loadClasses());
+    dispatch(loadLexical());
   }, [dispatch]);
 
   return (
