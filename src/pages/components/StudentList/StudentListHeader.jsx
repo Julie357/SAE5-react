@@ -1,21 +1,32 @@
 import React, { useState } from "react";
-import TuneIcon from "@mui/icons-material/Tune";
 import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
 import { Chip, Grid, Menu, Stack } from "@mui/material";
-import FilterForm from "./FilterForm";
 import SearchComponent from "./SearchComponent";
-import { useSelector } from "react-redux";
-import { selectTotalStudents } from "../../../features/students/studentSelector";
+import SortForm from "../ClassesListComponents/SortForm";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterForm from "../ClassesListComponents/FilterForm";
 
-const StudentListHeader = ({ onQueryChange}) => {
-  const [anchorFilter, setAnchorFilter] = useState(null);
-  const [openFilter, setOpenFilter] = useState(false);
-  const totalStudents = useSelector(selectTotalStudents);
+const StudentListHeader = ({
+  onQueryChange,
+  updateSort,
+  updateFilter,
+  classData,
+}) => {
+  const [openSort, setOpenSort] = useState(false);
+  const [anchorSort, setAnchorSort] = useState(null);
+  const totalStudents = classData.studentOfClassById.length;
 
-  const toggleFilter = (event) => {
-    setAnchorFilter(event.currentTarget);
-    setOpenFilter((prevOpenSort) => !prevOpenSort);
+  const toggleSort = (event) => {
+    setAnchorSort(event.currentTarget);
+    setOpenSort((prevOpenSort) => !prevOpenSort);
+  };
+  const handleSortChange = (newSort) => {
+    updateSort(newSort);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    updateFilter(newFilter);
   };
 
   return (
@@ -30,7 +41,7 @@ const StudentListHeader = ({ onQueryChange}) => {
         >
           <Stack direction="row" spacing={1}>
             <Chip
-              label="3°6"
+              label={classData.classname}
               component="a"
               href="#basic-chip"
               clickable
@@ -57,27 +68,30 @@ const StudentListHeader = ({ onQueryChange}) => {
           </Stack>
         </Box>
       </Grid>
-      <Grid item xs={5} container sx={{ marginLeft: "23vw" }}>
-        <Grid item xs={3}>
+      <Grid item xs={5} container sx={{ marginLeft: "23vw", display: "flex", alignItems: "center" }}>
+        <Grid item xs={2}>
           <Button
             variant="contained"
-            onClick={toggleFilter}
-            startIcon={<TuneIcon />}
+            startIcon={<FilterListIcon />}
+            onClick={toggleSort}
           >
-            Filtres
+            Tri
           </Button>
           <Menu
-            id="filter-menu"
-            aria-labelledby="filter-menu-button"
-            open={openFilter}
-            anchorEl={anchorFilter}
+            id="sort-menu"
+            aria-labelledby="sort-menu-button"
+            open={openSort}
+            anchorEl={anchorSort}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             transformOrigin={{ vertical: "bottom", horizontal: "left" }}
-            sx={{ marginTop: "7.5vh" }}
-            onClose={() => setOpenFilter(false)}
+            sx={{ marginTop: "7vh" }}
+            onClose={() => setOpenSort(false)}
           >
-            <FilterForm onFilterChange={console.log('filter')} />
+            <SortForm onSortChange={handleSortChange} />
           </Menu>
+        </Grid>
+        <Grid item xs={3}>
+          <FilterForm onFilterChange={handleFilterChange} />
         </Grid>
         <Grid item xs={7}>
           <SearchComponent onQueryChange={onQueryChange} />

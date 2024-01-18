@@ -70,10 +70,6 @@ const ClassesList = () => {
           updatedClasses = sortClassesByQuery(updatedClasses, query);
         }
 
-        // console.log(updatedClasses)
-        // if (updatedClasses.length === 0) {
-        //   setErrorMessage(true);
-        // }
         setFilteredClasses(updatedClasses);
       }
     };
@@ -89,8 +85,6 @@ const ClassesList = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       ["level"]: newFilter.level,
-      ["date"]: newFilter.date,
-      ["correction"]: newFilter.correction,
     }));
   };
 

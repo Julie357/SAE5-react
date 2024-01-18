@@ -4,6 +4,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import FetchStudentExercises from "../pages/fonctions/FetchStudentExercises";
 
 const PageEleve = ({ nom, prenom, level, id }) => {
+  const levelAverrage = level[0].value;
   const { studentExercisesUncorrected } = FetchStudentExercises(id);
   const totalExercisesUncorrected = studentExercisesUncorrected.length;
 
@@ -30,7 +31,7 @@ const PageEleve = ({ nom, prenom, level, id }) => {
           <PersonIcon sx={{ fontSize: 120, color: "#3D6787" }} />
         </IconButton>
         <Typography variant="body1">
-          {nom} {prenom}
+          {`${nom} ${prenom}`}
         </Typography>
         <Chip
           sx={{
@@ -42,7 +43,7 @@ const PageEleve = ({ nom, prenom, level, id }) => {
             color: "white",
             borderRadius: "10px",
           }}
-          label={level}
+          label={levelAverrage}
         />
       </Badge>
     </Box>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import TuneIcon from "@mui/icons-material/Tune";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import { Grid, Link, Menu } from "@mui/material";
 import SortForm from "./SortForm";
@@ -12,19 +10,11 @@ import SearchComponent from "./SearchComponent";
 const ClassesListHeader = ({ onQueryChange, updateSort, updateFilter }) => {
   const [openSort, setOpenSort] = useState(false);
   const [anchorSort, setAnchorSort] = useState(null);
-  const [anchorFilter, setAnchorFilter] = useState(null);
-  const [openFilter, setOpenFilter] = useState(false);
 
   const toggleSort = (event) => {
     setAnchorSort(event.currentTarget);
     setOpenSort((prevOpenSort) => !prevOpenSort);
   };
-
-  const toggleFilter = (event) => {
-    setAnchorFilter(event.currentTarget);
-    setOpenFilter((prevOpenSort) => !prevOpenSort);
-  };
-
   const handleSortChange = (newSort) => {
     updateSort(newSort);
   };

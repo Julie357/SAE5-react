@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   Box,
@@ -8,32 +8,78 @@ import {
   Typography,
 } from "@mui/material";
 import Eleve from "../Components/Eleve";
-import { Link as RouterLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import {
-  selectLoadingStudents,
-  selectStudents,
-  selectTotalStudents,
-} from "../features/students/studentSelector";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
+import FetchClassesData from "./fonctions/FetchClassesData";
+import { filterStudentsByLevel, sortByStudents, sortByStudentsByQuery, sortByStudentsDescending } from "./fonctions/sortFunctions";
 
 const StudentsList = () => {
-  const students = useSelector(selectStudents);
-  const totalStudents = useSelector(selectTotalStudents);
+  const { idClass } = useParams();
+  const { loadingStudents, studentsOfTheClass, classData } =
+    FetchClassesData(idClass);
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("alphabetique");
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [filters, setFilters] = useState({
+    level: ""
+  });
+  const totalStudents = studentsOfTheClass.length;
   const isThereStudent = () => totalStudents > 0;
-
-  const loading = useSelector(selectLoadingStudents);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 15;
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentStudents = students.slice(indexOfFirstItem, indexOfLastItem);
+  const currentStudents = filteredStudents.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  useEffect(() => {
+    const handleSortAndFilterChange = async () => {
+      if (studentsOfTheClass) {
+        let updatedStudents = [...studentsOfTheClass];
+
+        if (filters.level) {
+          updatedStudents = filterStudentsByLevel(updatedStudents, filters.level);
+        }
+
+        if (sort === "alphabetique") {
+          updatedStudents = sortByStudents(updatedStudents);
+        }
+
+        if (sort === "descending_alphabetique") {
+          updatedStudents = sortByStudentsDescending(updatedStudents);
+        }
+
+        if (query) {
+          updatedStudents = sortByStudentsByQuery(updatedStudents, query);
+        }
+
+        setFilteredStudents(updatedStudents);
+      }
+    };
+    handleSortAndFilterChange();
+  }, [query, sort, filters, studentsOfTheClass]);
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
+  };
+
+  const handleQueryChange = (newQuery) => {
+    setQuery(newQuery);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ["level"]: newFilter.level
+    }));
+  };
+
+  const handleSortChange = (newSort) => {
+    setSort(newSort);
   };
 
   const handleDrawerOpen = () => {
@@ -48,7 +94,7 @@ const StudentsList = () => {
     <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
       <Grid
         item
-        xs={10}
+        xs={11}
         sx={{
           height: "10vh",
           margin: "auto",
@@ -58,6 +104,10 @@ const StudentsList = () => {
         }}
       >
         <StudentListHeader
+          onQueryChange={handleQueryChange}
+          updateSort={handleSortChange}
+          updateFilter={handleFilterChange}
+          classData={classData}
         />
       </Grid>
       <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
@@ -73,7 +123,7 @@ const StudentsList = () => {
             paddingBottom: "1vh",
           }}
         >
-          {loading ? (
+          {loadingStudents ? (
             <CircularProgress color="primary" sx={{ marginTop: "42vh" }} />
           ) : (
             <>
@@ -89,17 +139,17 @@ const StudentsList = () => {
                   >
                     {currentStudents.map((student, index) => (
                       <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
-                          <RouterLink
-                            to={`/studentCard/${student.idStudent}`}
-                            style={{ textDecoration: "none" }}
-                          >
-                            <Eleve
-                              nom={student.name}
-                              prenom={student.firstName}
-                              level={student.skillLevel}
-                              id={student.idStudent}
-                            />
-                          </RouterLink>
+                        <RouterLink
+                          to={`/studentCard/${student.idStudent}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Eleve
+                            nom={student.name}
+                            prenom={student.firstName}
+                            level={student.skillLevel}
+                            id={student.idStudent}
+                          />
+                        </RouterLink>
                       </Grid>
                     ))}
                   </Stack>

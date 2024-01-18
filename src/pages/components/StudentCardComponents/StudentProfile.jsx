@@ -7,6 +7,7 @@ import "@fontsource/itim";
 const StudentProfile = ({ currentStudent, studentExercises }) => {
   const nbExercices = studentExercises.length;
   const isThereExercice = nbExercices > 0;
+  const levelAverrage = currentStudent.skillLevel[0].value;
 
   return (
     <>
@@ -63,7 +64,7 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h5">Niveau: B2</Typography>
+            <Typography variant="h5">Niveau: {levelAverrage}</Typography>
             {!isThereExercice && (
               <Typography variant="h5">
                 L'étudiant n'a pas réalisé d'exercice.
