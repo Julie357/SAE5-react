@@ -14,6 +14,7 @@ import { ThemeProvider } from "@mui/material";
 import theme from './theme';
 import D3GraphBulle from './pages/components/GraphBulle/D3GraphBulle';
 import { loadStudents } from './features/students/studentAction';
+import {loadClasses} from './features/classes/classAction';
 
 const App = () => {
     
@@ -23,6 +24,7 @@ const App = () => {
     dispatch(loadExercices());
     dispatch(loadErrorsStats());
     dispatch(loadStudents());
+    dispatch(loadClasses());
   }, [dispatch]);
 
   return (
@@ -31,6 +33,7 @@ const App = () => {
       <div>
         <Routes>
           <Route exact path="/" element={<Home/>} />
+          <Route path="/studentsList/:idClass" element={<StudentsList />} />
           <Route path="/studentCard/:idStudent" element={<StudentCard />} />
           <Route path="/exercicesList/:idStudent" element={<ExercicesList />} />
           <Route path="/pageClasse" element={<PageClasses/>} />

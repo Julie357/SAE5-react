@@ -65,8 +65,8 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student, updateFilter }
           <Typography fontSize={26} sx={{ marginLeft: "1.2vw" }}>
             {student.studentClassName}
           </Typography>
-          <Typography fontSize={24} sx={{ marginLeft: "10vw" }}>
-            Niveau: {student.skillLevel}
+          <Typography fontSize={24} sx={{ marginLeft: "8vw" }}>
+            Niveau: {student.skillLevel[0].value}
           </Typography>
         </Box>
       </Grid>
