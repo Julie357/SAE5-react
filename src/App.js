@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/studentCard/:idStudent" element={<StudentCard />} />
           <Route path="/exercicesList/:idStudent" element={<ExercicesList />} />
           <Route path="/pageClasse" element={<PageClasses/>} />
-          <Route path="/texte" element={<PageTexte />} />
+          <Route path="/texte/:idExercise" element={<PageTexte />} />
           <Route path="/vizu-j" element={<D3GraphBulle />}/>
           <Route path="/classe" element={<StudentsList />}/>
           <Route exact path="*" element={<Page404/>} />
