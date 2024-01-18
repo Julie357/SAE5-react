@@ -49,7 +49,6 @@ const ExercicesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [nbExercises, setNbExercises] = useState(0);
   const [errorMessage, setErrorMessage] = useState(false);
-
   const currentExercises = filteredExercises.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -208,22 +207,25 @@ const ExercicesList = () => {
                         {errorMessage && (
                           <>
                             <Typography variant="h5">
-                              Aucun exercice ne correspond au(x) filtre(s) indiqué(s).
+                              Aucun exercice ne correspond au(x) filtre(s)
+                              indiqué(s).
                             </Typography>
                           </>
                         )}
                       </Stack>
-                      <Pagination
-                        count={Math.ceil(
-                          filteredExercises.length / ITEMS_PER_PAGE
-                        )}
-                        page={currentPage}
-                        onChange={handleChangePage}
-                        color="success"
-                        shape="rounded"
-                        size="small"
-                        sx={{ position: "fixed", bottom: "5vh" }}
-                      />
+                      {studentExercisesUncorrected.length > 3 && (
+                        <Pagination
+                          count={Math.ceil(
+                            filteredExercises.length / ITEMS_PER_PAGE
+                          )}
+                          page={currentPage}
+                          onChange={handleChangePage}
+                          color="success"
+                          shape="rounded"
+                          size="small"
+                          sx={{ position: "fixed", bottom: "5vh" }}
+                        />
+                      )}
                     </>
                   )}
                   {nbExercises < 1 && (
