@@ -6,12 +6,24 @@ import {
   CircularProgress,
   Pagination,
   Typography,
+  ListItem,
+  List,
+  ListItemText,
+  Drawer,
+  Button,
 } from "@mui/material";
 import Eleve from "../Components/Eleve";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
 import FetchClassesData from "./fonctions/FetchClassesData";
-import { filterStudentsByLevel, sortByStudents, sortByStudentsByQuery, sortByStudentsDescending } from "./fonctions/sortFunctions";
+import {
+  filterStudentsByLevel,
+  sortByStudents,
+  sortByStudentsByQuery,
+  sortByStudentsDescending,
+} from "./fonctions/sortFunctions";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import DashboardClass from "./components/StudentList/DashboardClass";
 
 const StudentsList = () => {
   const { idClass } = useParams();
@@ -21,11 +33,11 @@ const StudentsList = () => {
   const [sort, setSort] = useState("alphabetique");
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [filters, setFilters] = useState({
-    level: ""
+    level: "",
   });
   const totalStudents = studentsOfTheClass.length;
   const isThereStudent = () => totalStudents > 0;
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [state, setState] = useState({ top: false });
 
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 15;
@@ -42,7 +54,10 @@ const StudentsList = () => {
         let updatedStudents = [...studentsOfTheClass];
 
         if (filters.level) {
-          updatedStudents = filterStudentsByLevel(updatedStudents, filters.level);
+          updatedStudents = filterStudentsByLevel(
+            updatedStudents,
+            filters.level
+          );
         }
 
         if (sort === "alphabetique") {
@@ -74,7 +89,7 @@ const StudentsList = () => {
   const handleFilterChange = (newFilter) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      ["level"]: newFilter.level
+      ["level"]: newFilter.level,
     }));
   };
 
@@ -82,23 +97,34 @@ const StudentsList = () => {
     setSort(newSort);
   };
 
-  const handleDrawerOpen = () => {
-    setDrawerOpen(true);
+  const toggleDrawer = (anchor, open) => (event) => {
+    setState({ ...state, [anchor]: open });
   };
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
-
   return (
     <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
+      <Grid
+        item
+        xs={12}
+        sx={{ height: "2vh", margin: "auto", backgroundColor: "#D8ECFC", display: "flex", justifyContent: "center", alignItems: "flex-start" }}
+      >
+        <Button onClick={toggleDrawer("top", true)} style={{backgroundColor: "#D8ECFC", color: "#3D6787", display: "flex", alignItems: "flex-start"}}>
+          <KeyboardArrowDownIcon />
+        </Button>
+      </Grid>
+      <Drawer
+        anchor="top"
+        open={state.top}
+        onClose={toggleDrawer("top", false)}
+      >
+        <DashboardClass classData={classData} />
+      </Drawer>
       <Grid
         item
         xs={11}
         sx={{
           height: "10vh",
           margin: "auto",
-          marginTop: "2vh",
+          marginTop: "-2vh",
           display: "flex",
           alignItems: "center",
         }}
