@@ -54,7 +54,7 @@ const StudentListHeader = ({
               }}
             />
             <Chip
-              label={`${totalStudents} élèves`}
+              label={`${totalStudents} ${totalStudents > 1 ? 'élèves' : 'élève'}`}
               component="a"
               variant="outlined"
               sx={{
