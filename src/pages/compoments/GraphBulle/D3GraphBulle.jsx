@@ -91,7 +91,7 @@ const ForceDirectedGraph = () => {
       });
   }, []);
 
-  return <div><h2>Nombre erreur (test)</h2><div id="my_dataviz"></div></div>;
+  return <div><h2>Erreur récurente :</h2><div id="my_dataviz"></div></div>;
 };
 
 export default ForceDirectedGraph;

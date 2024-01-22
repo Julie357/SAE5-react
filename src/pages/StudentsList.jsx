@@ -15,7 +15,7 @@ import {
   selectStudents,
   selectTotalStudents,
 } from "../features/students/studentSelector";
-import StudentListHeader from "./components/StudentList/StudentListHeader";
+import StudentListHeader from "./compoments/StudentList/StudentListHeader";
 
 const StudentsList = () => {
   const students = useSelector(selectStudents);

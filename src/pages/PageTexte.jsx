@@ -4,12 +4,9 @@ import { ToggleButton, ToggleButtonGroup, FormGroup, Checkbox, FormControlLabel,
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Button from '@mui/material/Button';
-import D3GraphBulle from './components/GraphBulle/D3GraphBulle';
-import D3GraphBulle2 from './components/GraphBulle/D3GraphBulle2';
-import "../Styles/stylePage.css";
-import RecurrentErrors from './components/StudentCardComponents/RecurrentErrors';
-import RecurrentErrorsBulles from './components/StudentCardComponents/RecurrentErrorsBulles';
-import CombinedComponent from './components/GraphBulle/CombinedComponent';
+import D3GraphBulle from './compoments/GraphBulle/D3GraphBulle';
+import RecurrentErrors from './compoments/StudentCardComponents/RecurrentErrors';
+import RecurrentErrorsBulles from './compoments/StudentCardComponents/RecurrentErrorsBulles';
 const PageTexte = () => {
 
   const [selectedTab, setSelectedTab] = useState('tab1');
@@ -182,20 +179,28 @@ const PageTexte = () => {
 
         <Box sx={{ m: 8, p: 4, background: "#CFD6E7", borderRadius: '10px', display: 'flex' }}>
             {/* Left Content */}
-            <D3GraphBulle />
+            <D3GraphBulle/>
 
             {/* Legend */}
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <p>Légende :</p>
-                <Box sx={{ display: 'flex' }}>
                 <Box>
-                    <p> </p>
-                </Box>
-                <Box sx={{ width: '30px', height: '30px', backgroundColor: '#fff', border: '2px solid black', borderRadius: '50%' }}></Box>
-                <p>1 erreur</p>
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffb5a7', border: '2px solid black', borderRadius: '50%' }}></Box>
+                    <p> 1 erreur</p>
+                  </Box>
+
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '30px', height: '30px', backgroundColor: '#a1cdf1', border: '2px solid black', borderRadius: '50%' }}></Box>
+                    <p> ...</p>
+                  </Box>
+
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffe6e2', border: '2px solid black', borderRadius: '50%' }}></Box>
+                    <p> ...</p>
+                  </Box>
                 </Box>
             </Box>
-
             {/* Right Content */}
             {/* <RecurrentErrorsBulles /> */}
         </Box>

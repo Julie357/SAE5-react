@@ -11,8 +11,8 @@ import {
   CircularProgress,
   Badge,
 } from "@mui/material";
-import ExerciceCard from "./components/Card";
-import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
+import ExerciceCard from "./compoments/Card"
+import ExerciceListHeader from "./compoments/ExercicesListComponents/ExerciceListHeader";
 import { useParams } from "react-router-dom";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";
 
