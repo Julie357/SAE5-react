@@ -16,7 +16,8 @@ import {
   filterByLevel,
   sortByClasses,
   sortByClassesDescending,
-  sortClassesByQuery
+  sortClassesByQuery,
+  ClassesFilterByLevel
 } from "./fonctions/sortFunctions";
 import { selectClasses, selectLoadingClasses, selectTotalClasses } from "../features/classes/classSelector";
 import ClassesListHeader from "./components/ClassesListComponents/ClassesListHeader";
@@ -54,7 +55,7 @@ const ClassesList = () => {
 
         
         if (filters.level) {
-          updatedClasses = filterByLevel(updatedClasses, filters.level);
+          updatedClasses = ClassesFilterByLevel(updatedClasses, filters.level);
         }
 
         
@@ -84,7 +85,7 @@ const ClassesList = () => {
   const handleFilterChange = (newFilter) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      ["level"]: newFilter.level,
+      ["level"]: newFilter,
     }));
   };
 
@@ -125,13 +126,6 @@ const ClassesList = () => {
               marginTop: "-3vh",
             }}
           >
-            {currentFilters.length > 0 && (
-              <>
-                {currentFilters.map((filter, index) => (
-                  <Chip key={index} label={filter} />
-                ))}
-              </>
-            )}
           </Grid>
           <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
             <Box

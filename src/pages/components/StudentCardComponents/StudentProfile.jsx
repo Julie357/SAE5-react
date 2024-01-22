@@ -72,7 +72,11 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
             )}
             {isThereExercice && (
               <Typography variant="h5">
-                Exercices effectués: {studentExercises.length}
+                {`${
+                      studentExercises.length > 1
+                        ? "Exercices effectués :"
+                        : "Exercice effectué :"
+                    }`} {studentExercises.length}
               </Typography>
             )}
           </Box>

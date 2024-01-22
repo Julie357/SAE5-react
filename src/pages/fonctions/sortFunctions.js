@@ -19,7 +19,11 @@ export const sortByAlphabet = (exercises) => {
 };
 
 export const sortByClasses = (classes) => {
-  return [...classes].sort((a, b) => a.classname.localeCompare(b.classname));
+  return [...classes].sort((a, b) => {
+    const classA = `${a.classLevel}${a.classNumber}`;
+    const classB = `${b.classLevel}${b.classNumber}`;
+    return classA.localeCompare(classB);
+  });
 };
 
 export const sortByStudents = (students) => {
@@ -27,9 +31,12 @@ export const sortByStudents = (students) => {
 };
 
 export const sortByClassesDescending = (classes) => {
-  return [...classes].sort((a, b) => b.classname.localeCompare(a.classname));
+  return [...classes].sort((a, b) => {
+    const classA = `${a.classLevel}${a.classNumber}`;
+    const classB = `${b.classLevel}${b.classNumber}`;
+    return classB.localeCompare(classA);
+  });
 };
-
 export const sortByStudentsDescending = (students) => {
   return [...students].sort((a, b) => b.name.localeCompare(a.name));
 };
@@ -44,7 +51,10 @@ export const sortByQuery = (exercises, query) => {
 export const sortClassesByQuery = (classes, query) => {
   return classes.filter(
     (clazz) =>
-      query === "" || clazz.classname.toLowerCase().includes(query.toLowerCase())
+      query === "" ||
+      `${clazz.classLevel}${clazz.classNumber}`
+        .toLowerCase()
+        .includes(query.toLowerCase())
   );
 };
 
@@ -62,6 +72,12 @@ export const filterByLevel = (exercises, level) => {
   return exercises.filter((exercise) => exercise.exercisesSkillLevel === level);
 };
 
+export const ClassesFilterByLevel = (classes, level) => {
+  if (!level) {
+    return classes;
+  }
+  return classes.filter((clazz) => clazz.classLevel === level);
+};
 export const filterStudentsByLevel = (students, level) => {
   if (!level) {
     return students;

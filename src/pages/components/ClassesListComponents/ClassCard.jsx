@@ -24,7 +24,7 @@ const ClassCard = ({ classe }) => {
         >
           <CardContent>
             <Typography variant="h4" component="div">
-              {classe.classname}
+              {classe.classLevel}{classe.classNumber}
             </Typography>
           </CardContent>
         </Card>
