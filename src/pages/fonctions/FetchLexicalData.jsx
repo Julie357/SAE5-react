@@ -6,11 +6,12 @@ import {
 import { selectExercices } from "../../features/exercices/exerciceSelector";
 
 const FetchLexicalData = (idText) => {
+  console.log(idText)
   const allExercises = useSelector(selectExercices);
   const exerciseData = allExercises.find((exercise) => exercise.idExercises == idText);
-  console.log(exerciseData);
-  const allLexical = useSelector(selectLexical);
+  console.log('data:'+exerciseData);
   const lexical = exerciseData.idLexical;
+  console.log(exerciseData.idLexical)
   const loadingLexical = useSelector(selectLoadingLexical);
 
   return {

@@ -98,6 +98,8 @@ const ExercicesList = () => {
 
         if (updatedExercises.length == 0) {
           setErrorMessage(true);
+        } else {
+          setErrorMessage(false);
         }
         setFilteredExercises(updatedExercises);
       }

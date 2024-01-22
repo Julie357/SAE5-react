@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 
 const PageTexte = () => {
   const { idText } = useParams();
+  console.log(idText)
   const { lexical, loadingLexical } = FetchLexicalData(idText);
   console.log(lexical);
   const [selectedTab, setSelectedTab] = useState("tab1");

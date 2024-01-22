@@ -5,7 +5,7 @@ import { Chip, Grid, Menu, Stack } from "@mui/material";
 import SearchComponent from "./SearchComponent";
 import SortForm from "../ClassesListComponents/SortForm";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import FilterForm from "../ClassesListComponents/FilterForm";
+import FilterForm from "./FilterForm";
 
 const StudentListHeader = ({
   onQueryChange,
@@ -41,7 +41,7 @@ const StudentListHeader = ({
         >
           <Stack direction="row" spacing={1}>
             <Chip
-              label={classData.classname}
+              label={classData.classLevel + classData.classNumber}
               component="a"
               href="#basic-chip"
               clickable

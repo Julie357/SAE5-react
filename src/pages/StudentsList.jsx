@@ -87,9 +87,8 @@ const StudentsList = () => {
   };
 
   const handleFilterChange = (newFilter) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      ["level"]: newFilter.level,
+    setFilters(() => ({
+      ["level"]: newFilter,
     }));
   };
 

@@ -61,7 +61,12 @@ export const sortClassesByQuery = (classes, query) => {
 export const sortByStudentsByQuery = (students, query) => {
   return students.filter(
     (student) =>
-      query === "" || student.name.toLowerCase().includes(query.toLowerCase())
+      query === "" ||
+      `${student.name.toLowerCase()} ${student.firstName.toLowerCase()}`.includes(
+        query.toLowerCase()
+      ) ||
+      student.firstName.toLowerCase().includes(query.toLowerCase()) ||
+      student.name.toLowerCase().includes(query.toLowerCase())
   );
 };
 
