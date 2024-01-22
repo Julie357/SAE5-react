@@ -35,24 +35,52 @@ const PageTexte = () => {
   const [wordCountTab1, setWordCountTab1] = useState(0);
   const [wordCountTab2, setWordCountTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
   const [wordCountTab3, setWordCountTab3] = useState(0);
+  const [TimeCountTab1, setTimeCountTab1] = useState(0);
+  const [TimeCountTab2, setTimeCountTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
+  const [TimeCountTab3, setTimeCountTab3] = useState(0);
+  const [OralCountTab1, setOralCountTab1] = useState(0);
+  const [OralCountTab2, setOralCountTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
+  const [OralCountTab3, setOralCountTab3] = useState(0);
+  const [WordLengthTab1, setWordLengthTab1] = useState(0);
+  const [WordLengthTab2, setWordLengthTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
+  const [WordLengthTab3, setWordLengthTab3] = useState(0);
+  const [SentenceLengthTab1, setSentenceLengthTab1] = useState(0);
+  const [SentenceLengthTab2, setSentenceLengthTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
+  const [SentenceLengthTab3, setSentenceLengthTab3] = useState(0);
 
   const handleTabChange = (event, newTab) => {
     if (newTab !== null) {
       setSelectedTab(newTab);
-  
+
       // Mettez à jour le texte de l'onglet 2 ici
       if (newTab === "tab1") {
-        setTextTab1("Lorem ipsum dolor sit amet Ea sunt harum qui distinctio possimus hic maxime atque quo voluptatem voluptatem . Sit aperiamitaque et accusamus illum ut pased aperiam autem et commodiquam qui uis eius eum doloribus pariatur est doloremque autemAut quasi corporis et sint nemo quo vitae quasi eum dolorumgalisum eos quae reprehenderit est aperiam senescent idvoluptatem earum ? Et accusamus assumenda in facilis solutaut eaque facere ex placeat ipsa et galisum facere in consequaturpariatur, id quia quia . Est omnis odio et sint nobis ex dictapossimus qui enim sint ut facere ipsa eum ipsum numquam quiratione consectetur . Non galisum molestias et natus nemo quimaiores harum est adipisci dignissimos .");
+        setTextTab1(
+          "Remarquons ici en passant comment l'infinie bonté de la duchesse respirèrent le contentement et la santé moyenne de l'esprit est supérieur. Maussade, sous la lumière nue des étoiles, offrent un des points de la place restaient fermées. Diminuer le temps d'être jaloux ? Retrouverais-je le même gardien de l'intimité ? Écrivez un chèque à toucher... "
+        );
         setSentenceCountTab1(countSentences(textTab1));
         setWordCountTab1(countWords(textTab1));
-    } else if (newTab === "tab2") {
-        setTextTab2("Lorem ipsum dolor sit amet. Ea sunt harum qui distinctio possimus hic maxime atque quo voluptatem voluptatem. Sit aperiamitaque et accusamus illum ut pased aperiam autem et commodiquam qui uis eius eum doloribus pariatur est doloremque autemAut quasi corporis et sint nemo quo vitae quasi eum dolorumgalisum eos quae reprehenderit est aperiam senescent idvoluptatem earum ? Et accusamus assumenda in facilis solutaut eaque facere ex placeat ipsa et galisum facere in consequaturpariatur, id quia quia. Est omnis odio et sint nobis ex dictapossimus qui enim sint ut facere ipsa eum ipsum numquam quiratione consectetur. Non galisum molestias et natus nemo quimaiores harum est adipisci dignissimos.");
+        setTimeCountTab1(calculateReadingTime(textTab1));
+        setOralCountTab1(calculateReadingOral(textTab1));
+        setWordLengthTab1(calculateWordLength(textTab1));
+        setSentenceLengthTab1(calculateSentenceLength(textTab1));
+      } else if (newTab === "tab2") {
+        setTextTab2(
+          "Passe la consigne à ton frère et ton fiancé ! Citoyen, soyez le bienvenu, lui dit-il. Obligées par leur éducation et leur naissance, nos atomes nés une fois offrent un monde infiniment, admirablement varié. Possédé par cette idée existe. "
+        );
         setSentenceCountTab2(countSentences(textTab2));
         setWordCountTab2(countWords(textTab2));
+        setTimeCountTab2(calculateReadingTime(textTab2));
+        setOralCountTab2(calculateReadingOral(textTab2));
+        setWordLengthTab2(calculateWordLength(textTab2));
+        setSentenceLengthTab2(calculateSentenceLength(textTab2));
       } else if (newTab === "tab3") {
         setTextTab3("Contenu de l'onglet 3.");
         setSentenceCountTab3(countSentences(textTab3));
         setWordCountTab3(countWords(textTab3));
+        setTimeCountTab3(calculateReadingTime(textTab3));
+        setOralCountTab3(calculateReadingOral(textTab3));
+        setWordLengthTab3(calculateWordLength(textTab3));
+        setSentenceLengthTab3(calculateSentenceLength(textTab3));
       }
     }
   };
@@ -62,21 +90,60 @@ const PageTexte = () => {
   };
 
   const countSentences = (text) => {
-    const sentences = text.split(/[.?!;]/g).filter((sentence) => sentence.trim() !== '');
+    const sentences = text
+      .split(/[.?!;]/g)
+      .filter((sentence) => sentence.trim() !== "");
     return sentences.length;
   };
 
   const countWords = (text) => {
-    const words = text.split(/[ ]/g).filter((word) => word.trim() !== '');
+    const words = text.split(/[ ]/g).filter((word) => word.trim() !== "");
     return words.length;
   };
-  
-  
-  
+
+  const calculateReadingTime = (text) => {
+    // Estimez une moyenne de mots lus par minute (ajustez selon vos besoins)
+    const wordsPerMinute = 175;
+    // Comptez le nombre de mots dans le texte
+    const wordCount = text.split(/\s+/).length;
+    // Calculez le temps de lecture en minutes
+    const minutes = wordCount / wordsPerMinute;
+    // Convertissez le temps de lecture en secondes
+    const seconds = minutes * 60;
+    return Math.ceil(seconds);
+  };
+
+  const calculateReadingOral = (text) => {
+    // Estimez une moyenne de mots lus par minute (ajustez selon vos besoins)
+    const wordsPerMinute = 150;
+    // Comptez le nombre de mots dans le texte
+    const wordCount = text.split(/\s+/).length;
+    // Calculez le temps de lecture en minutes
+    const minutes = wordCount / wordsPerMinute;
+    // Convertissez le temps de lecture en secondes
+    const seconds = minutes * 60;
+    return Math.ceil(seconds);
+  };
+
+  const calculateWordLength = (text) => {
+    const words = text.split(/\s+/).filter((word) => word.trim() !== '');
+  const totalSize = words.reduce((acc, word) => acc + word.length, 0);
+  const averageSize = totalSize / words.length;
+  return averageSize.toFixed(1); // Arrondir la taille moyenne à deux décimales
+  };
+
+  const calculateSentenceLength = (text) => {
+    const sentences = text.split(/[.?!;]/g).filter((sentence) => sentence.trim() !== '');
+  const totalWords = text.split(/\s+/).filter((word) => word.trim() !== '').length;
+  if (sentences.length === 0) {
+    // Afin d'éviter une division par zéro si le texte n'a pas de phrases
+    return 0;
+  }
+  const averageSize = totalWords / sentences.length;
+  return averageSize.toFixed(1); 
+  };
+
   let charCount;
- 
-  
-  // Sélectionnez le texte de l'onglet actuel en fonction de la valeur de selectedTab
   if (selectedTab === "tab1") {
     charCount = calculateCharCount(textTab1);
   } else if (selectedTab === "tab2") {
@@ -93,7 +160,7 @@ const PageTexte = () => {
   } else if (selectedTab === "tab3") {
     sentenceCount = countSentences(textTab3);
   }
-  
+
   let wordCount;
   if (selectedTab === "tab1") {
     wordCount = countWords(textTab1);
@@ -103,6 +170,41 @@ const PageTexte = () => {
     wordCount = countWords(textTab3);
   }
 
+  let TimeCount;
+  if (selectedTab === "tab1") {
+    TimeCount = calculateReadingTime(textTab1);
+  } else if (selectedTab === "tab2") {
+    TimeCount = calculateReadingTime(textTab2);
+  } else if (selectedTab === "tab3") {
+    TimeCount = calculateReadingTime(textTab3);
+  }
+
+  let OralCount;
+  if (selectedTab === "tab1") {
+    OralCount = calculateReadingOral(textTab1);
+  } else if (selectedTab === "tab2") {
+    OralCount = calculateReadingOral(textTab2);
+  } else if (selectedTab === "tab3") {
+    OralCount = calculateReadingOral(textTab3);
+  }
+
+  let WordLength;
+  if (selectedTab === "tab1") {
+    WordLength = calculateWordLength(textTab1);
+  } else if (selectedTab === "tab2") {
+    WordLength = calculateWordLength(textTab2);
+  } else if (selectedTab === "tab3") {
+    WordLength = calculateWordLength(textTab3);
+  }
+
+  let SentenceLength;
+  if (selectedTab === "tab1") {
+    SentenceLength = calculateSentenceLength(textTab1);
+  } else if (selectedTab === "tab2") {
+    SentenceLength = calculateSentenceLength(textTab2);
+  } else if (selectedTab === "tab3") {
+    SentenceLength = calculateSentenceLength(textTab3);
+  }
 
 
   const handleDisplayTextInlineChangeTab1 = () => {
@@ -243,50 +345,12 @@ const PageTexte = () => {
               />
               {/* Contenu de l'onglet 1 */}
               <p>
-                Lorem ipsum dolor sit amet.{" "}
-                <a href="a" className="err-conjugaison">
-                  Ea sunt
-                </a>{" "}
-                harum qui distinctio{" "}
-                <a className="err-syntaxe" href="a">
-                  possimus
-                </a>{" "}
-                hic maxime atque quo voluptatem{" "}
-                <a className="err-conjugaison" href="a">
-                  voluptatem
-                </a>
-                . Sit aperiam itaque et accusamus illum ut pased aperiam autem
-                et commodi quam qui{" "}
-                <a className="err-syntaxe" href="a">
-                  quis eius
-                </a>{" "}
-                eum doloribus pariatur est doloremque autem. Aut quasi corporis
-                <a className="err-ponctuation" href="a">
-                  ?{" "}
-                </a>{" "}
-                et sint nemo quo vitae quasi eum dolorum galisum eos quae{" "}
-                <a className="err-conjugaison" href="a">
-                  reprehenderit
-                </a>{" "}
-                est aperiam senescent id voluptatem earum ? Et accusamus 🤔{" "}
-                <a className="err-conjugaison" href="a">
-                  assumenda
-                </a>{" "}
-                in facilis soluta ut eaque facere ex placeat ipsa et galisum
-                facere in consequatur pariatur
-                <a className="err-ponctuation" href="a">
-                  ,
-                </a>{" "}
-                id quia quia. Est omnis odio et sint nobis ex dicta possimus qui
-                enim sint ut facere ipsa{" "}
-                <a className="err-syntaxe " href="a">
-                  eum ipsum
-                </a>{" "}
-                numquam qui ratione consectetur. Non galisum molestias et{" "}
-                <a className="err-conjugaison" href="a">
-                  natus
-                </a>{" "}
-                nemo qui maiores harum est adipisci dignissimos.
+                Remarquons ici en passant comment l'infinie bonté de la duchesse
+                respirèrent le contentement et la santé moyenne de l'esprit est
+                supérieur. Maussade, sous la lumière nue des étoiles, offrent un
+                des points de la place restaient fermées. Diminuer le temps
+                d'être jaloux ? Retrouverais-je le même gardien de l'intimité ?
+                Écrivez un chèque à toucher...
               </p>
             </Box>
           )}
@@ -302,18 +366,10 @@ const PageTexte = () => {
             >
               {/* Contenu de l'onglet 2 */}
               <p>
-                Lorem ipsum dolor sit amet. Ea sunt harum qui distinctio
-                possimus hic maxime atque quo voluptatem voluptatem. Sit aperiam
-                itaque et accusamus illum ut pased aperiam autem et commodi
-                quam qui uis eius eum doloribus pariatur est doloremque autem.
-                Aut quasi corporis et sint nemo quo vitae quasi eum dolorum
-                galisum eos quae reprehenderit est aperiam senescent id
-                voluptatem earum ? Et accusamus assumenda in facilis soluta
-                ut eaque facere ex placeat ipsa et galisum facere in consequatur
-                pariatur, id quia quia. Est omnis odio et sint nobis ex dicta
-                possimus qui enim sint ut facere ipsa eum ipsum numquam qui
-                ratione consectetur. Non galisum molestias et natus nemo qui
-                maiores harum est adipisci dignissimos.
+                Passe la consigne à ton frère et ton fiancé ! Citoyen, soyez le
+                bienvenu, lui dit-il. Obligées par leur éducation et leur
+                naissance, nos atomes nés une fois offrent un monde infiniment,
+                admirablement varié. Possédé par cette idée existe.
               </p>
             </Box>
           )}
@@ -448,37 +504,60 @@ const PageTexte = () => {
             </Box>
 
             <Typography variant="h2">Nombre de Mots</Typography>
-<Divider sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }} />
+            <Divider sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }} />
 
-<Box
-  sx={{
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr", // Deux colonnes égales
-    gap: 1, // Espace entre les colonnes
-    alignItems: "center",
-    m: 2,
-  }}
->
-  {/* Première colonne */}
-  <Box>
-  <Typography variant="body1">Charactères : {charCount}</Typography>
-  <Typography variant="body1">Phrases : {sentenceCount}</Typography>
-    <Typography variant="body1">Mots : {wordCount}</Typography>
-  </Box>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr", // Deux colonnes égales
+                gap: 1, // Espace entre les colonnes
+                alignItems: "center",
+                m: 2,
+              }}
+            >
+              {/* Première colonne */}
+              <Box>
+                <Typography variant="body1">
+                  Charactères : {charCount}
+                </Typography>
+                <Typography variant="body1">
+                  Phrases : {sentenceCount}
+                </Typography>
+                <Typography variant="body1">Mots : {wordCount}</Typography>
+              </Box>
 
-  <Box>
-    <Typography variant="body1">Temps de lecture : 39 sec</Typography>
-    <Typography variant="body1">
-      Temps de lecture orale : 1 min 16 sec
-    </Typography>
-  </Box>
-</Box>
-
-
+              <Box>
+                <Typography variant="body1">
+                  Temps de lecture : {TimeCount} sec
+                </Typography>
+                <Typography variant="body1">
+                  Temps de lecture orale : {OralCount} sec
+                </Typography>
+              </Box>
+            </Box>
 
             <Typography variant="h2">Lisibilité</Typography>
             <Divider sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }} />
-            <p>Contenu de la partie...</p>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr", // Deux colonnes égales
+                gap: 1, // Espace entre les colonnes
+                alignItems: "center",
+                m: 2,
+              }}
+            >
+              {/* Première colonne */}
+              <Box>
+                <Typography variant="body1">
+                  Taille des mots : {WordLength}
+                </Typography>
+                <Typography variant="body1">
+                  Taille des phrases : {SentenceLength}
+                </Typography>
+                <Typography variant="body1">Score Total : {wordCount}</Typography>
+              </Box>
+            </Box>
 
             <Typography variant="h2">Vocabulaire</Typography>
             <Divider sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }} />
