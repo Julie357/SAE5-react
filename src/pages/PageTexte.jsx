@@ -47,6 +47,9 @@ const PageTexte = () => {
   const [SentenceLengthTab1, setSentenceLengthTab1] = useState(0);
   const [SentenceLengthTab2, setSentenceLengthTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
   const [SentenceLengthTab3, setSentenceLengthTab3] = useState(0);
+  const [LisibilityTab1, setLisibilityTab1] = useState(0);
+  const [LisibilityTab2, setLisibilityTab2] = useState(0); // faudra supprimer les autres quand on va passer à un texte commun pour tout les onglets avec les données récupéré
+  const [LisibilityTab3, setLisibilityTab3] = useState(0);
 
   const handleTabChange = (event, newTab) => {
     if (newTab !== null) {
@@ -63,6 +66,7 @@ const PageTexte = () => {
         setOralCountTab1(calculateReadingOral(textTab1));
         setWordLengthTab1(calculateWordLength(textTab1));
         setSentenceLengthTab1(calculateSentenceLength(textTab1));
+        setLisibilityTab1(calculateReadabilityScore(textTab1));
       } else if (newTab === "tab2") {
         setTextTab2(
           "Passe la consigne à ton frère et ton fiancé ! Citoyen, soyez le bienvenu, lui dit-il. Obligées par leur éducation et leur naissance, nos atomes nés une fois offrent un monde infiniment, admirablement varié. Possédé par cette idée existe. "
@@ -73,6 +77,7 @@ const PageTexte = () => {
         setOralCountTab2(calculateReadingOral(textTab2));
         setWordLengthTab2(calculateWordLength(textTab2));
         setSentenceLengthTab2(calculateSentenceLength(textTab2));
+        setLisibilityTab2(calculateReadabilityScore(textTab2));
       } else if (newTab === "tab3") {
         setTextTab3("Contenu de l'onglet 3.");
         setSentenceCountTab3(countSentences(textTab3));
@@ -81,6 +86,7 @@ const PageTexte = () => {
         setOralCountTab3(calculateReadingOral(textTab3));
         setWordLengthTab3(calculateWordLength(textTab3));
         setSentenceLengthTab3(calculateSentenceLength(textTab3));
+        setLisibilityTab3(calculateReadabilityScore(textTab3));
       }
     }
   };
@@ -127,21 +133,40 @@ const PageTexte = () => {
 
   const calculateWordLength = (text) => {
     const words = text.split(/\s+/).filter((word) => word.trim() !== '');
-  const totalSize = words.reduce((acc, word) => acc + word.length, 0);
-  const averageSize = totalSize / words.length;
-  return averageSize.toFixed(1); // Arrondir la taille moyenne à deux décimales
+    const totalLetters = words.join('').length;
+  
+    if (words.length === 0) {
+      // Afin d'éviter une division par zéro si le texte n'a pas de mots
+      return 0;
+    }
+  
+    const averageSize = totalLetters / words.length; // Convertir en format initial
+    return averageSize.toFixed(1); // Arrondir à une décimale
   };
 
   const calculateSentenceLength = (text) => {
     const sentences = text.split(/[.?!;]/g).filter((sentence) => sentence.trim() !== '');
-  const totalWords = text.split(/\s+/).filter((word) => word.trim() !== '').length;
-  if (sentences.length === 0) {
-    // Afin d'éviter une division par zéro si le texte n'a pas de phrases
-    return 0;
-  }
-  const averageSize = totalWords / sentences.length;
-  return averageSize.toFixed(1); 
-  };
+    const totalWords = text.split(/\s+/).filter((word) => word.trim() !== '').length;
+  
+    if (sentences.length === 0) {
+      // Afin d'éviter une division par zéro si le texte n'a pas de phrases
+      return 0;
+    }
+  
+    const averageSize = totalWords / sentences.length;
+    return averageSize.toFixed(1);
+};
+
+
+const calculateReadabilityScore = (text) => {
+  const wordLength = calculateWordLength(text);
+  const sentenceLength = calculateSentenceLength(text);
+
+  // Calculer la moyenne pondérée avec plus d'importance accordée à la longueur des phrases
+  const weightedAverage = (wordLength * 2 + sentenceLength * 3) / 5;
+
+  return weightedAverage.toFixed(0); // Arrondir à deux décimales
+};
 
   let charCount;
   if (selectedTab === "tab1") {
@@ -204,6 +229,15 @@ const PageTexte = () => {
     SentenceLength = calculateSentenceLength(textTab2);
   } else if (selectedTab === "tab3") {
     SentenceLength = calculateSentenceLength(textTab3);
+  }
+
+  let Lisibility;
+  if (selectedTab === "tab1") {
+    Lisibility = calculateReadabilityScore(textTab1);
+  } else if (selectedTab === "tab2") {
+    Lisibility = calculateReadabilityScore(textTab2);
+  } else if (selectedTab === "tab3") {
+    Lisibility = calculateReadabilityScore(textTab3);
   }
 
 
@@ -555,13 +589,32 @@ const PageTexte = () => {
                 <Typography variant="body1">
                   Taille des phrases : {SentenceLength}
                 </Typography>
-                <Typography variant="body1">Score Total : {wordCount}</Typography>
+                <Typography variant="body1">Score Total : {Lisibility}</Typography>
               </Box>
             </Box>
 
             <Typography variant="h2">Vocabulaire</Typography>
             <Divider sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }} />
-            <p>Contenu de la partie...</p>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "2fr 1fr", // Deux colonnes égales
+                gap: 1, // Espace entre les colonnes
+                alignItems: "center",
+                m: 2,
+              }}
+            >
+              {/* Première colonne */}
+              <Box>
+                <Typography variant="body1">
+                  Mots communs : on a pas les données
+                </Typography>
+                <Typography variant="body1">
+                  Mots peu utilisés : on a pas les données
+                </Typography>
+                <Typography variant="body1">Score Total : on a pas les données</Typography>
+              </Box>
+            </Box>
           </DialogContent>
           <DialogActions>
             <Button onClick={handlePopupClose}>Fermer</Button>
