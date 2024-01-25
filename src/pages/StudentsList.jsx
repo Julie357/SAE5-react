@@ -87,9 +87,8 @@ const StudentsList = () => {
   };
 
   const handleFilterChange = (newFilter) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      ["level"]: newFilter.level,
+    setFilters(() => ({
+      ["level"]: newFilter,
     }));
   };
 
@@ -167,7 +166,7 @@ const StudentsList = () => {
                       <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
                         <RouterLink
                           to={`/studentCard/${student.idStudent}`}
-                          style={{ textDecoration: "none" }}
+                          style={{ textDecoration: "none", color:"#2B3643" }}
                         >
                           <Eleve
                             nom={student.name}

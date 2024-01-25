@@ -17,8 +17,9 @@ import { useParams } from "react-router-dom";
 
 const PageTexte = () => {
   const { idText } = useParams();
+  console.log(idText)
   const { lexical, loadingLexical } = FetchLexicalData(idText);
-  console.log(lexical.text);
+  console.log(lexical);
   const [selectedTab, setSelectedTab] = useState("tab1");
   const [displayTextInlineTab1, setDisplayTextInlineTab1] = useState(true);
   const [displayTextInlineTab2, setDisplayTextInlineTab2] = useState(true);

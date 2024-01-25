@@ -16,21 +16,14 @@ import { selectClasses } from "../../../features/classes/classSelector";
 const FilterForm = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     level: "",
-    date: "",
-    correction: false,
   });
 
   const classes = useSelector(selectClasses);
 
-  const handleFilterChange = (event) => {
-    const { name, value, type, checked } = event.target;
-
-    const filterValue = type === "checkbox" ? checked : value;
-
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: filterValue,
-    }));
+  const handleFilterChange = (value) => {
+    const level = value.target.value;
+    setFilters(level);
+    onFilterChange(level);
   };
 
   const handleSubmit = (event) => {
@@ -51,9 +44,15 @@ const FilterForm = ({ onFilterChange }) => {
           value={filters.level}
           label="Niveau"
           onChange={handleFilterChange}
+          renderValue={(selectedValue) =>
+            selectedValue === "" ? "Tous les niveaux" : selectedValue
+          }
         >
+          <MenuItem value={""}>{"Tous les niveaux"}</MenuItem>
           {classes.map((classe, index) => (
-            <MenuItem value={classe.classSkillLevel.value} key={index}>{classe.classSkillLevel.value}</MenuItem>
+            <MenuItem value={classe.classLevel} key={index}>
+              {classe.classLevel}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

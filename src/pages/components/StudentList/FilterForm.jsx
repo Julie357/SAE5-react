@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 
 const FilterForm = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     level: "",
-    date: "",
-    correction: false,
   });
 
   const handleFilterChange = (event) => {
-    const { name, value, type, checked } = event.target;
-
-    const filterValue = type === "checkbox" ? checked : value;
-
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: filterValue,
+    const { name, value } = event.target;
+    setFilters(() => ({
+      [name]: value,
     }));
+    onFilterChange(value);
   };
 
   const handleSubmit = (event) => {
@@ -25,38 +30,32 @@ const FilterForm = ({ onFilterChange }) => {
   };
 
   return (
-    <Box p={2}>
-      <form onSubmit={handleSubmit}>
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <InputLabel id="level-label">Niveau</InputLabel>
-          <Select
-            labelId="level-label"
-            id="level"
-            name="level"
-            value={filters.level}
-            label="Niveau"
-            onChange={handleFilterChange}
-          >
-            <MenuItem value="">Sélectionnez un niveau</MenuItem>
+    <form onSubmit={handleSubmit}>
+      <FormControl fullWidth size="small">
+        <InputLabel id="level-label" size="small">
+          Niveau
+        </InputLabel>
+        <Select
+          labelId="level-label"
+          id="level"
+          name="level"
+          value={filters.level}
+          label="Niveau"
+          onChange={handleFilterChange}
+          renderValue={(selectedValue) =>
+            selectedValue === "" ? "Tous les niveaux" : selectedValue
+          }
+        >
+          <MenuItem value="">Tous les niveaux</MenuItem>
             <MenuItem value="A1">A1</MenuItem>
             <MenuItem value="A2">A2</MenuItem>
             <MenuItem value="B1">B1</MenuItem>
             <MenuItem value="B2">B2</MenuItem>
             <MenuItem value="C1">C1</MenuItem>
             <MenuItem value="C2">C2</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControlLabel
-          control={<Checkbox checked={filters.correction} onChange={handleFilterChange} name="correction" />}
-          label="Exercices non corrigés seulement"
-        />
-
-        <Button type="submit" variant="contained" color="primary">
-          Filtrer
-        </Button>
-      </form>
-    </Box>
+        </Select>
+      </FormControl>
+    </form>
   );
 };
 
