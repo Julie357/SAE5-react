@@ -21,7 +21,7 @@ import {
 } from "../features/students/studentSelector";
 
 import { Link as RouterLink, useParams } from "react-router-dom";
-import StudentListHeader from "./components/StudentList/StudentListHeader";
+import StudentListHeader from "./compoments/StudentList/StudentListHeader";
 import FetchClassesData from "./fonctions/FetchClassesData";
 import {
   filterStudentsByLevel,
@@ -30,8 +30,7 @@ import {
   sortByStudentsDescending,
 } from "./fonctions/sortFunctions";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import DashboardClass from "./components/StudentList/DashboardClass";
-
+import DashboardClass from "./compoments/StudentList/DashboardClass";
 
 const StudentsList = () => {
   const { idClass } = useParams();

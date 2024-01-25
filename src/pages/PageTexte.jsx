@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import InsightsIcon from "@mui/icons-material/Insights";
 import Button from "@mui/material/Button";
-import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
+import D3GraphBulle from "./compoments/GraphBulle/D3GraphBulle"
 import "../Styles/stylePage.css";
 import FetchLexicalData from "./fonctions/FetchLexicalData";
 import { useParams } from "react-router-dom";
