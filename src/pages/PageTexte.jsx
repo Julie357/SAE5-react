@@ -79,8 +79,8 @@ const PageTexte = () => {
                     <ToggleButton value="tab2" aria-label="centered" sx={{
                             px: 1,
                             mx: 1,
-                            background: selectedTab === 'tab1' ? '#F9DCC4 !important' : '#F9DCC4 !important',
-                            color: selectedTab === 'tab1' ? '#C29773' : '#C29773',
+                            background: selectedTab === 'tab1' ? '#DFE7CF !important' : '#DFE7CF !important',
+                            color: selectedTab === 'tab1' ? '#59683C' : '#59683C',
                             fontSize: '18px',
                             borderRadius: '10px 10px 0 0 !important', border: 0
                         }}>
@@ -89,7 +89,7 @@ const PageTexte = () => {
                     <ToggleButton value="tab3" aria-label="right aligned" sx={{
                             px: 1,
                             ml: 1,
-                            background: selectedTab === 'tab1' ? '#FCD5CE !important' : '#FCD5CE !important',
+                            background: selectedTab === 'tab1' ? '#E7D8CF !important' : '#E7D8CF !important',
                             color: selectedTab === 'tab1' ? '#8D6750' : '#8D6750',
                             fontSize: '18px',
                             borderRadius: '10px 10px 0 0 !important', border: 0
@@ -231,10 +231,21 @@ const PageTexte = () => {
             <D3GraphBulle />
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                 <p>Légende :</p>
-                <Box sx={{display: 'flex'}}>
-                    <Box><p>   </p></Box>
-                    <Box sx={{width:'30px', height: '30px', backgroundColor: '#fff', border: '2px solid black', borderRadius: '50%'}}></Box>
-                    <p>1 erreur</p>
+                <Box>
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffb5a7', border: '2px solid black', borderRadius: '50%' }}></Box>
+                    <p> 1 erreur</p>
+                  </Box>
+
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '30px', height: '30px', backgroundColor: '#a1cdf1', border: '2px solid black', borderRadius: '50%' }}></Box>
+                    <p> ...</p>
+                  </Box>
+
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffe6e2', border: '2px solid black', borderRadius: '50%' }}></Box>
+                    <p> ...</p>
+                  </Box>
                 </Box>
                 
             </Box>
