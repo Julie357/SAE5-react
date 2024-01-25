@@ -187,17 +187,17 @@ const PageTexte = () => {
                 <Box>
                   <Box sx={{display: 'flex'}}>
                     <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffb5a7', border: '2px solid black', borderRadius: '50%' }}></Box>
-                    <p> Syntaxe :</p>
+                    <p> Syntaxe</p>
                   </Box>
 
                   <Box sx={{display: 'flex'}}>
                     <Box sx={{ width: '30px', height: '30px', backgroundColor: '#a1cdf1', border: '2px solid black', borderRadius: '50%' }}></Box>
-                    <p> Conjugaison :</p>
+                    <p> Conjugaison</p>
                   </Box>
 
                   <Box sx={{display: 'flex'}}>
                     <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffe6e2', border: '2px solid black', borderRadius: '50%' }}></Box>
-                    <p> Cohésion :</p>
+                    <p> Cohésion</p>
                   </Box>
                 </Box>
             </Box>
