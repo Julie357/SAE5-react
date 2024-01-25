@@ -3,9 +3,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
 import { Chip, Grid, Menu, Stack } from "@mui/material";
 import SearchComponent from "./SearchComponent";
-import SortForm from "../ClassesListComponents/SortForm";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FilterForm from "./FilterForm";
+//import SortForm from "../ClassesListComponents/SortForm";
 
 const StudentListHeader = ({
   onQueryChange,
@@ -87,7 +87,7 @@ const StudentListHeader = ({
             sx={{ marginTop: "7vh" }}
             onClose={() => setOpenSort(false)}
           >
-            <SortForm onSortChange={handleSortChange} />
+            {/* <SortForm onSortChange={handleSortChange} /> */}
           </Menu>
         </Grid>
         <Grid item xs={3}>

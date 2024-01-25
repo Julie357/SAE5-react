@@ -4,6 +4,7 @@ import "../Styles/stylePage.css";
 import { Box, Stack, Chip, Accordion, styled , AccordionSummary, AccordionDetails, BorderLinearProgress } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+
 const DashClasse = () => {
     const [expanded, setExpanded] = React.useState(false);
 

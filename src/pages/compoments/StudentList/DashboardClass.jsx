@@ -1,8 +1,8 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Chip, Grid } from "@mui/material";
-import FilterForm from "../ClassesListComponents/FilterForm";
 import RecurrentErrors from "./RecurrentErrors";
+import FilterForm from "./FilterForm";
 
 const DashboardClass = ({ classData }) => {
   const totalStudents = classData.studentOfClassById.length;
