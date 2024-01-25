@@ -1,6 +1,6 @@
 import React from "react";
-import StudentProfile from "./components/StudentCardComponents/StudentProfile";
-import StudentData from "./components/StudentCardComponents/StudentData";
+import StudentProfile from "./compoments/StudentCardComponents/StudentProfile";
+import StudentData from "./compoments/StudentCardComponents/StudentData";
 import { CircularProgress, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";

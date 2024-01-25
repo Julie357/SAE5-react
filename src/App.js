@@ -12,7 +12,7 @@ import StudentsList from './pages/StudentsList';
 import Page404 from './pages/Page404';
 import { ThemeProvider } from "@mui/material";
 import theme from './theme';
-import D3GraphBulle from './pages/components/GraphBulle/D3GraphBulle';
+import D3GraphBulle from './pages/compoments/GraphBulle/D3GraphBulle'
 import { loadStudents } from './features/students/studentAction';
 import {loadClasses} from './features/classes/classAction';
 import { loadLexical } from './features/lexical/lexicalAction';

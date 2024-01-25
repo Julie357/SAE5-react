@@ -13,6 +13,13 @@ import {
   Button,
 } from "@mui/material";
 import Eleve from "../Components/Eleve";
+import { useSelector } from "react-redux";
+import {
+  selectLoadingStudents,
+  selectStudents,
+  selectTotalStudents,
+} from "../features/students/studentSelector";
+
 import { Link as RouterLink, useParams } from "react-router-dom";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
 import FetchClassesData from "./fonctions/FetchClassesData";
@@ -24,6 +31,7 @@ import {
 } from "./fonctions/sortFunctions";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DashboardClass from "./components/StudentList/DashboardClass";
+
 
 const StudentsList = () => {
   const { idClass } = useParams();
@@ -88,7 +96,7 @@ const StudentsList = () => {
 
   const handleFilterChange = (newFilter) => {
     setFilters(() => ({
-      ["level"]: newFilter,
+      "level": newFilter,
     }));
   };
 

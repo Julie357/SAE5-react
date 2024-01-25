@@ -1,5 +1,5 @@
 .err-conjugaison{
-    color: #C62323;
+    color: #C62323 !important;
     text-decoration: underline;
 }
 .err-ponctuation{
@@ -9,6 +9,11 @@
 .err-syntaxe{
     color: #75C623;
     text-decoration: underline;
+}
+.txt-sans-erreur{
+    font-family: Itim;
+    color: #000;
+    text-decoration: none;
 }
 
 *{
