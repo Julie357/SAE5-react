@@ -76,8 +76,8 @@ const PageTexte = () => {
                     <ToggleButton value="tab2" aria-label="centered" sx={{
                             px: 1,
                             mx: 1,
-                            background: selectedTab === 'tab1' ? '#DFE7CF !important' : '#DFE7CF !important',
-                            color: selectedTab === 'tab1' ? '#59683C' : '#59683C',
+                            background: selectedTab === 'tab1' ? '#F9DCC4 !important' : '#F9DCC4 !important',
+                            color: selectedTab === 'tab1' ? '#C29773' : '#C29773',
                             fontSize: '18px',
                             borderRadius: '10px 10px 0 0 !important', border: 0
                         }}>
@@ -86,7 +86,7 @@ const PageTexte = () => {
                     <ToggleButton value="tab3" aria-label="right aligned" sx={{
                             px: 1,
                             ml: 1,
-                            background: selectedTab === 'tab1' ? '#E7D8CF !important' : '#E7D8CF !important',
+                            background: selectedTab === 'tab1' ? '#FCD5CE !important' : '#FCD5CE !important',
                             color: selectedTab === 'tab1' ? '#8D6750' : '#8D6750',
                             fontSize: '18px',
                             borderRadius: '10px 10px 0 0 !important', border: 0
@@ -111,7 +111,7 @@ const PageTexte = () => {
           )}
 
                 {selectedTab === 'tab2' && (
-                    <Box sx={{background: "#DFE7CF", p: 4, borderRadius: '0 10px 10px 10px ', fontFamily: 'Itim'}}>
+                    <Box sx={{background: "#F9DCC4", p: 4, borderRadius: '0 10px 10px 10px ', fontFamily: 'Itim'}}>
                     {/* Contenu de l'onglet 2 */}
                     <p>
                             Lorem ipsum dolor sit amet. Ea sunt harum qui distinctio possimus hic maxime atque quo voluptatem voluptatem. Sit aperiam itaque🤔 et accusamus illum ut pased aperiam autem et commodi quam qui uis eius eum doloribus pariatur est doloremque autem. 🤔Aut quasi corporis et sint nemo quo vitae quasi eum dolorum galisum eos quae reprehenderit  est aperiam senescent id voluptatem earum ?
@@ -121,7 +121,7 @@ const PageTexte = () => {
                 )}
 
                 {selectedTab === 'tab3' && (
-                    <Box sx={{background: "#E7D8CF", p: 4, borderRadius: '0 10px 10px 10px ', fontFamily: 'Itim'}}>
+                    <Box sx={{background: "#FCD5CE", p: 4, borderRadius: '0 10px 10px 10px ', fontFamily: 'Itim'}}>
                     {/* Contenu de l'onglet 3 */}
                     <p>Contenu de l'onglet 3</p>
                     </Box>
@@ -187,17 +187,17 @@ const PageTexte = () => {
                 <Box>
                   <Box sx={{display: 'flex'}}>
                     <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffb5a7', border: '2px solid black', borderRadius: '50%' }}></Box>
-                    <p> 1 erreur</p>
+                    <p> Syntaxe :</p>
                   </Box>
 
                   <Box sx={{display: 'flex'}}>
                     <Box sx={{ width: '30px', height: '30px', backgroundColor: '#a1cdf1', border: '2px solid black', borderRadius: '50%' }}></Box>
-                    <p> ...</p>
+                    <p> Conjugaison :</p>
                   </Box>
 
                   <Box sx={{display: 'flex'}}>
                     <Box sx={{ width: '30px', height: '30px', backgroundColor: '#ffe6e2', border: '2px solid black', borderRadius: '50%' }}></Box>
-                    <p> ...</p>
+                    <p> Cohésion :</p>
                   </Box>
                 </Box>
             </Box>
