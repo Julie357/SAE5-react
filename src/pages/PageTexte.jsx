@@ -19,6 +19,9 @@ import InsightsIcon from "@mui/icons-material/Insights";
 import Button from "@mui/material/Button";
 import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
 import "../Styles/stylePage.css";
+import "../AccessConfig-1/css/accessconfig.css";
+
+<script src="../AccessConfig-1/js/src/accessconfig.js" type="text/javascript"></script>
 
 const PageTexte = () => {
   const [selectedTab, setSelectedTab] = useState("tab1");
@@ -621,7 +624,7 @@ const calculateReadabilityScore = (text) => {
           </DialogActions>
         </Dialog>
       </Box>
-
+      <div id="accessconfig" data-accessconfig-buttonname="Paramètres d’accessibilité" data-accessconfig-params='{ "Prefix" : "a42-ac", "Font" : false, "LineSpacing": false, "Justification": false, "ImageReplacement": false}' ></div>
       <Box
         sx={{
           m: 8,
@@ -651,6 +654,7 @@ const calculateReadabilityScore = (text) => {
           </Box>
         </Box>
       </Box>
+    
     </ThemeProvider>
   );
 };
