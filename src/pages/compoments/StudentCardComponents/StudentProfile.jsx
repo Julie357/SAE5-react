@@ -1,35 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Box from "@mui/system/Box";
 import RecurrentErrors from "./RecurrentErrors";
 import { CircularProgress, Typography } from "@mui/material";
 import "@fontsource/itim";
-import { useSelector } from "react-redux";
-import {
-  selectExercices,
-  selectLoadingExercices,
-  selectTotalExercices,
-} from "../../../features/exercices/exerciceSelector";
 
 const StudentProfile = ({ currentStudent, studentExercises }) => {
   const nbExercices = studentExercises.length;
   const isThereExercice = nbExercices > 0;
-
-  // useEffect(() => {
-  //   if (!loadingExercises && allExercises.length > 0) {
-  //     const foundedExercises = [];
-  //     idExercises.map((exercise) => {
-  //       foundedExercises.push(
-  //         allExercises.find(
-  //           (exerciseImp) => exerciseImp.idExercises == exercise.idExercises
-  //         )
-  //       );
-  //     });
-
-  //     if (foundedExercises) {
-  //       setStudentExercises(foundedExercises);
-  //     }
-  //   }
-  // }, [loadingExercises, idExercises, allExercises]);
+  const levelAverrage = currentStudent.skillLevel[0].value;
 
   return (
     <>
@@ -86,7 +64,7 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h5">Niveau: B2</Typography>
+            <Typography variant="h5">Niveau: {levelAverrage}</Typography>
             {!isThereExercice && (
               <Typography variant="h5">
                 L'étudiant n'a pas réalisé d'exercice.
@@ -94,7 +72,11 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
             )}
             {isThereExercice && (
               <Typography variant="h5">
-                Exercices effectués: {studentExercises.length}
+                {`${
+                      studentExercises.length > 1
+                        ? "Exercices effectués :"
+                        : "Exercice effectué :"
+                    }`} {studentExercises.length}
               </Typography>
             )}
           </Box>

@@ -30,7 +30,7 @@ const SortForm = ({ onSortChange }) => {
         name="radio-buttons-group"
         sx={{ paddingLeft: "0.4vw" }}
       >
-        {["alphabetique", "ascending", "descending"].map((value) => (
+        {["alphabetique", "descending_alphabetique"].map((value) => (
           <FormControlLabel
             key={value}
             value={value}
@@ -39,9 +39,9 @@ const SortForm = ({ onSortChange }) => {
             label={
               value === "alphabetique"
                 ? "Ordre alphabétique"
-                : value === "ascending"
-                ? "Le + récent"
-                : "Le + ancien"
+                : value === "descending_alphabetique"
+                ? "Ordre alphabétique inverse"
+                : ""
             }
           />
         ))}

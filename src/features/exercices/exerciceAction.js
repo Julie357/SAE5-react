@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import exercicesData from "./data/exercices.json";
 import errorsData from "./data/recurrentErrors.json";
 import axios from "axios";
 import { URL_API_EXERCICES } from "../utils/config"

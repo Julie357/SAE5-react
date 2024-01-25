@@ -5,12 +5,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const ExerciceCard = ({ exercice }) => {
+  const dateExercise = new Date(exercice.date).toLocaleDateString('fr');
   return (
     <>
       <Card sx={{ width: "13vw" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {exercice.date}
+            {dateExercise}
           </Typography>
           <Typography variant="h5" component="div">
             {exercice.title}
@@ -27,7 +28,7 @@ const ExerciceCard = ({ exercice }) => {
               fontFamily: "itim",
               mb: "1vh",
             }}
-            href='/texte'
+            href={`/texte/${exercice.idExercises}`}
           >
             Voir l'exercice
           </Button>

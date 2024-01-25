@@ -10,18 +10,20 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectClasses } from "../../../features/classes/classSelector";
 
 const FilterForm = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     level: "",
   });
 
-  const handleFilterChange = (event) => {
-    const { name, value } = event.target;
-    setFilters(() => ({
-      [name]: value,
-    }));
-    onFilterChange(value);
+  const classes = useSelector(selectClasses);
+
+  const handleFilterChange = (value) => {
+    const level = value.target.value;
+    setFilters(level);
+    onFilterChange(level);
   };
 
   const handleSubmit = (event) => {
@@ -46,13 +48,12 @@ const FilterForm = ({ onFilterChange }) => {
             selectedValue === "" ? "Tous les niveaux" : selectedValue
           }
         >
-          <MenuItem value="">Tous les niveaux</MenuItem>
-            <MenuItem value="A1">A1</MenuItem>
-            <MenuItem value="A2">A2</MenuItem>
-            <MenuItem value="B1">B1</MenuItem>
-            <MenuItem value="B2">B2</MenuItem>
-            <MenuItem value="C1">C1</MenuItem>
-            <MenuItem value="C2">C2</MenuItem>
+          <MenuItem value={""}>{"Tous les niveaux"}</MenuItem>
+          {classes.map((classe, index) => (
+            <MenuItem value={classe.classLevel} key={index}>
+              {classe.classLevel}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </form>

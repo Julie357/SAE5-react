@@ -14,6 +14,8 @@ import { ThemeProvider } from "@mui/material";
 import theme from './theme';
 import D3GraphBulle from './pages/compoments/GraphBulle/D3GraphBulle'
 import { loadStudents } from './features/students/studentAction';
+import {loadClasses} from './features/classes/classAction';
+import { loadLexical } from './features/lexical/lexicalAction';
 
 const App = () => {
     
@@ -23,6 +25,8 @@ const App = () => {
     dispatch(loadExercices());
     dispatch(loadErrorsStats());
     dispatch(loadStudents());
+    dispatch(loadClasses());
+    dispatch(loadLexical());
   }, [dispatch]);
 
   return (
@@ -31,10 +35,11 @@ const App = () => {
       <div>
         <Routes>
           <Route exact path="/" element={<Home/>} />
+          <Route path="/studentsList/:idClass" element={<StudentsList />} />
           <Route path="/studentCard/:idStudent" element={<StudentCard />} />
           <Route path="/exercicesList/:idStudent" element={<ExercicesList />} />
           <Route path="/pageClasse" element={<PageClasses/>} />
-          <Route path="/texte" element={<PageTexte />} />
+          <Route path="/texte/:idExercise" element={<PageTexte />} />
           <Route path="/vizu-j" element={<D3GraphBulle />}/>
           <Route path="/classe" element={<StudentsList />}/>
           <Route exact path="*" element={<Page404/>} />

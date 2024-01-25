@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "@fontsource/itim";
 import { useSelector } from "react-redux";
-import { selectLoadingExercices } from "../features/exercices/exerciceSelector";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import {
@@ -9,47 +8,37 @@ import {
   Pagination,
   Stack,
   CircularProgress,
-  Badge,
   Chip,
 } from "@mui/material";
-import ExerciceCard from "./compoments/Card"
-import ExerciceListHeader from "./compoments/ExercicesListComponents/ExerciceListHeader";
-import { useParams } from "react-router-dom";
-import FetchStudentExercises from "./fonctions/FetchStudentExercises";
+
 import {
-  filterByCorrection,
-  filterByDate,
-  filterByLevel,
-  sortByAlphabet,
-  sortByDateAscending,
-  sortByDateDescending,
   sortByQuery,
+  filterByLevel,
+  sortByClasses,
+  sortByClassesDescending,
+  sortClassesByQuery,
+  ClassesFilterByLevel
 } from "./fonctions/sortFunctions";
+import { selectClasses, selectLoadingClasses, selectTotalClasses } from "../features/classes/classSelector";
+import ClassesListHeader from "./components/ClassesListComponents/ClassesListHeader";
+import ClassCard from "./components/ClassesListComponents/ClassCard";
 
-const ExercicesList = () => {
-  const { idStudent } = useParams();
-  const {
-    loadingStudents,
-    currentStudent,
-    studentExercises,
-    studentExercisesUncorrected,
-  } = FetchStudentExercises(idStudent);
-
+const ClassesList = () => {
   const ITEMS_PER_PAGE = 15;
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("alphabetique");
-  const [filteredExercises, setFilteredExercises] = useState([]);
+  const [filteredClasses, setFilteredClasses] = useState([]);
   const [filters, setFilters] = useState({
-    level: "",
-    date: "",
-    correction: false,
+    level: ""
   });
   const [currentFilters, setCurrentFilters] = useState([]);
-  const loading = useSelector(selectLoadingExercices);
+  const loading = useSelector(selectLoadingClasses);
+  const classes = useSelector(selectClasses);
   const [currentPage, setCurrentPage] = useState(1);
-  const [nbExercises, setNbExercises] = useState(0);
   const [errorMessage, setErrorMessage] = useState(false);
-  const currentExercises = filteredExercises.slice(
+  const nbClasses = useSelector(selectTotalClasses);
+
+  const currentClasses = filteredClasses.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
@@ -61,52 +50,33 @@ const ExercicesList = () => {
   useEffect(() => {
     const handleSortAndFilterChange = async () => {
       setCurrentFilters([]);
-      if (studentExercises) {
-        setNbExercises(studentExercises.length);
-        let updatedExercises = [...studentExercises];
-        console.log(filters);
-        console.log(currentFilters);
+      if (classes) {
+        let updatedClasses = [...classes];
 
+        
         if (filters.level) {
-          updatedExercises = filterByLevel(updatedExercises, filters.level);
-          setCurrentFilters([...currentFilters, `level: ${filters.level}`]);
-        }
-        if (filters.date) {
-          updatedExercises = filterByDate(updatedExercises, filters.date);
-          var date = new Date(filters.date).toLocaleDateString("fr");
-          setCurrentFilters([...currentFilters, `date: ${date}`]);
-        }
-        if (filters.correction) {
-          updatedExercises = filterByCorrection(
-            updatedExercises,
-            filters.correction
-          );
-          setCurrentFilters([...currentFilters, "corrigé"]);
+          updatedClasses = ClassesFilterByLevel(updatedClasses, filters.level);
         }
 
+        
         if (sort === "alphabetique") {
-          updatedExercises = sortByAlphabet(updatedExercises);
-        } else if (sort === "ascending") {
-          updatedExercises = sortByDateAscending(updatedExercises);
-        } else {
-          updatedExercises = sortByDateDescending(updatedExercises);
+          updatedClasses = sortByClasses(updatedClasses);
+        }
+
+        if (sort === "descending_alphabetique") {
+          updatedClasses = sortByClassesDescending(updatedClasses);
         }
 
         if (query) {
-          updatedExercises = sortByQuery(updatedExercises, query);
+          updatedClasses = sortClassesByQuery(updatedClasses, query);
         }
 
-        if (updatedExercises.length == 0) {
-          setErrorMessage(true);
-        } else {
-          setErrorMessage(false);
-        }
-        setFilteredExercises(updatedExercises);
+        setFilteredClasses(updatedClasses);
       }
     };
 
     handleSortAndFilterChange();
-  }, [query, sort, filters, studentExercises]);
+  }, [query, sort, filters, classes]);
 
   const handleQueryChange = (newQuery) => {
     setQuery(newQuery);
@@ -115,9 +85,7 @@ const ExercicesList = () => {
   const handleFilterChange = (newFilter) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      ["level"]: newFilter.level,
-      ["date"]: newFilter.date,
-      ["correction"]: newFilter.correction,
+      ["level"]: newFilter,
     }));
   };
 
@@ -127,7 +95,7 @@ const ExercicesList = () => {
 
   return (
     <>
-      {currentStudent && (
+      {classes && (
         <Grid container gap={3} sx={{ height: "100%", width: "100%" }}>
           <Grid
             item
@@ -140,11 +108,10 @@ const ExercicesList = () => {
               alignItems: "center",
             }}
           >
-            <ExerciceListHeader
+            <ClassesListHeader
               onQueryChange={handleQueryChange}
               updateSort={handleSortChange}
               updateFilter={handleFilterChange}
-              student={currentStudent}
             />
           </Grid>
           <Grid
@@ -159,13 +126,6 @@ const ExercicesList = () => {
               marginTop: "-3vh",
             }}
           >
-            {currentFilters.length > 0 && (
-              <>
-                {currentFilters.map((filter, index) => (
-                  <Chip key={index} label={filter} />
-                ))}
-              </>
-            )}
           </Grid>
           <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
             <Box
@@ -185,7 +145,7 @@ const ExercicesList = () => {
                 <CircularProgress color="primary" sx={{ marginTop: "42vh" }} />
               ) : (
                 <>
-                  {nbExercises > 0 && (
+                  {nbClasses > 0 && (
                     <>
                       <Stack
                         direction="row"
@@ -195,42 +155,33 @@ const ExercicesList = () => {
                         flexWrap="wrap"
                         sx={{ width: "95%" }}
                       >
-                        {currentExercises.map((exercise, index) => (
+                        {currentClasses.map((classe, index) => (
                           <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
-                            <Badge
-                              color="primary"
-                              badgeContent=" "
-                              invisible={exercise.correction}
-                            >
-                              <ExerciceCard exercice={exercise} />
-                            </Badge>
+                              <ClassCard classe={classe} />
                           </Grid>
                         ))}
                         {errorMessage && (
                           <>
                             <Typography variant="h5">
-                              Aucun exercice ne correspond au(x) filtre(s)
-                              indiqué(s).
+                              Aucune classe ne correspond au(x) filtre(s) indiqué(s).
                             </Typography>
                           </>
                         )}
                       </Stack>
-                      {studentExercisesUncorrected.length > 3 && (
-                        <Pagination
-                          count={Math.ceil(
-                            filteredExercises.length / ITEMS_PER_PAGE
-                          )}
-                          page={currentPage}
-                          onChange={handleChangePage}
-                          color="success"
-                          shape="rounded"
-                          size="small"
-                          sx={{ position: "fixed", bottom: "5vh" }}
-                        />
-                      )}
+                      <Pagination
+                        count={Math.ceil(
+                          filteredClasses.length / ITEMS_PER_PAGE
+                        )}
+                        page={currentPage}
+                        onChange={handleChangePage}
+                        color="success"
+                        shape="rounded"
+                        size="small"
+                        sx={{ position: "fixed", bottom: "5vh" }}
+                      />
                     </>
                   )}
-                  {nbExercises < 1 && (
+                  {nbClasses < 1 && (
                     <Box
                       sx={{
                         width: "100%",
@@ -242,7 +193,7 @@ const ExercicesList = () => {
                       }}
                     >
                       <Typography variant="h5">
-                        L'élève n'a pas encore réalisé d'exercice.
+                        Aucune classe disponible.
                       </Typography>
                     </Box>
                   )}
@@ -256,4 +207,4 @@ const ExercicesList = () => {
   );
 };
 
-export default ExercicesList;
+export default ClassesList;

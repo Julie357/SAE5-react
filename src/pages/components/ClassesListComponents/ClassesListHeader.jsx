@@ -1,21 +1,15 @@
 import React, { useState } from "react";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
-import { Chip, Grid, Menu, Stack } from "@mui/material";
-import SearchComponent from "./SearchComponent";
-import SortForm from "../ClassesListComponents/SortForm";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import { Grid, Link, Menu } from "@mui/material";
+import SortForm from "./SortForm";
 import FilterForm from "./FilterForm";
+import SearchComponent from "./SearchComponent";
 
-const StudentListHeader = ({
-  onQueryChange,
-  updateSort,
-  updateFilter,
-  classData,
-}) => {
+const ClassesListHeader = ({ onQueryChange, updateSort, updateFilter }) => {
   const [openSort, setOpenSort] = useState(false);
   const [anchorSort, setAnchorSort] = useState(null);
-  const totalStudents = classData.studentOfClassById.length;
 
   const toggleSort = (event) => {
     setAnchorSort(event.currentTarget);
@@ -31,43 +25,15 @@ const StudentListHeader = ({
 
   return (
     <>
-      <Grid item xs={6}>
+      <Grid item xs={1}>
         <Box
-          sx={{
-            height: "9vh",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Stack direction="row" spacing={1}>
-            <Chip
-              label={classData.classLevel + classData.classNumber}
-              component="a"
-              href="#basic-chip"
-              clickable
-              sx={{
-                background: "#3D6787",
-                color: "#fff",
-                fontFamily: "Itim",
-                fontSize: "15px",
-                fontWeight: 400,
-              }}
-            />
-            <Chip
-              label={`${totalStudents} ${totalStudents > 1 ? 'élèves' : 'élève'}`}
-              component="a"
-              variant="outlined"
-              sx={{
-                background: "#3D6787",
-                color: "#fff",
-                fontFamily: "Itim",
-                fontSize: "15px",
-                fontWeight: 400,
-              }}
-            />
-          </Stack>
-        </Box>
+          component="img"
+          src="./assets/logo-A4ll.svg"
+          alt="Description de l'image"
+          sx={{ width: "70%", height: "100%", margin: "0 0.7vw" }}
+        />
       </Grid>
+      <Grid item xs={5} />
       <Grid item xs={5} container sx={{ marginLeft: "23vw", display: "flex", alignItems: "center" }}>
         <Grid item xs={2}>
           <Button
@@ -101,4 +67,4 @@ const StudentListHeader = ({
   );
 };
 
-export default StudentListHeader;
+export default ClassesListHeader;

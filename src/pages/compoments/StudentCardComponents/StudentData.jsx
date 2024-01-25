@@ -20,7 +20,7 @@ const StudentData = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   const isCorrected = studentExercisesUncorrected.length > 0;
-  const isThereExercice = studentExercises.length > 0;
+  const isThereExercice = studentExercises?.length > 0;
 
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
@@ -56,8 +56,7 @@ const StudentData = ({
             width: "100%",
             display: "flex",
           }}
-        >
-        </Box>
+        ></Box>
       </Grid>
       <Grid item xs={12} sx={{ height: "45%", width: "100%" }}>
         <Box
@@ -89,7 +88,11 @@ const StudentData = ({
                       marginTop: "1vh",
                     }}
                   >
-                    Exercices non corrigés :
+                    {`${
+                      studentExercisesUncorrected.length > 1
+                        ? "Exercices non corrigés :"
+                        : "Exercice non corrigé"
+                    }`}
                   </Typography>
                   <Stack
                     direction="row"
@@ -104,17 +107,19 @@ const StudentData = ({
                       </Grid>
                     ))}
                   </Stack>
-                  <Pagination
-                    count={Math.ceil(
-                      studentExercisesUncorrected.length / ITEMS_PER_PAGE
-                    )}
-                    page={currentPage}
-                    onChange={handleChangePage}
-                    color="success"
-                    shape="rounded"
-                    size="small"
-                    sx={{ marginTop: "1vh" }}
-                  />
+                  {studentExercisesUncorrected.length > 3 && (
+                    <Pagination
+                      count={Math.ceil(
+                        studentExercisesUncorrected.length / ITEMS_PER_PAGE
+                      )}
+                      page={currentPage}
+                      onChange={handleChangePage}
+                      color="success"
+                      shape="rounded"
+                      size="small"
+                      sx={{ marginTop: "1vh" }}
+                    />
+                  )}
                   <Link
                     href={`/exercicesList/${student.idStudent}`}
                     underline="hover"
