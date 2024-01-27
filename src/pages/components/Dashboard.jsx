@@ -99,7 +99,7 @@ const Timeline = ({ range, data }) => {
     );
 };
 
-const Dashboard = () => {
+const Dashboard = ({studentExercises}) => {
       
     let startDate = moment().add(-365, 'days');
     let dateRange = [startDate, moment()];
@@ -111,7 +111,7 @@ const Dashboard = () => {
         };
     });
 
-    console.log(data);
+    console.log(studentExercises);
     return (
         <Timeline range={dateRange} data={data} />
      

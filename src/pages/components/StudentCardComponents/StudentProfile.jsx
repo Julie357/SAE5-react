@@ -32,11 +32,15 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
               paddingTop: "2vh",
             }}
           >
-            <Box component="img" sx={{ width: "35%", height: "100%" }}></Box>
+             {currentStudent.avatar ? (
+              <Box component="img" src={currentStudent.avatar} alt="Avatar" sx={{ width: "23%", height: "100%" }} />
+            ) : (
+              <Box component="img" src="../assets/studentPicture.png" alt="Avatar" sx={{ width: "23%", padding:"10px", backgroundColor: "#FFFFFF50" }} />
+            )}
             {currentStudent && (
               <Box
                 sx={{
-                  width: "60%",
+                  width: "70%",
                   textAlign: "start",
                   fontSize: "4.5vh",
                   display: "flex",
