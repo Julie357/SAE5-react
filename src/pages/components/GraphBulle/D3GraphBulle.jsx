@@ -56,7 +56,7 @@ const ForceDirectedGraph = () => {
     svgRef.current = newSvg.node();
 
     const node = d3.select(svgRef.current).selectAll("g")
-      .data(data)
+      .data(data1)
       .enter()
       .append("g")
       .attr("transform", d => `translate(${width / 2}, ${height / 2})`); // Centered
@@ -85,7 +85,7 @@ const ForceDirectedGraph = () => {
 
 
     simulation
-      .nodes(data)
+      .nodes(data1)
       .on("tick", function () {
         node.attr("transform", d => `translate(${d.x || width / 2}, ${d.y || height / 2})`);
       });

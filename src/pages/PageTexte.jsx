@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import InsightsIcon from "@mui/icons-material/Insights";
 import Button from "@mui/material/Button";
-import D3GraphBulle from "./components/GraphBulle/D3GraphBulle"
+import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
 import "../Styles/stylePage.css";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -34,6 +34,9 @@ const PageTexte = () => {
   const [displayTextInlineTab1, setDisplayTextInlineTab1] = useState(true);
   const [displayTextInlineTab2, setDisplayTextInlineTab2] = useState(true);
   const [displayTextInlineTab3, setDisplayTextInlineTab3] = useState(true);
+  const [conjugaisonChecked, setConjugaisonChecked] = useState(true);
+  const [ponctuationChecked, setPonctuationChecked] = useState(true);
+  const [syntaxeChecked, setSyntaxeChecked] = useState(true);
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -77,53 +80,72 @@ const PageTexte = () => {
     setSyntaxeChecked(true);
   };
 
-
   return (
     <>
-        <Box sx={{display: 'flex'}}>
-            <Box sx={{m: 4, p: 4, width: '60%'}}>
-                <ToggleButtonGroup
-                    value={selectedTab}
-                    exclusive
-                    onChange={handleTabChange}
-                    aria-label="text alignment"
-                    sx={{borderRadius: '0 0 0 0 !important', border: 0}}
-                >
-                    <ToggleButton
-                        value="tab1"
-                        aria-label="left aligned"
-                        sx={{
-                            px: 1,
-                            mr: 1,
-                            background: selectedTab === 'tab1' ? '#CFD6E7 !important' : '#CFD6E7 !important',
-                            color: selectedTab === 'tab1' ? '#414755' : '#414755',
-                            fontSize: '18px',
-                            borderRadius: '10px 10px 0 0 !important', border: 0
-                        }}
-                        >
-                        Cohésion/Niveau
-                    </ToggleButton>
-                    <ToggleButton value="tab2" aria-label="centered" sx={{
-                            px: 1,
-                            mx: 1,
-                            background: selectedTab === 'tab1' ? '#F9DCC4 !important' : '#F9DCC4 !important',
-                            color: selectedTab === 'tab1' ? '#C29773' : '#C29773',
-                            fontSize: '18px',
-                            borderRadius: '10px 10px 0 0 !important', border: 0
-                        }}>
-                    Fautes
-                    </ToggleButton>
-                    <ToggleButton value="tab3" aria-label="right aligned" sx={{
-                            px: 1,
-                            ml: 1,
-                            background: selectedTab === 'tab1' ? '#FCD5CE !important' : '#FCD5CE !important',
-                            color: selectedTab === 'tab1' ? '#8D6750' : '#8D6750',
-                            fontSize: '18px',
-                            borderRadius: '10px 10px 0 0 !important', border: 0
-                        }}>
-                    Vitesse
-                    </ToggleButton>
-                </ToggleButtonGroup>
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ m: 4, p: 4, width: "60%" }}>
+          <ToggleButtonGroup
+            value={selectedTab}
+            exclusive
+            onChange={handleTabChange}
+            aria-label="text alignment"
+            sx={{ borderRadius: "0 0 0 0 !important", border: 0 }}
+          >
+            <ToggleButton
+              value="tab1"
+              aria-label="left aligned"
+              sx={{
+                px: 1,
+                mr: 1,
+                background:
+                  selectedTab === "tab1"
+                    ? "#CFD6E7 !important"
+                    : "#CFD6E7 !important",
+                color: selectedTab === "tab1" ? "#414755" : "#414755",
+                fontSize: "18px",
+                borderRadius: "10px 10px 0 0 !important",
+                border: 0,
+              }}
+            >
+              Cohésion/Niveau
+            </ToggleButton>
+            <ToggleButton
+              value="tab2"
+              aria-label="centered"
+              sx={{
+                px: 1,
+                mx: 1,
+                background:
+                  selectedTab === "tab1"
+                    ? "#F9DCC4 !important"
+                    : "#F9DCC4 !important",
+                color: selectedTab === "tab1" ? "#C29773" : "#C29773",
+                fontSize: "18px",
+                borderRadius: "10px 10px 0 0 !important",
+                border: 0,
+              }}
+            >
+              Fautes
+            </ToggleButton>
+            <ToggleButton
+              value="tab3"
+              aria-label="right aligned"
+              sx={{
+                px: 1,
+                ml: 1,
+                background:
+                  selectedTab === "tab1"
+                    ? "#FCD5CE !important"
+                    : "#FCD5CE !important",
+                color: selectedTab === "tab1" ? "#8D6750" : "#8D6750",
+                fontSize: "18px",
+                borderRadius: "10px 10px 0 0 !important",
+                border: 0,
+              }}
+            >
+              Vitesse
+            </ToggleButton>
+          </ToggleButtonGroup>
 
           {/* Contenu spécifique à chaque onglet */}
           {selectedTab === "tab1" && (
@@ -236,38 +258,113 @@ const PageTexte = () => {
           )}
         </Box>
 
-            <Box sx={{m: 8, p: 2, width: '20%', background: "#CFD6E7", borderRadius: '10px'}}>
-                <Button variant="outlined" startIcon={<InsightsIcon />} sx={{color: '#000', background: "#fff", border: 0, my: 1, width: '100%'}}>
-                    Statistiques du texte
-                </Button>
-                <Button variant="outlined" sx={{color: '#000', background: '#fff', border: 0, my: 1, width: '100%'}}>
-                    Voir toutes les erreurs 
-                </Button>
-                <FormGroup sx={{width: '100%'}}>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Conjugaison" sx={{m: '8px', background: '#fff', borderRadius: '5px', m: 0, color: '#C62323', textDecoration: 'underline'}} />
-                    
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Ponctuation" sx={{my: 1, background: '#fff', borderRadius: '5px', m: 0, color: '#2364C6', textDecoration: 'underline'}} />
-                    
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Syntaxe" sx={{my: 1, background: '#fff', borderRadius: '5px', m: 0, color: '#75C623', textDecoration: 'underline'}} />
-                </FormGroup>
-                
-            </Box>
-        </Box>
+        <Box
+          sx={{
+            m: 8,
+            p: 2,
+            width: "20%",
+            background: "#CFD6E7",
+            borderRadius: "10px",
+          }}
+        >
+          <Button
+            variant="outlined"
+            startIcon={<InsightsIcon />}
+            sx={{
+              color: "#000",
+              background: "#fff",
+              border: 0,
+              my: 1,
+              width: "100%",
+            }}
+          >
+            Statistiques du texte
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              color: "#000",
+              background: "#fff",
+              border: 0,
+              my: 1,
+              width: "100%",
+            }}
+          >
+            Voir toutes les erreurs
+          </Button>
+          <FormGroup sx={{ width: "100%" }}>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Conjugaison"
+              sx={{
+                m: "8px",
+                background: "#fff",
+                borderRadius: "5px",
+                m: 0,
+                color: "#C62323",
+                textDecoration: "underline",
+              }}
+            />
 
-        <Box sx={{m:8, p: 4, background: "#CFD6E7", borderRadius: '10px', display:'flex'}}>
-            <D3GraphBulle />
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                <p>Légende :</p>
-                <Box sx={{display: 'flex'}}>
-                    <Box><p>   </p></Box>
-                    <Box sx={{width:'30px', height: '30px', backgroundColor: '#fff', border: '2px solid black', borderRadius: '50%'}}></Box>
-                    <p>1 erreur</p>
-                </Box>
-                
-            </Box>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Ponctuation"
+              sx={{
+                my: 1,
+                background: "#fff",
+                borderRadius: "5px",
+                m: 0,
+                color: "#2364C6",
+                textDecoration: "underline",
+              }}
+            />
+
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Syntaxe"
+              sx={{
+                my: 1,
+                background: "#fff",
+                borderRadius: "5px",
+                m: 0,
+                color: "#75C623",
+                textDecoration: "underline",
+              }}
+            />
+          </FormGroup>
         </Box>
+      </Box>
+
+      <Box
+        sx={{
+          m: 8,
+          p: 4,
+          background: "#CFD6E7",
+          borderRadius: "10px",
+          display: "flex",
+        }}
+      >
+        <D3GraphBulle />
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <p>Légende :</p>
+          <Box sx={{ display: "flex" }}>
+            <Box>
+              <p> </p>
+            </Box>
+            <Box
+              sx={{
+                width: "30px",
+                height: "30px",
+                backgroundColor: "#fff",
+                border: "2px solid black",
+                borderRadius: "50%",
+              }}
+            ></Box>
+            <p>1 erreur</p>
+          </Box>
+        </Box>
+      </Box>
     </>
-    
   );
 };
 
