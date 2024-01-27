@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Chip, Grid } from "@mui/material";
-import FilterForm from "../ClassesListComponents/FilterForm";
+import FilterForm from "./FilterForm";
 import RecurrentErrors from "./RecurrentErrors";
 
 const DashboardClass = ({ classData }) => {

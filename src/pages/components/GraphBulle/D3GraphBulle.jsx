@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { useSelector } from "react-redux";
+import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
 
 const ForceDirectedGraph = () => {
   const svgRef = useRef(null);
+  const recurrentErrors = useSelector(selectRecurrentErrors);
 
   useEffect(() => {
-    const width = 400;
-    const height = 300;
+    const width = 600;
+    const height = 450;
 
     const x = d3.scaleOrdinal()
       .domain([1, 2, 3, 4, 5])
@@ -14,9 +17,9 @@ const ForceDirectedGraph = () => {
 
     const color = d3.scaleOrdinal()
       .domain([1, 2, 3, 4, 5])
-      .range(["#FFE6E2", "#D8ECFC", "#FFB5A7", "#3D6787", "#A1CDF1", "#D8ECFC"]);
+      .range(["#A1CDF1", "#FFB5A7", "#FFE6E2", "#3D6787", "#A1CDF1", "#D8ECFC"]);
 
-    const data = [
+    const data1 = [
       { "name": "nom", "group": 1, "size": 20 },
       { "name": "conjugaison", "group": 2, "size": 60 },
       { "name": "be + ing", "group": 3, "size": 40 },
@@ -24,7 +27,21 @@ const ForceDirectedGraph = () => {
       { "name": "adjectif", "group": 5, "size": 30 },
       { "name": "verbe", "group": 6, "size": 40 }
     ];
+    const data = [];
+    recurrentErrors.forEach((recurrentError, index) => {
+      const category = Object.keys(recurrentError)[0];
+      const errors = Object.entries(recurrentError[category]);
 
+      errors.forEach(([error, percentage]) => {
+        data.push({
+          name: error,
+          group: index + 1,
+          size: percentage,
+        });
+      });
+    });
+
+    console.log("Data:", data);
     const svg = d3.select("#my_dataviz");
 
     // Remove existing SVG elements
@@ -46,7 +63,7 @@ const ForceDirectedGraph = () => {
 
     // Ajouter le cercle à chaque groupe
     node.append("circle")
-      .attr("r", d => d.size || 29)
+      .attr("r", d => (d.size || 29) * 1.3)
       .style("fill", d => color(d.group))
       .style("fill-opacity", 0.8)
       .attr("stroke", "black")
@@ -64,7 +81,8 @@ const ForceDirectedGraph = () => {
       .force("y", d3.forceY().strength(0.05)) // Force verticale
       .force("center", d3.forceCenter().x(width / 2).y(height / 2))
       .force("charge", d3.forceManyBody().strength(-50)) // Force de répulsion, ajustez la force ici
-      .force("collide", d3.forceCollide().strength(0.1).radius(d => d.size || 32).iterations(1));
+      .force("collide", d3.forceCollide().strength(0.1).radius(d => (d.size || 29) * 1.3).iterations(1));
+
 
     simulation
       .nodes(data)
@@ -73,7 +91,7 @@ const ForceDirectedGraph = () => {
       });
   }, []);
 
-  return <div><h2>Nombre erreur (test)</h2><div id="my_dataviz"></div></div>;
+  return <div><h2>Erreur récurente :</h2><div id="my_dataviz"></div></div>;
 };
 
 export default ForceDirectedGraph;

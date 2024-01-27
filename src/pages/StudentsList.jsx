@@ -13,6 +13,13 @@ import {
   Button,
 } from "@mui/material";
 import Eleve from "../Components/Eleve";
+import { useSelector } from "react-redux";
+import {
+  selectLoadingStudents,
+  selectStudents,
+  selectTotalStudents,
+} from "../features/students/studentSelector";
+
 import { Link as RouterLink, useParams } from "react-router-dom";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
 import FetchClassesData from "./fonctions/FetchClassesData";
@@ -88,7 +95,7 @@ const StudentsList = () => {
 
   const handleFilterChange = (newFilter) => {
     setFilters(() => ({
-      ["level"]: newFilter,
+      "level": newFilter,
     }));
   };
 

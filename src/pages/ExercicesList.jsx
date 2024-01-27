@@ -12,7 +12,7 @@ import {
   Badge,
   Chip,
 } from "@mui/material";
-import ExerciceCard from "./components/Card";
+import ExerciceCard from "./components/Card"
 import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
 import { useParams } from "react-router-dom";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";
