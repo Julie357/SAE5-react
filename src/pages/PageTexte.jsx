@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import {
   ToggleButton,
@@ -12,21 +12,48 @@ import InsightsIcon from "@mui/icons-material/Insights";
 import Button from "@mui/material/Button";
 import D3GraphBulle from "./components/GraphBulle/D3GraphBulle"
 import "../Styles/stylePage.css";
-import FetchLexicalData from "./fonctions/FetchLexicalData";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  selectExercices,
+  selectLoadingExercices,
+} from "../features/exercices/exerciceSelector";
+import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
 
 const PageTexte = () => {
-  const { idText } = useParams();
-  console.log(idText)
-  const { lexical, loadingLexical } = FetchLexicalData(idText);
-  console.log(lexical);
-    const [selectedTab, setSelectedTab] = useState('tab1');
-    const [displayTextInlineTab1, setDisplayTextInlineTab1] = useState(true);
-    const [displayTextInlineTab2, setDisplayTextInlineTab2] = useState(true);
-    const [displayTextInlineTab3, setDisplayTextInlineTab3] = useState(true);
-    const [conjugaisonChecked, setConjugaisonChecked] = useState(true);
-    const [ponctuationChecked, setPonctuationChecked] = useState(true);
-    const [syntaxeChecked, setSyntaxeChecked] = useState(true);
+  const { idExercise } = useParams();
+  const loadingExercises = useSelector(selectLoadingExercices);
+  const allExercises = useSelector(selectExercices);
+  const loadingLexical = useSelector(selectLoadingLexical);
+  // console.log(useSelector(selectExercices));
+  // const { lexical, loadingLexical } = FetchLexicalData(idExercise);
+  // console.log(lexical);
+  const [exerciseData, setExerciseData] = useState(null);
+  const [lexical, setLexical] = useState(null);
+  const [selectedTab, setSelectedTab] = useState("tab1");
+  const [displayTextInlineTab1, setDisplayTextInlineTab1] = useState(true);
+  const [displayTextInlineTab2, setDisplayTextInlineTab2] = useState(true);
+  const [displayTextInlineTab3, setDisplayTextInlineTab3] = useState(true);
+
+  useEffect(() => {
+    if (!loadingExercises) {
+      const exerciseData = allExercises.find(
+        (exercise) => exercise.idExercises == idExercise
+      );
+
+      if (exerciseData) {
+        setExerciseData(exerciseData);
+
+        if (!loadingLexical) {
+          const idsLexical = exerciseData.idLexical;
+
+          if (idsLexical) {
+            setLexical(idsLexical);
+          }
+        }
+      }
+    }
+  }, [loadingExercises, allExercises]);
 
   const handleTabChange = (event, newTab) => {
     if (newTab !== null) {
