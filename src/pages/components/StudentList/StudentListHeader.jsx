@@ -43,8 +43,6 @@ const StudentListHeader = ({
             <Chip
               label={classData.classLevel + classData.classNumber}
               component="a"
-              href="#basic-chip"
-              clickable
               sx={{
                 background: "#3D6787",
                 color: "#fff",
