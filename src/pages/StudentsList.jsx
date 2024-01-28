@@ -40,15 +40,6 @@ const StudentsList = () => {
   const isThereStudent = () => totalStudents > 0;
   const [state, setState] = useState({ top: false });
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 15;
-  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentStudents = filteredStudents.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-
   useEffect(() => {
     const handleSortAndFilterChange = async () => {
       if (studentsOfTheClass) {
@@ -78,10 +69,6 @@ const StudentsList = () => {
     };
     handleSortAndFilterChange();
   }, [query, sort, filters, studentsOfTheClass]);
-
-  const handleChangePage = (event, newPage) => {
-    setCurrentPage(newPage);
-  };
 
   const handleQueryChange = (newQuery) => {
     setQuery(newQuery);
@@ -131,7 +118,10 @@ const StudentsList = () => {
         open={state.top}
         onClose={toggleDrawer("top", false)}
       >
-        <DashboardClass classData={classData} onClose={toggleDrawer("top", false)} />
+        <DashboardClass
+          classData={classData}
+          onClose={toggleDrawer("top", false)}
+        />
       </Drawer>
       <Grid
         item
@@ -175,7 +165,7 @@ const StudentsList = () => {
                     justifyContent="center"
                     sx={{ width: "80%", paddingBottom: "5vh" }}
                   >
-                    {currentStudents.map((student, index) => (
+                    {filteredStudents.map((student, index) => (
                       <Grid item xs={12} sm={9} md={2} lg={2.4} key={index}>
                         <RouterLink
                           to={`/studentCard/${student.idStudent}`}
@@ -190,6 +180,22 @@ const StudentsList = () => {
                         </RouterLink>
                       </Grid>
                     ))}
+                    {filteredStudents.length == 0 && (
+                      <Box
+                        sx={{
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          height: "60vh",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        <Typography variant="h5">
+                          Aucun élève ne correspond à cette recherche.
+                        </Typography>
+                      </Box>
+                    )}
                   </Grid>
                 </>
               )}
@@ -199,7 +205,7 @@ const StudentsList = () => {
                     width: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    height: "50%",
+                    height: "60vh",
                     alignItems: "center",
                     justifyContent: "space-around",
                   }}
