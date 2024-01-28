@@ -131,7 +131,7 @@ const StudentsList = () => {
         open={state.top}
         onClose={toggleDrawer("top", false)}
       >
-        <DashboardClass classData={classData} />
+        <DashboardClass classData={classData} onClose={toggleDrawer("top", false)} />
       </Drawer>
       <Grid
         item
@@ -191,15 +191,6 @@ const StudentsList = () => {
                       </Grid>
                     ))}
                   </Grid>
-                  {/* <Pagination
-                    count={Math.ceil(totalStudents / ITEMS_PER_PAGE)}
-                    page={currentPage}
-                    onChange={handleChangePage}
-                    color="success"
-                    shape="rounded"
-                    size="small"
-                    sx={{ position: "fixed", bottom: "5vh" }}
-                  /> */}
                 </>
               )}
               {!isThereStudent() && (

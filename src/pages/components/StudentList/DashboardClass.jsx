@@ -1,10 +1,11 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Chip, Grid } from "@mui/material";
+import { Box, Button, Chip, Grid } from "@mui/material";
 import FilterForm from "./FilterForm";
 import RecurrentErrors from "./RecurrentErrors";
+import { Close } from "@mui/icons-material";
 
-const DashboardClass = ({ classData }) => {
+const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
   return (
     <>
@@ -25,15 +26,21 @@ const DashboardClass = ({ classData }) => {
             margin: "auto",
           }}
         >
-          <Typography
-            fontWeight="bolder"
-            sx={{
-              fontSize: "2.6vh",
-              marginBottom: "2vh",
-            }}
-          >
-            Informations sur la {classData.classLevel}{classData.classNumber}
-          </Typography>
+          <Grid item xs={12} sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Typography
+              fontWeight="bolder"
+              sx={{
+                fontSize: "2.6vh",
+                marginBottom: "2vh",
+              }}
+            >
+              Informations sur la {classData.classLevel}
+              {classData.classNumber}
+            </Typography>
+            <Button onClick={onClose} sx={{marginBottom: "2vh",}}>
+              <Close sx={{color:"black"}}/>
+            </Button>
+          </Grid>
           <Grid
             item
             xs={12}
