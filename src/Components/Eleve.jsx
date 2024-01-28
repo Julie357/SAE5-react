@@ -11,7 +11,6 @@ const PageEleve = ({ nom, prenom, level, id }) => {
   return (
     <Card
       sx={{
-        width: "10vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
