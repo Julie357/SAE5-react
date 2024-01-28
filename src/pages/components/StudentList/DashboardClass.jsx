@@ -38,7 +38,7 @@ const DashboardClass = ({ classData, onClose }) => {
               {classData.classNumber}
             </Typography>
             <Button onClick={onClose} sx={{marginBottom: "2vh",}}>
-              <Close sx={{color:"black"}}/>
+              <Close sx={{color:"#3D6787"}}/>
             </Button>
           </Grid>
           <Grid
