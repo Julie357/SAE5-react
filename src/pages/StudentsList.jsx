@@ -13,12 +13,6 @@ import {
   Button,
 } from "@mui/material";
 import Eleve from "../Components/Eleve";
-import { useSelector } from "react-redux";
-import {
-  selectLoadingStudents,
-  selectStudents,
-  selectTotalStudents,
-} from "../features/students/studentSelector";
 
 import { Link as RouterLink, useParams } from "react-router-dom";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
@@ -95,7 +89,7 @@ const StudentsList = () => {
 
   const handleFilterChange = (newFilter) => {
     setFilters(() => ({
-      "level": newFilter,
+      level: newFilter,
     }));
   };
 
@@ -111,9 +105,24 @@ const StudentsList = () => {
       <Grid
         item
         xs={12}
-        sx={{ height: "2vh", margin: "auto", backgroundColor: "#D8ECFC", display: "flex", justifyContent: "center", alignItems: "flex-start" }}
+        sx={{
+          height: "2vh",
+          margin: "auto",
+          backgroundColor: "#D8ECFC",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
+        }}
       >
-        <Button onClick={toggleDrawer("top", true)} style={{backgroundColor: "#D8ECFC", color: "#3D6787", display: "flex", alignItems: "flex-start"}}>
+        <Button
+          onClick={toggleDrawer("top", true)}
+          style={{
+            backgroundColor: "#D8ECFC",
+            color: "#3D6787",
+            display: "flex",
+            alignItems: "flex-start",
+          }}
+        >
           <KeyboardArrowDownIcon />
         </Button>
       </Grid>
@@ -145,7 +154,6 @@ const StudentsList = () => {
       <Grid item xs={11} sx={{ height: "82vh", margin: "auto" }}>
         <Box
           sx={{
-            backgroundColor: "#EDF6F9",
             borderRadius: "0.6vw",
             height: "100%",
             display: "flex",
@@ -161,19 +169,17 @@ const StudentsList = () => {
             <>
               {isThereStudent() && (
                 <>
-                  <Stack
-                    direction="row"
-                    gap={2.5}
-                    alignItems="center"
+                  <Grid
+                    container
+                    spacing={5}
                     justifyContent="center"
-                    flexWrap="wrap"
-                    sx={{ width: "95%" }}
+                    sx={{ width: "90%", paddingBottom: "5vh" }}
                   >
                     {currentStudents.map((student, index) => (
-                      <Grid item xs={12} sm={9} md={2} lg={2} key={index}>
+                      <Grid item xs={12} sm={9} md={2} lg={2.4} key={index}>
                         <RouterLink
                           to={`/studentCard/${student.idStudent}`}
-                          style={{ textDecoration: "none", color:"#2B3643" }}
+                          style={{ textDecoration: "none", color: "#2B3643" }}
                         >
                           <Eleve
                             nom={student.name}
@@ -184,8 +190,8 @@ const StudentsList = () => {
                         </RouterLink>
                       </Grid>
                     ))}
-                  </Stack>
-                  <Pagination
+                  </Grid>
+                  {/* <Pagination
                     count={Math.ceil(totalStudents / ITEMS_PER_PAGE)}
                     page={currentPage}
                     onChange={handleChangePage}
@@ -193,7 +199,7 @@ const StudentsList = () => {
                     shape="rounded"
                     size="small"
                     sx={{ position: "fixed", bottom: "5vh" }}
-                  />
+                  /> */}
                 </>
               )}
               {!isThereStudent() && (
