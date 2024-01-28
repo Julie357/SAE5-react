@@ -32,7 +32,7 @@ const DashboardClass = ({ classData }) => {
               marginBottom: "2vh",
             }}
           >
-            Informations sur la {classData.classname}
+            Informations sur la {classData.classLevel}{classData.classNumber}
           </Typography>
           <Grid
             item

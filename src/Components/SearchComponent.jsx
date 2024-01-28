@@ -44,7 +44,7 @@ const SearchComponent = () => {
       </SearchIconWrapper>
       <StyledInputBase
         className={isFocused ? 'open' : ''}
-        placeholder="Search…"
+        placeholder="Rechercher..."
         inputProps={{ 'aria-label': 'search' }}
       />
     </Search>

@@ -49,7 +49,7 @@ const SearchComponent = ({onQueryChange}) => {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search…"
+          placeholder="Rechercher..."
           inputProps={{ "aria-label": "search" }}
           onChange={(event) => onQueryChange(event.target.value)}
         />
