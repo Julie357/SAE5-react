@@ -1,8 +1,10 @@
 .hover-info{
-    background-color: black;
-    color :#d9d9d9;
-    width: 50px;
+    background-color: #FFFFFF;
+    color : #3D6787;
+    width: 55px;
+    border-radius: 5px;
 }
+
 
 .timeline-cells{
 display: inline-flex;

@@ -3,6 +3,7 @@ import "../../Styles/dashboard.css";
 import "@fontsource/itim";
 import moment from "moment";
 import { fr } from "moment/locale/fr";
+import { Tooltip } from "@mui/material";
 
 const DayNames = {
   0: "Lun",
@@ -14,10 +15,39 @@ const DayNames = {
   6: "Dim",
 };
 
-const Cell = ({ date, alpha, exercise }) => {
-  const [hoveredInfo, setHoveredInfo] = useState(null);
+const Cell = ({ date, value }) => {
+  const levelConversion = {
+    0: 0,
+    1: "A1",
+    2: "A2",
+    3: "A3",
+    4: "B2",
+    5: "C1",
+    6: "C2",
+  };
+
+  let Dday = date.format("DD/MM/yy");
+
+  const level = levelConversion[value];
+  let hoverInfoText;
+
+  if (level === 1 ) {
+    hoverInfoText = "Pas de donnée le " + Dday;
+  } else {
+    hoverInfoText = "Niveau " +level+ " le " + Dday;
+  }
+
+  let backgroundColor;
+  if (value === 0) {
+    backgroundColor = "#EBEDF0";
+  } else if (value === 1) {
+    backgroundColor = "red";
+  } else if (value === 2) {
+    backgroundColor = "blue";
+  }
+
   let style = {
-    backgroundColor: `rgba(255, 160, 143, ${alpha})`,
+    backgroundColor: backgroundColor,
     textAlign: "center",
     fontWeight: "bold",
     fontSize: "12px",
@@ -26,21 +56,11 @@ const Cell = ({ date, alpha, exercise }) => {
     paddingTop: "2px",
   };
   return (
-    <div
-      className="cell"
-      style={style}
-      onMouseEnter={() =>
-        setHoveredInfo({ date: date.format("DD/MM/YYYY"), value: alpha })
-      }
-      onMouseLeave={() => setHoveredInfo(null)}
-    >
-      {hoveredInfo && (
-        <div className="hover-info" style={{ width: "100px" }}>
-          <p>{hoveredInfo.date}</p>
-          <p>{hoveredInfo.value}</p>
-        </div>
-      )}
-    </div>
+    <>
+      <Tooltip title={hoverInfoText} arrow placement="top">
+        <div className="cell" style={style}></div>
+      </Tooltip>
+    </>
   );
 };
 
@@ -60,8 +80,6 @@ const Mois = ({ startDate, index }) => {
   };
 
   MoisName = retirerPointDesMois(MoisName);
-
-  console.log(MoisName);
   return (
     <div className={MoisName}>
       <div className="mois">{MoisName}</div>
@@ -69,17 +87,13 @@ const Mois = ({ startDate, index }) => {
   );
 };
 
-const Timeline = ({ range, data, studentExercises }) => {
+const Timeline = ({ range, data }) => {
   let days = Math.abs(range[0].diff(range[1], "days"));
   let cells = Array.from(new Array(days));
   let weeks = Array.from(new Array(7));
   let mois = Array.from(new Array(Math.floor(days / 7)));
   let startDate = range[0];
 
-  let min = Math.min(0, ...data.map((d) => d.value));
-  let max = Math.max(...data.map((d) => d.value));
-
-  let colorPerPoint = 1 / (max - min);
   const DayFormat = "DDMMYYYY";
 
   return (
@@ -104,15 +118,9 @@ const Timeline = ({ range, data, studentExercises }) => {
                 moment(date).format(DayFormat) ===
                 moment(d.date).format(DayFormat)
             );
-            let alpha = colorPerPoint * dataPoint.value;
+            let numValue = dataPoint.value;
             return (
-              <Cell
-                key={index}
-                index={index}
-                date={date}
-                alpha={alpha}
-                exercise={studentExercises}
-              />
+              <Cell key={index} index={index} date={date} value={numValue} />
             );
           })}
         </div>
@@ -124,14 +132,26 @@ const Timeline = ({ range, data, studentExercises }) => {
 const Dashboard = ({ studentExercises }) => {
   let startDate = moment().add(-365, "days");
   let dateRange = [startDate, moment()];
-  let data = Array.from(new Array(365)).map((_, index) => {
-    return {
-      date: moment(startDate).add(index, "day"),
-      value: Math.floor(Math.random() * 100),
-    };
+
+  const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
+
+  let dataRecup = studentExercises.map((exercise) => {
+    const numLevel = levelConversion[exercise.exercisesSkillLevel];
+    return { date: exercise.date, value: numLevel };
   });
 
-  console.log(studentExercises);
+  let data = Array.from(new Array(365)).map((_, index) => {
+    const dayDate = moment(startDate).add(index, "day");
+    const matchingDataRecup = dataRecup.find((data) => data.date === dayDate);
+
+    if (matchingDataRecup) {
+      console.log(matchingDataRecup);
+      return { date: dayDate, value: matchingDataRecup.value };
+    } else {
+      return { date: dayDate, value: 0 };
+    }
+  });
+
   return (
     <Timeline
       range={dateRange}
