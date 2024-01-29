@@ -68,7 +68,7 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h5">Niveau: {levelAverrage}</Typography>
+            <Typography variant="h5">Niveau : {levelAverrage}</Typography>
             {!isThereExercice && (
               <Typography variant="h5">
                 L'étudiant n'a pas réalisé d'exercice.
