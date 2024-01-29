@@ -26,9 +26,6 @@ const PageTexte = () => {
   const loadingExercises = useSelector(selectLoadingExercices);
   const allExercises = useSelector(selectExercices);
   const loadingLexical = useSelector(selectLoadingLexical);
-  // console.log(useSelector(selectExercices));
-  // const { lexical, loadingLexical } = FetchLexicalData(idExercise);
-  // console.log(lexical);
   const [exerciseData, setExerciseData] = useState(null);
   const [lexical, setLexical] = useState(null);
   const [selectedTab, setSelectedTab] = useState("tab1");
@@ -40,16 +37,21 @@ const PageTexte = () => {
   const [syntaxeChecked, setSyntaxeChecked] = useState(true);
 
   useEffect(() => {
+    console.log("useEffect triggered");
+
     if (!loadingExercises) {
       const exerciseData = allExercises.find(
         (exercise) => exercise.idExercises == idExercise
       );
+
+      console.log("exerciseData", exerciseData);
 
       if (exerciseData) {
         setExerciseData(exerciseData);
 
         if (!loadingLexical) {
           const idsLexical = exerciseData.idLexical;
+          console.log("idsLexical", idsLexical);
 
           if (idsLexical) {
             setLexical(idsLexical);
@@ -57,7 +59,7 @@ const PageTexte = () => {
         }
       }
     }
-  }, [loadingExercises, allExercises]);
+  }, [loadingExercises, allExercises, idExercise, loadingLexical]);
 
   const handleTabChange = (event, newTab) => {
     if (newTab !== null) {
@@ -83,259 +85,264 @@ const PageTexte = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ m: 4, p: 4, width: "60%" }}>
-          <ToggleButtonGroup
-            value={selectedTab}
-            exclusive
-            onChange={handleTabChange}
-            aria-label="text alignment"
-            sx={{ borderRadius: "0 0 0 0 !important", border: 0 }}
-          >
-            <ToggleButton
-              value="tab1"
-              aria-label="left aligned"
-              sx={{
-                px: 1,
-                mr: 1,
-                background:
-                  selectedTab === "tab1"
-                    ? "#CFD6E7 !important"
-                    : "#CFD6E7 !important",
-                color: selectedTab === "tab1" ? "#414755" : "#414755",
-                fontSize: "18px",
-                borderRadius: "10px 10px 0 0 !important",
-                border: 0,
-              }}
-            >
-              Cohésion/Niveau
-            </ToggleButton>
-            <ToggleButton
-              value="tab2"
-              aria-label="centered"
-              sx={{
-                px: 1,
-                mx: 1,
-                background:
-                  selectedTab === "tab1"
-                    ? "#F9DCC4 !important"
-                    : "#F9DCC4 !important",
-                color: selectedTab === "tab1" ? "#C29773" : "#C29773",
-                fontSize: "18px",
-                borderRadius: "10px 10px 0 0 !important",
-                border: 0,
-              }}
-            >
-              Fautes
-            </ToggleButton>
-            <ToggleButton
-              value="tab3"
-              aria-label="right aligned"
-              sx={{
-                px: 1,
-                ml: 1,
-                background:
-                  selectedTab === "tab1"
-                    ? "#FCD5CE !important"
-                    : "#FCD5CE !important",
-                color: selectedTab === "tab1" ? "#8D6750" : "#8D6750",
-                fontSize: "18px",
-                borderRadius: "10px 10px 0 0 !important",
-                border: 0,
-              }}
-            >
-              Vitesse
-            </ToggleButton>
-          </ToggleButtonGroup>
+      {exerciseData && (
+        <>
+          <Box sx={{ display: "flex" }}>
+            <Box sx={{ m: 4, p: 4, width: "60%" }}>
+              <ToggleButtonGroup
+                value={selectedTab}
+                exclusive
+                onChange={handleTabChange}
+                aria-label="text alignment"
+                sx={{ borderRadius: "0 0 0 0 !important", border: 0 }}
+              >
+                <ToggleButton
+                  value="tab1"
+                  aria-label="left aligned"
+                  sx={{
+                    px: 1,
+                    mr: 1,
+                    background:
+                      selectedTab === "tab1"
+                        ? "#CFD6E7 !important"
+                        : "#CFD6E7 !important",
+                    color: selectedTab === "tab1" ? "#414755" : "#414755",
+                    fontSize: "18px",
+                    borderRadius: "10px 10px 0 0 !important",
+                    border: 0,
+                  }}
+                >
+                  Cohésion/Niveau
+                </ToggleButton>
+                <ToggleButton
+                  value="tab2"
+                  aria-label="centered"
+                  sx={{
+                    px: 1,
+                    mx: 1,
+                    background:
+                      selectedTab === "tab1"
+                        ? "#F9DCC4 !important"
+                        : "#F9DCC4 !important",
+                    color: selectedTab === "tab1" ? "#C29773" : "#C29773",
+                    fontSize: "18px",
+                    borderRadius: "10px 10px 0 0 !important",
+                    border: 0,
+                  }}
+                >
+                  Fautes
+                </ToggleButton>
+                <ToggleButton
+                  value="tab3"
+                  aria-label="right aligned"
+                  sx={{
+                    px: 1,
+                    ml: 1,
+                    background:
+                      selectedTab === "tab1"
+                        ? "#FCD5CE !important"
+                        : "#FCD5CE !important",
+                    color: selectedTab === "tab1" ? "#8D6750" : "#8D6750",
+                    fontSize: "18px",
+                    borderRadius: "10px 10px 0 0 !important",
+                    border: 0,
+                  }}
+                >
+                  Vitesse
+                </ToggleButton>
+              </ToggleButtonGroup>
 
-          {/* Contenu spécifique à chaque onglet */}
-          {selectedTab === "tab1" && (
-            <Box
-              sx={{
-                background: "#CFD6E7",
-                p: 4,
-                borderRadius: "0 10px 10px 10px ",
-                fontFamily: "Itim",
-              }}
-            >
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={displayTextInlineTab1}
-                    onChange={handleDisplayTextInlineChangeTab1}
+              {/* Contenu spécifique à chaque onglet */}
+              {selectedTab === "tab1" && (
+                <Box
+                  sx={{
+                    background: "#CFD6E7",
+                    p: 4,
+                    borderRadius: "0 10px 10px 10px ",
+                    fontFamily: "Itim",
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={displayTextInlineTab1}
+                        onChange={handleDisplayTextInlineChangeTab1}
+                      />
+                    }
+                    label="Afficher en ligne"
                   />
-                }
-                label="Afficher en ligne"
-              />
-              <p>{exerciseData.content}</p>
-            </Box>
-          )}
 
-          {selectedTab === "tab2" && (
+                  <p>{exerciseData.content}</p>
+                </Box>
+              )}
+
+              {selectedTab === "tab2" && (
+                <Box
+                  sx={{
+                    background: "#DFE7CF",
+                    p: 4,
+                    borderRadius: "0 10px 10px 10px ",
+                    fontFamily: "Itim",
+                  }}
+                >
+                  {/* Contenu de l'onglet 2 */}
+                  <p>
+                    Lorem ipsum dolor sit amet. Ea sunt harum qui distinctio
+                    possimus hic maxime atque quo voluptatem voluptatem. Sit
+                    aperiam itaque🤔 et accusamus illum ut pased aperiam autem
+                    et commodi quam qui uis eius eum doloribus pariatur est
+                    doloremque autem. 🤔Aut quasi corporis et sint nemo quo
+                    vitae quasi eum dolorum galisum eos quae reprehenderit est
+                    aperiam senescent id voluptatem earum ? Et accusamus 🤔
+                    assumenda in facilis soluta ut eaque facere ex placeat ipsa
+                    et galisum facere in consequatur pariatur, id quia quia. Est
+                    omnis odio et sint nobis ex dicta possimus qui enim sint ut
+                    facere ipsa eum ipsum numquam qui 🤔ratione consectetur. Non
+                    galisum molestias et natus nemo qui maiores harum est
+                    adipisci dignissimos.
+                  </p>
+                </Box>
+              )}
+
+              {selectedTab === "tab3" && (
+                <Box
+                  sx={{
+                    background: "#E7D8CF",
+                    p: 4,
+                    borderRadius: "0 10px 10px 10px ",
+                    fontFamily: "Itim",
+                  }}
+                >
+                  {/* Contenu de l'onglet 3 */}
+                  <p>Contenu de l'onglet 3</p>
+                </Box>
+              )}
+            </Box>
+
             <Box
               sx={{
-                background: "#DFE7CF",
-                p: 4,
-                borderRadius: "0 10px 10px 10px ",
-                fontFamily: "Itim",
+                m: 8,
+                p: 2,
+                width: "20%",
+                background: "#CFD6E7",
+                borderRadius: "10px",
               }}
             >
-              {/* Contenu de l'onglet 2 */}
-              <p>
-                Lorem ipsum dolor sit amet. Ea sunt harum qui distinctio
-                possimus hic maxime atque quo voluptatem voluptatem. Sit aperiam
-                itaque🤔 et accusamus illum ut pased aperiam autem et commodi
-                quam qui uis eius eum doloribus pariatur est doloremque autem.
-                🤔Aut quasi corporis et sint nemo quo vitae quasi eum dolorum
-                galisum eos quae reprehenderit est aperiam senescent id
-                voluptatem earum ? Et accusamus 🤔 assumenda in facilis soluta
-                ut eaque facere ex placeat ipsa et galisum facere in consequatur
-                pariatur, id quia quia. Est omnis odio et sint nobis ex dicta
-                possimus qui enim sint ut facere ipsa eum ipsum numquam qui
-                🤔ratione consectetur. Non galisum molestias et natus nemo qui
-                maiores harum est adipisci dignissimos.
-              </p>
-            </Box>
-          )}
+              <Button
+                variant="outlined"
+                startIcon={<InsightsIcon />}
+                sx={{
+                  color: "#000",
+                  background: "#fff",
+                  border: 0,
+                  my: 1,
+                  width: "100%",
+                  paddingLeft: 0,
+                  textTransform: "none",
+                  fontSize: 16,
+                }}
+              >
+                Statistiques du texte
+              </Button>
+              <Box
+                sx={{
+                  color: "#000",
+                  background: "#fff",
+                  border: 0,
+                  width: "100%",
+                  padding: 1,
+                  borderRadius: 1,
+                }}
+              >
+                <Typography>
+                  Niveau général du texte: {exerciseData.exercisesSkillLevel}
+                </Typography>
+              </Box>
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "#000",
+                  background: "#fff",
+                  border: 0,
+                  my: 1,
+                  width: "100%",
+                }}
+              >
+                Voir toutes les erreurs
+              </Button>
+              <FormGroup sx={{ width: "100%" }}>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Conjugaison"
+                  sx={{
+                    m: "8px",
+                    background: "#fff",
+                    borderRadius: "5px",
+                    m: 0,
+                    color: "#C62323",
+                    textDecoration: "underline",
+                  }}
+                />
 
-          {selectedTab === "tab3" && (
-            <Box
-              sx={{
-                background: "#E7D8CF",
-                p: 4,
-                borderRadius: "0 10px 10px 10px ",
-                fontFamily: "Itim",
-              }}
-            >
-              {/* Contenu de l'onglet 3 */}
-              <p>Contenu de l'onglet 3</p>
-            </Box>
-          )}
-        </Box>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Ponctuation"
+                  sx={{
+                    my: 1,
+                    background: "#fff",
+                    borderRadius: "5px",
+                    m: 0,
+                    color: "#2364C6",
+                    textDecoration: "underline",
+                  }}
+                />
 
-        <Box
-          sx={{
-            m: 8,
-            p: 2,
-            width: "20%",
-            background: "#CFD6E7",
-            borderRadius: "10px",
-          }}
-        >
-          <Button
-            variant="outlined"
-            startIcon={<InsightsIcon />}
-            sx={{
-              color: "#000",
-              background: "#fff",
-              border: 0,
-              my: 1,
-              width: "100%",
-              paddingLeft: 0,
-              textTransform: "none",
-              fontSize: 16
-            }}
-          >
-            Statistiques du texte
-          </Button>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Syntaxe"
+                  sx={{
+                    my: 1,
+                    background: "#fff",
+                    borderRadius: "5px",
+                    m: 0,
+                    color: "#75C623",
+                    textDecoration: "underline",
+                  }}
+                />
+              </FormGroup>
+            </Box>
+          </Box>
           <Box
             sx={{
-              color: "#000",
-              background: "#fff",
-              border: 0,
-              width: "100%",
-              padding: 1,
-              borderRadius: 1,
+              m: 8,
+              p: 4,
+              background: "#CFD6E7",
+              borderRadius: "10px",
+              display: "flex",
             }}
           >
-            <Typography>
-              Niveau général du texte: {exerciseData.exercisesSkillLevel}
-            </Typography>
-          </Box>
-          <Button
-            variant="outlined"
-            sx={{
-              color: "#000",
-              background: "#fff",
-              border: 0,
-              my: 1,
-              width: "100%",
-            }}
-          >
-            Voir toutes les erreurs
-          </Button>
-          <FormGroup sx={{ width: "100%" }}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Conjugaison"
-              sx={{
-                m: "8px",
-                background: "#fff",
-                borderRadius: "5px",
-                m: 0,
-                color: "#C62323",
-                textDecoration: "underline",
-              }}
-            />
-
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Ponctuation"
-              sx={{
-                my: 1,
-                background: "#fff",
-                borderRadius: "5px",
-                m: 0,
-                color: "#2364C6",
-                textDecoration: "underline",
-              }}
-            />
-
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Syntaxe"
-              sx={{
-                my: 1,
-                background: "#fff",
-                borderRadius: "5px",
-                m: 0,
-                color: "#75C623",
-                textDecoration: "underline",
-              }}
-            />
-          </FormGroup>
-        </Box>
-      </Box>
-
-      <Box
-        sx={{
-          m: 8,
-          p: 4,
-          background: "#CFD6E7",
-          borderRadius: "10px",
-          display: "flex",
-        }}
-      >
-        <D3GraphBulle />
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <p>Légende :</p>
-          <Box sx={{ display: "flex" }}>
-            <Box>
-              <p> </p>
+            <D3GraphBulle />
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <p>Légende :</p>
+              <Box sx={{ display: "flex" }}>
+                <Box>
+                  <p> </p>
+                </Box>
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#fff",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                  }}
+                ></Box>
+                <p>1 erreur</p>
+              </Box>
             </Box>
-            <Box
-              sx={{
-                width: "30px",
-                height: "30px",
-                backgroundColor: "#fff",
-                border: "2px solid black",
-                borderRadius: "50%",
-              }}
-            ></Box>
-            <p>1 erreur</p>
           </Box>
-        </Box>
-      </Box>
+        </>
+      )}
     </>
   );
 };
