@@ -4,8 +4,9 @@ import { Box, Button, Chip, Grid } from "@mui/material";
 import FilterForm from "./FilterForm";
 import RecurrentErrors from "./RecurrentErrors";
 import { Close } from "@mui/icons-material";
+import Dashboard from "../Dashboard";
 
-const DashboardClass = ({ classData, onClose }) => {
+const DashboardClass = ({ classData, onClose, studentExercises }) => {
   const totalStudents = classData.studentOfClassById.length;
   return (
     <>
@@ -109,8 +110,11 @@ const DashboardClass = ({ classData, onClose }) => {
                 height: "100%",
                 margin: "auto",
               }}
-            ></Grid>
-            <Grid item xs={1}></Grid>
+            >
+              <Dashboard studentExercises={studentExercises} />
+            </Grid>
+            <Grid item xs={1}>
+            </Grid>
             <Grid
               item
               xs={5}
