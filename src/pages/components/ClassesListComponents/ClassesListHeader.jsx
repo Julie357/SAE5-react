@@ -29,7 +29,7 @@ const ClassesListHeader = ({ onQueryChange, updateSort, updateFilter }) => {
         <Box
           component="img"
           src="./assets/logo-A4ll.svg"
-          alt="Description de l'image"
+          alt="Logo A4LL"
           sx={{ width: "70%", height: "100%", margin: "0 0.7vw" }}
         />
       </Grid>

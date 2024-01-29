@@ -44,7 +44,7 @@ const StudentData = ({
             display: "flex",
           }}
         >
-          <Dashboard />
+          <Dashboard studentExercises={studentExercises} />
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ height: "40%", width: "100%" }}>

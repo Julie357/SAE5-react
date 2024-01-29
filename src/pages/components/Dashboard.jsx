@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import "../../Styles/dashboard.css";
 import '@fontsource/itim';
 import moment from 'moment';
+import { fr } from 'moment/locale/fr';
+
 
 
 const DayNames = {
@@ -14,23 +16,23 @@ const DayNames = {
     6: 'Dim'
 }
 
-const Cell = ({ date, alpha}) => {
+const Cell = ({ date, alpha, exercise}) => {
     const [hoveredInfo, setHoveredInfo] = useState(null);
     let style = {
         backgroundColor: `rgba(255, 160, 143, ${alpha})` ,
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: '5px',
+        fontSize: '12px',
         color: '#2b3643',
         fontFamily: 'Itim',
         paddingTop: '2px',
     };
     return (
-        <div className="cell" style={style} onMouseEnter={() => setHoveredInfo({ date: date.format('MMMM D, YYYY'), value: alpha })}
+        <div className="cell" style={style} onMouseEnter={() => setHoveredInfo({ date: date.format('DD/MM/YYYY'), value: alpha })}
         onMouseLeave={() => setHoveredInfo(null)}>
 
 {hoveredInfo && (
-                <div className="hover-info">
+                <div className="hover-info" style={{width:"100px"}}>
                     <p>{hoveredInfo.date}</p>
                     <p>{hoveredInfo.value}</p>
                 </div>
@@ -58,7 +60,7 @@ const Mois = ({ startDate, index }) => {
     );
 };
 
-const Timeline = ({ range, data }) => {
+const Timeline = ({ range, data, studentExercises }) => {
     let days = Math.abs(range[0].diff(range[1], 'days'));
     let cells = Array.from(new Array(days));
     let weeks = Array.from(new Array(7));
@@ -90,7 +92,7 @@ const Timeline = ({ range, data }) => {
                         return (
 
 
-                            <Cell key={index} index={index} date={date} alpha={alpha} />
+                            <Cell key={index} index={index} date={date} alpha={alpha} exercise={studentExercises} />
                         );
                     })}
                 </div>
@@ -99,7 +101,7 @@ const Timeline = ({ range, data }) => {
     );
 };
 
-const Dashboard = () => {
+const Dashboard = ({studentExercises}) => {
       
     let startDate = moment().add(-365, 'days');
     let dateRange = [startDate, moment()];
@@ -111,9 +113,9 @@ const Dashboard = () => {
         };
     });
 
-    console.log(data);
+    console.log(studentExercises);
     return (
-        <Timeline range={dateRange} data={data} />
+        <Timeline range={dateRange} data={data} studentExercises={studentExercises} />
      
     );
 };
