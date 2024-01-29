@@ -104,8 +104,8 @@ const PageTexte = () => {
                     mr: 1,
                     background:
                       selectedTab === "tab1"
-                        ? "#CFD6E7 !important"
-                        : "#CFD6E7 !important",
+                        ? "#D8ECFC !important"
+                        : "#D8ECFC !important",
                     color: selectedTab === "tab1" ? "#414755" : "#414755",
                     fontSize: "18px",
                     borderRadius: "10px 10px 0 0 !important",
@@ -156,7 +156,7 @@ const PageTexte = () => {
               {selectedTab === "tab1" && (
                 <Box
                   sx={{
-                    background: "#CFD6E7",
+                    background: "#D8ECFC",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -224,7 +224,7 @@ const PageTexte = () => {
                 m: 8,
                 p: 2,
                 width: "20%",
-                background: "#CFD6E7",
+                background: "#D8ECFC",
                 borderRadius: "10px",
               }}
             >
@@ -316,7 +316,7 @@ const PageTexte = () => {
             sx={{
               m: 8,
               p: 4,
-              background: "#CFD6E7",
+              background: "#D8ECFC",
               borderRadius: "10px",
               display: "flex",
             }}
@@ -332,7 +332,37 @@ const PageTexte = () => {
                   sx={{
                     width: "30px",
                     height: "30px",
-                    backgroundColor: "#fff",
+                    backgroundColor: "#ffe6e2",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                  }}
+                ></Box>
+                <p>Cohésion</p>
+              </Box>
+              <Box sx={{ display: "flex" }}>
+                <Box>
+                  <p> </p>
+                </Box>
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#a1cdf1",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                  }}
+                ></Box>
+                <p>Conjugaison</p>
+              </Box>
+              <Box sx={{ display: "flex" }}>
+                <Box>
+                  <p> </p>
+                </Box>
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#ffb5a7",
                     border: "2px solid black",
                     borderRadius: "50%",
                   }}

@@ -166,7 +166,7 @@ const StudentsList = () => {
                     sx={{ width: "80%", paddingBottom: "5vh" }}
                   >
                     {filteredStudents.map((student, index) => (
-                      <Grid item xs={12} sm={9} md={2} lg={2.4} key={index}>
+                      <Grid item xs={12} sm={9} md={2} lg={2.4} key={index} >
                         <RouterLink
                           to={`/studentCard/${student.idStudent}`}
                           style={{ textDecoration: "none", color: "#2B3643" }}
