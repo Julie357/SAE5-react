@@ -44,10 +44,11 @@ const ExerciceListHeader = ({ onQueryChange, updateSort, student, updateFilter }
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{ width: "10%", height: "100%", margin: "0 0.7vw" }}
-          ></Box>
+          {student.avatar ? (
+              <Box component="img" src={student.avatar} alt="Avatar" sx={{ width: "10%", height: "100%", margin: "0 0.7vw" }} />
+            ) : (
+              <Box component="img" src="../assets/studentPicture.png" alt="Avatar" sx={{ width: "8%", height: "auto", margin: "0 0.8vw", backgroundColor: "#FFFFFF50"  }} />
+            )}
           <Link
             href={`http://localhost:3000/studentCard/${student.idStudent}`}
             underline="hover"

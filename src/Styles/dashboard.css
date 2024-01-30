@@ -1,8 +1,10 @@
 .hover-info{
-    background-color: black;
-    color :#d9d9d9;
-    width: 50px;
+    background-color: #FFFFFF;
+    color : #3D6787;
+    width: 55px;
+    border-radius: 5px;
 }
+
 
 .timeline-cells{
 display: inline-flex;
@@ -20,7 +22,7 @@ border-radius: 2px;
 }
 
 .cell:hover{
-    opacity: 0.9;
+    opacity: 0.6;
 }
 
 .timeline-body{
@@ -56,17 +58,17 @@ font-family: 'Itim';
     padding-left: 30px;
 }
 
-.Jan~.Jan,
-.Feb~.Feb,
-.Mar~.Mar,
-.Apr~.Apr,
-.May~.May,
-.Jun~.Jun,
-.Jul~.Jul,
-.Aug~.Aug,
-.Sep~.Sep,
-.Oct~.Oct,
-.Nov~.Nov,
-.Dec~.Dec{
+.janv~.janv,
+.févr~.févr,
+.mars~.mars,
+.avr~.avr,
+.mai~.mai,
+.juin~.juin,
+.juil~.juil,
+.août~.août,
+.sept~.sept,
+.oct~.oct,
+.nov~.nov,
+.déc~.déc{
     visibility: hidden;
 }
