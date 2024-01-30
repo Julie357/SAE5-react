@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExerciceCard from "../Card";
-import Dashboard from "../Dashboard";
+import Dashboard from "./Dashboards/Dashboard";
 
 const StudentData = ({
   studentExercises,
@@ -35,7 +35,7 @@ const StudentData = ({
 
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
-      <Grid item xs={12} sx={{ height: "20%", width: "100%" }}>
+      <Grid item xs={12} sx={{ height: "25%", width: "100%" }}>
         <Box
           sx={{
             borderRadius: "0.6vw",
@@ -47,7 +47,8 @@ const StudentData = ({
           <Dashboard studentExercises={studentExercises} />
         </Box>
       </Grid>
-      <Grid item xs={12} sx={{ height: "40%", width: "100%" }}>
+      
+      <Grid item xs={12} sx={{ height: "35%", width: "100%" }}>
         <Box
           sx={{
             backgroundColor: "#D8ECFC",
