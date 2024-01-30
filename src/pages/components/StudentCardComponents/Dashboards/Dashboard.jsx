@@ -1,9 +1,34 @@
 import React, { useState } from "react";
-import "../../Styles/dashboard.css";
+import "./calendar.css";
 import "@fontsource/itim";
 import moment from "moment";
 import { fr } from "moment/locale/fr";
 import { Tooltip } from "@mui/material";
+
+const Legend = () => {
+  const levelPairs = [
+    { level: "A1", color: "#84CBE5" },
+    { level: "A2", color: "#316DA9" },
+    { level: "B1", color: "#FCD5CE" },
+    { level: "B2", color: "#FFA08F" },
+    { level: "C1", color: "#CF97C4" },
+    { level: "C2", color: "#9B5998" },
+  ];
+
+  return (
+    <div className="legend">
+      {levelPairs.map((pair) => (
+        <div key={pair.level} className="legend-item">
+          <div
+            className="legend-color"
+            style={{ backgroundColor: pair.color }}
+          ></div>
+          <div className="legend-text">{`Niveau ${pair.level}`}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const DayNames = {
   0: "Lun",
@@ -45,7 +70,9 @@ const LEVEL_MAP = {
 const getBackgroundColor = (value) => COLOR_MAP[value] || "#EBEDF0";
 
 const getHoverInfoText = (level, Dday) => {
-  return level === 0 ? `Pas de donnée le ${Dday}` : `Niveau ${level} le ${Dday}`;
+  return level === 0
+    ? `Pas de donnée le ${Dday}`
+    : `Niveau ${level} le ${Dday}`;
 };
 
 const Cell = ({ date, value }) => {
@@ -110,7 +137,9 @@ const Timeline = ({ range, data }) => {
           {cells.map((_, index) => {
             const date = moment(startDate).add(index, "day");
             const dataPoint = data.find(
-              (d) => moment(date).format(DayFormat) === moment(d.date).format(DayFormat)
+              (d) =>
+                moment(date).format(DayFormat) ===
+                moment(d.date).format(DayFormat)
             );
             const numValue = dataPoint ? dataPoint.value : 0;
             return <Cell key={index} date={date} value={numValue} />;
@@ -133,17 +162,32 @@ const Dashboard = ({ studentExercises }) => {
 
   const data = Array.from(new Array(365)).map((_, index) => {
     const dayDate = moment(startDate).add(index, "day");
-    const matchingDataRecup = dataRecup.filter((data) => data.date === dayDate.format("YYYY-MM-DD"));
+    const matchingDataRecup = dataRecup.filter(
+      (data) => data.date === dayDate.format("YYYY-MM-DD")
+    );
 
     if (matchingDataRecup.length > 0) {
-      const averageValue = Math.round(matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) / matchingDataRecup.length);
+      const averageValue = Math.round(
+        matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) /
+          matchingDataRecup.length
+      );
       return { date: dayDate, value: averageValue };
     } else {
       return { date: dayDate, value: 0 };
     }
   });
 
-  return <Timeline range={dateRange} data={data} studentExercises={studentExercises} />;
+  return (
+    <div>
+      <Timeline
+        range={dateRange}
+        data={data}
+        studentExercises={studentExercises}
+      />
+
+      <Legend />
+    </div>
+  );
 };
 
 export default Dashboard;
