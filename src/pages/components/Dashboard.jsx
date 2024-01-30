@@ -15,45 +15,46 @@ const DayNames = {
   6: "Dim",
 };
 
+const retirerPointDesMois = (mois) => {
+  if (mois.endsWith(".")) {
+    return mois.slice(0, -1);
+  }
+  return mois;
+};
+
+const COLOR_MAP = {
+  0: "#EBEDF0",
+  1: "#84CBE5",
+  2: "#316DA9",
+  3: "#FCD5CE",
+  4: "#2F6CA8",
+  5: "#CF97C4",
+  6: "#9B5998",
+};
+
+const LEVEL_MAP = {
+  0: 0,
+  1: "A1",
+  2: "A2",
+  3: "A3",
+  4: "B2",
+  5: "C1",
+  6: "C2",
+};
+
+const getBackgroundColor = (value) => COLOR_MAP[value] || "#EBEDF0";
+
+const getHoverInfoText = (level, Dday) => {
+  return level === 0 ? `Pas de donnée le ${Dday}` : `Niveau ${level} le ${Dday}`;
+};
+
 const Cell = ({ date, value }) => {
-  const levelConversion = {
-    0: 0,
-    1: "A1",
-    2: "A2",
-    3: "A3",
-    4: "B2",
-    5: "C1",
-    6: "C2",
-  };
+  const Dday = date.format("DD/MM/yy");
+  const level = LEVEL_MAP[value];
+  const hoverInfoText = getHoverInfoText(level, Dday);
 
-  let Dday = date.format("DD/MM/yy");
-
-  const level = levelConversion[value];
-  let hoverInfoText;
-
-  if (level === 0) {
-    hoverInfoText = "Pas de donnée le " + Dday;
-  } else {
-    hoverInfoText = "Niveau " + level + " le " + Dday;
-  }
-
-  let backgroundColor;
-  if (value === 0) {
-    backgroundColor = "#EBEDF0";
-  } else if (value === 1) {
-    backgroundColor = "red";
-  } else if (value === 2) {
-    backgroundColor = "blue";
-  } else if (value === 3) {
-    backgroundColor = "blue";
-  } else if (value === 4) {
-    backgroundColor = "blue";
-  } else if (value === 5) {
-    backgroundColor = "blue";
-  }
-
-  let style = {
-    backgroundColor: backgroundColor,
+  const style = {
+    backgroundColor: getBackgroundColor(value),
     textAlign: "center",
     fontWeight: "bold",
     fontSize: "12px",
@@ -61,12 +62,11 @@ const Cell = ({ date, value }) => {
     fontFamily: "Itim",
     paddingTop: "2px",
   };
+
   return (
-    <>
-      <Tooltip title={hoverInfoText} arrow placement="top">
-        <div className="cell" style={style}></div>
-      </Tooltip>
-    </>
+    <Tooltip title={hoverInfoText} arrow placement="top">
+      <div className="cell" style={style}></div>
+    </Tooltip>
   );
 };
 
@@ -75,17 +75,9 @@ const Week = ({ index }) => {
 };
 
 const Mois = ({ startDate, index }) => {
-  let date = moment(startDate).add(index * 7, "day");
-  let MoisName = date.format("MMM");
+  const date = moment(startDate).add(index * 7, "day");
+  const MoisName = retirerPointDesMois(date.format("MMM"));
 
-  const retirerPointDesMois = (mois) => {
-    if (mois.endsWith(".")) {
-      return mois.slice(0, -1);
-    }
-    return mois;
-  };
-
-  MoisName = retirerPointDesMois(MoisName);
   return (
     <div className={MoisName}>
       <div className="mois">{MoisName}</div>
@@ -94,12 +86,11 @@ const Mois = ({ startDate, index }) => {
 };
 
 const Timeline = ({ range, data }) => {
-  let days = Math.abs(range[0].diff(range[1], "days"));
-  let cells = Array.from(new Array(days));
-  let weeks = Array.from(new Array(7));
-  let mois = Array.from(new Array(Math.floor(days / 7)));
-  let startDate = range[0];
-
+  const days = Math.abs(range[0].diff(range[1], "days"));
+  const cells = Array.from(new Array(days));
+  const weeks = Array.from(new Array(7));
+  const mois = Array.from(new Array(Math.floor(days / 7)));
+  const startDate = range[0];
   const DayFormat = "DDMMYYYY";
 
   return (
@@ -115,19 +106,14 @@ const Timeline = ({ range, data }) => {
             <Week key={index} index={index} startDate={startDate} />
           ))}
         </div>
-
         <div className="timeline-cells">
           {cells.map((_, index) => {
-            let date = moment(startDate).add(index, "day");
-            let dataPoint = data.find(
-              (d) =>
-                moment(date).format(DayFormat) ===
-                moment(d.date).format(DayFormat)
+            const date = moment(startDate).add(index, "day");
+            const dataPoint = data.find(
+              (d) => moment(date).format(DayFormat) === moment(d.date).format(DayFormat)
             );
-            let numValue = dataPoint.value;
-            return (
-              <Cell key={index} index={index} date={date} value={numValue} />
-            );
+            const numValue = dataPoint ? dataPoint.value : 0;
+            return <Cell key={index} date={date} value={numValue} />;
           })}
         </div>
       </div>
@@ -136,39 +122,28 @@ const Timeline = ({ range, data }) => {
 };
 
 const Dashboard = ({ studentExercises }) => {
-  let startDate = moment().add(-365, "days");
-  let dateRange = [startDate, moment()];
-
+  const startDate = moment().add(-365, "days");
+  const dateRange = [startDate, moment()];
   const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
 
-  let dataRecup = studentExercises.map((exercise) => {
-    const numLevel = levelConversion[exercise.exercisesSkillLevel];
-    return { date: exercise.date, value: numLevel };
-  });
+  const dataRecup = studentExercises.map((exercise) => ({
+    date: exercise.date,
+    value: levelConversion[exercise.exercisesSkillLevel] || 0,
+  }));
 
-  let data = Array.from(new Array(365)).map((_, index) => {
+  const data = Array.from(new Array(365)).map((_, index) => {
     const dayDate = moment(startDate).add(index, "day");
-    const matchingDataRecup = dataRecup.filter((data) => {
-      const formattedDayDate = dayDate.format("YYYY-MM-DD");
-      return data.date === formattedDayDate;
-    });
+    const matchingDataRecup = dataRecup.filter((data) => data.date === dayDate.format("YYYY-MM-DD"));
 
     if (matchingDataRecup.length > 0) {
-      const averageValue = matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) / matchingDataRecup.length;
-      const roundedAverageValue = Math.round(averageValue);
-      return { date: dayDate, value: roundedAverageValue };
+      const averageValue = Math.round(matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) / matchingDataRecup.length);
+      return { date: dayDate, value: averageValue };
     } else {
       return { date: dayDate, value: 0 };
     }
   });
 
-  return (
-    <Timeline
-      range={dateRange}
-      data={data}
-      studentExercises={studentExercises}
-    />
-  );
+  return <Timeline range={dateRange} data={data} studentExercises={studentExercises} />;
 };
 
 export default Dashboard;
