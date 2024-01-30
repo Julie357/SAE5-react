@@ -31,10 +31,10 @@ const Cell = ({ date, value }) => {
   const level = levelConversion[value];
   let hoverInfoText;
 
-  if (level === 1 ) {
+  if (level === 0) {
     hoverInfoText = "Pas de donnée le " + Dday;
   } else {
-    hoverInfoText = "Niveau " +level+ " le " + Dday;
+    hoverInfoText = "Niveau " + level + " le " + Dday;
   }
 
   let backgroundColor;
@@ -43,6 +43,12 @@ const Cell = ({ date, value }) => {
   } else if (value === 1) {
     backgroundColor = "red";
   } else if (value === 2) {
+    backgroundColor = "blue";
+  } else if (value === 3) {
+    backgroundColor = "blue";
+  } else if (value === 4) {
+    backgroundColor = "blue";
+  } else if (value === 5) {
     backgroundColor = "blue";
   }
 
@@ -142,11 +148,15 @@ const Dashboard = ({ studentExercises }) => {
 
   let data = Array.from(new Array(365)).map((_, index) => {
     const dayDate = moment(startDate).add(index, "day");
-    const matchingDataRecup = dataRecup.find((data) => data.date === dayDate);
+    const matchingDataRecup = dataRecup.filter((data) => {
+      const formattedDayDate = dayDate.format("YYYY-MM-DD");
+      return data.date === formattedDayDate;
+    });
 
-    if (matchingDataRecup) {
-      console.log(matchingDataRecup);
-      return { date: dayDate, value: matchingDataRecup.value };
+    if (matchingDataRecup.length > 0) {
+      const averageValue = matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) / matchingDataRecup.length;
+      const roundedAverageValue = Math.round(averageValue);
+      return { date: dayDate, value: roundedAverageValue };
     } else {
       return { date: dayDate, value: 0 };
     }
