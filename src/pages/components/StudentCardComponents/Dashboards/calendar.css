@@ -72,18 +72,20 @@
 .legend {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 40%;
+  margin-left: 60%;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
   margin-right: 10px;
+  height: 3.5vh;
 }
 
 .legend-color {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin-right: 5px;
 }
 

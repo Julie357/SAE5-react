@@ -1,34 +1,35 @@
 import { createTheme } from "@mui/material";
 import "@fontsource/itim";
+import { blue, pink } from "@mui/material/colors";
 
 const theme = createTheme({
-    typography: {
-      fontFamily: "itim",
-      color: "#2B3643",
-      fontSize: 14,
+  typography: {
+    fontFamily: "itim",
+    color: "#2B3643",
+    fontSize: 14,
+  },
+  palette: {
+    text: {
+      primary: "#121C28",
+      secondary: "#2B3643",
     },
-    palette: {
-      text: {
-        primary: '#121C28', // Couleur principale du texte
-        secondary: '#2B3643', // Couleur du texte secondaire
-      },
-      primary: {
-        main: "#FFB5A7",
-        dark: "#FFA08F",
-        light: "#FCD5CE",
-      },
-      secondary: {
-        light: "#757ce8",
-        main: "#D8ECFC",
-        dark: "#3D6787",
-      },
-      success: {
-        main: "#A1CDF1"
-      }
+    primary: {
+      main: "#FFB5A7",
+      dark: "#FFA08F",
+      light: "#FCD5CE",
     },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: `
+    secondary: {
+      light: "#757ce8",
+      main: "#D8ECFC",
+      dark: "#3D6787",
+    },
+    success: {
+      main: "#A1CDF1",
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
           @font-face {
             font-family: 'itim';
             font-style: normal;
@@ -36,8 +37,24 @@ const theme = createTheme({
             font-weight: 400;
           }
         `,
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        switchBase: {
+          color: "#A1CDF1",
+          "&.Mui-checked": {
+            color: "#FFB5A7",
+          },
+        },
+        track: {
+          backgroundColor: "#A1CDF1",
+          "$.Mui-checked + &": {
+            backgroundColor: "#D8ECFC"
+          },
+        },
       },
     },
-  });
+  },
+});
 
 export default theme;

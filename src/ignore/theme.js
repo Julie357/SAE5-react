@@ -8,11 +8,11 @@ const theme = createTheme({
     secondary: purple,
   },
   text: {
-    secondary: lime, // Assurez-vous que cette propriété est correcte
+    secondary: lime, 
   },
-  // Ajoutez d'autres propriétés du thème ici...
+
 });
-  // Ajoutez d'autres propriétés du thème ici
+
 
 
 export default theme;

@@ -4,6 +4,7 @@ import "@fontsource/itim";
 import moment from "moment";
 import { fr } from "moment/locale/fr";
 import { Tooltip } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const Legend = () => {
   const levelPairs = [
@@ -15,19 +16,32 @@ const Legend = () => {
     { level: "C2", color: "#9B5998" },
   ];
 
-  return (
-    <div className="legend">
-      {levelPairs.map((pair) => (
-        <div key={pair.level} className="legend-item">
-          <div
-            className="legend-color"
-            style={{ backgroundColor: pair.color }}
-          ></div>
-          <div className="legend-text">{`Niveau ${pair.level}`}</div>
+  const renderLegendGroups = () => {
+    const groups = [];
+    for (let i = 0; i < levelPairs.length; i += 2) {
+      const pair1 = levelPairs[i];
+      const pair2 = levelPairs[i + 1];
+      const group = (
+        <div key={i / 2} className="legend-content">
+          {renderLegendItem(pair1)}
+          {renderLegendItem(pair2)}
         </div>
-      ))}
+      );
+      groups.push(group);
+    }
+    return groups;
+  };
+  const renderLegendItem = (pair) => (
+    <div key={pair.level} className="legend-item">
+      <div
+        className="legend-color"
+        style={{ backgroundColor: pair.color }}
+      ></div>
+      <div className="legend-text">{`Niveau ${pair.level}`}</div>
     </div>
   );
+
+  return <div className="legend">{renderLegendGroups()}</div>;
 };
 
 const DayNames = {
@@ -61,7 +75,7 @@ const LEVEL_MAP = {
   0: 0,
   1: "A1",
   2: "A2",
-  3: "A3",
+  3: "B1",
   4: "B2",
   5: "C1",
   6: "C2",
@@ -150,7 +164,7 @@ const Timeline = ({ range, data }) => {
   );
 };
 
-const Dashboard = ({ studentExercises }) => {
+const Calendar = ({ studentExercises }) => {
   const startDate = moment().add(-365, "days");
   const dateRange = [startDate, moment()];
   const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
@@ -178,7 +192,17 @@ const Dashboard = ({ studentExercises }) => {
   });
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%",
+      }}
+    >
+      <Typography variant="h6">
+        Evolution du niveau de l'élève sur l'année
+      </Typography>
       <Timeline
         range={dateRange}
         data={data}
@@ -190,4 +214,4 @@ const Dashboard = ({ studentExercises }) => {
   );
 };
 
-export default Dashboard;
+export default Calendar;
