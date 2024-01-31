@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Link, Pagination, Stack } from "@mui/material";
+import {
+  Grid,
+  Link,
+  Pagination,
+  Stack,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
 import Box from "@mui/system/Box";
 import { useSelector } from "react-redux";
 import { selectLoadingExercices } from "../../../features/exercices/exerciceSelector";
@@ -8,7 +16,8 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExerciceCard from "../Card";
-import Dashboard from "./Dashboards/Dashboard";
+import Calendar from "./Dashboards/Calendar";
+import LineChart from "./Dashboards/StockGraph";
 
 const StudentData = ({
   studentExercises,
@@ -18,6 +27,7 @@ const StudentData = ({
   const ITEMS_PER_PAGE = 4;
   const loading = useSelector(selectLoadingExercices);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLinearChart, setIsLinearChart] = useState(false);
 
   const isCorrected = studentExercisesUncorrected.length > 0;
   const isThereExercice = studentExercises?.length > 0;
@@ -33,9 +43,14 @@ const StudentData = ({
     setCurrentPage(newPage);
   };
 
+  const handleSwitchChange = () => {
+    setIsLinearChart(!isLinearChart);
+  };
+
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
-      <Grid item xs={12} sx={{ height: "25%", width: "100%" }}>
+      <Grid item xs={12} sx={{ height: "5%", width: "100%" }} />
+      <Grid item xs={12} sx={{ height: "40%", width: "100%" }}>
         <Box
           sx={{
             borderRadius: "0.6vw",
@@ -44,20 +59,38 @@ const StudentData = ({
             display: "flex",
           }}
         >
-          <Dashboard studentExercises={studentExercises} />
+          {isLinearChart ? (
+            <LineChart studentExercises={studentExercises}/>
+          ) : (
+            <Calendar studentExercises={studentExercises} />
+          )}
         </Box>
       </Grid>
-      
-      <Grid item xs={12} sx={{ height: "35%", width: "100%" }}>
-        <Box
-          sx={{
-            backgroundColor: "#D8ECFC",
-            borderRadius: "0.6vw",
-            height: "100%",
-            width: "100%",
-            display: "flex",
-          }}
-        ></Box>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          height: "15%",
+          width: "100%",
+          display: "flex",
+          justifyContent: "end",
+        }}
+      >
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                sx={{ m: 1 }}
+                checked={isLinearChart}
+                onChange={handleSwitchChange}
+              />
+            }
+            labelPlacement="start"
+            label={`Basculer sur ${
+              isLinearChart ? "le calendrier" : "le graphique linéaire"
+            }`}
+          />
+        </FormGroup>
       </Grid>
       <Grid item xs={12} sx={{ height: "45%", width: "100%" }}>
         <Box
