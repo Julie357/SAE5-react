@@ -1,0 +1,1260 @@
+[
+    {
+        "_id": {
+            "$oid": "6576ecd31cd1c208b7b87f03"
+        },
+        "idExercises": 1,
+        "idLexical": 1,
+        "text": "Meine Motivation um deutsche Sprache zu lernen ist, dass ich habe ehemaligen Vorfahren in Deutschland.",
+        "lexicalUnit": [
+            {
+                "id": 1,
+                "form": "Meine",
+                "lemma": "mein",
+                "pos": "PRON",
+                "morphology": "PPOSAT",
+                "features": {
+                    "Case": "Nom",
+                    "Gender": "Fem",
+                    "Number": "Sing",
+                    "Poss": "Yes"
+                },
+                "head": 2,
+                "dep_rel": "det:poss",
+                "error": true
+            },
+            {
+                "id": 2,
+                "form": "Motivation",
+                "lemma": "Motivation",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Nom",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 7,
+                "dep_rel": "nsubj:pass",
+                "error": true
+            },
+            {
+                "id": 3,
+                "form": "um",
+                "lemma": "um",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 5,
+                "dep_rel": "case",
+                "error": true
+            },
+            {
+                "id": 4,
+                "form": "deutsche",
+                "lemma": "deutsch",
+                "pos": "ADJ",
+                "morphology": "ADJA",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 5,
+                "dep_rel": "amod",
+                "error": false
+            },
+            {
+                "id": 5,
+                "form": "Sprache",
+                "lemma": "Sprache",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 2,
+                "dep_rel": "nmod",
+                "error": false
+            },
+            {
+                "id": 6,
+                "form": "zu",
+                "lemma": "zu",
+                "pos": "PART",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Masc",
+                    "Number": "Plur"
+                },
+                "head": 7,
+                "dep_rel": "mark",
+                "error": false
+            },
+            {
+                "id": 7,
+                "form": "lernen",
+                "lemma": "lernen",
+                "pos": "VERB",
+                "morphology": "VVINF",
+                "features": {
+                    "VerbForm": "Inf"
+                },
+                "head": 0,
+                "dep_rel": "root",
+                "error": false
+            },
+            {
+                "id": 8,
+                "form": "ist",
+                "lemma": "sein",
+                "pos": "AUX",
+                "morphology": "ADJD",
+                "head": 7,
+                "dep_rel": "aux:pass",
+                "features": {
+                    "SpaceAfter": "No"
+                },
+                "error": false
+            },
+            {
+                "id": 9,
+                "form": ",",
+                "lemma": ",",
+                "pos": "PUNCT",
+                "morphology": "$,",
+                "head": 12,
+                "dep_rel": "punct",
+                "error": false
+            },
+            {
+                "id": 10,
+                "form": "dass",
+                "lemma": "dass",
+                "pos": "SCONJ",
+                "morphology": "KOUS",
+                "head": 12,
+                "dep_rel": "mark",
+                "error": false
+            },
+            {
+                "id": 11,
+                "form": "ich",
+                "lemma": "ich",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "PronType": "Prs"
+                },
+                "head": 12,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 12,
+                "form": "habe",
+                "lemma": "haben",
+                "pos": "VERB",
+                "morphology": "VAFIN",
+                "features": {
+                    "Mood": "Sub",
+                    "Number": "Sing",
+                    "Person": "3",
+                    "Tense": "Pres",
+                    "VerbForm": "Fin"
+                },
+                "head": 7,
+                "dep_rel": "ccomp",
+                "error": false
+            },
+            {
+                "id": 13,
+                "form": "ehemaligen",
+                "lemma": "ehemalig",
+                "pos": "ADJ",
+                "morphology": "ADJA",
+                "features": {
+                    "Case": "Dat",
+                    "Gender": "Neut",
+                    "Number": "Plur"
+                },
+                "head": 14,
+                "dep_rel": "amod",
+                "error": false
+            },
+            {
+                "id": 14,
+                "form": "Vorfahren",
+                "lemma": "Vorfahr|Vorfahren",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Dat",
+                    "Gender": "Neut",
+                    "Number": "Plur"
+                },
+                "head": 12,
+                "dep_rel": "obj",
+                "error": false
+            },
+            {
+                "id": 15,
+                "form": "in",
+                "lemma": "in",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 16,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 16,
+                "form": "Deutschland",
+                "lemma": "Deutschland",
+                "pos": "PROPN",
+                "morphology": "NE",
+                "features": {
+                    "Case": "Dat",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "SpaceAfter": "No"
+                },
+                "head": 14,
+                "dep_rel": "nmod",
+                "error": false
+            },
+            {
+                "id": 17,
+                "form": ".",
+                "lemma": ".",
+                "pos": "PUNCT",
+                "morphology": "$.",
+                "head": 7,
+                "dep_rel": "punct",
+                "error": false
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "6576ecd31cd1c208b7b87f04"
+        },
+        "idExercises": 1,
+        "idLexical": 2,
+        "text": "Es gab kein DeutschKurs in meine Schule also habe ich niemals deutsch lernen gekonnt.",
+        "lexicalUnit": [
+            {
+                "id": 1,
+                "form": "Es",
+                "lemma": "es",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "Person": "3",
+                    "PronType": "Prs"
+                },
+                "head": 2,
+                "dep_rel": "expl",
+                "error": false
+            },
+            {
+                "id": 2,
+                "form": "gab",
+                "lemma": "geben",
+                "pos": "VERB",
+                "morphology": "VVFIN",
+                "features": {
+                    "Mood": "Ind",
+                    "Number": "Sing",
+                    "Person": "3",
+                    "Tense": "Past",
+                    "VerbForm": "Fin"
+                },
+                "head": 0,
+                "dep_rel": "root",
+                "error": false
+            },
+            {
+                "id": 3,
+                "form": "kein",
+                "lemma": "kein",
+                "pos": "PRON",
+                "morphology": "PIAT",
+                "features": {
+                    "Case": "Nom",
+                    "Definite": "Ind",
+                    "Gender": "Masc",
+                    "Number": "Sing",
+                    "Polarity": "Neg",
+                    "PronType": "Neg"
+                },
+                "head": 4,
+                "dep_rel": "nmod",
+                "error": false
+            },
+            {
+                "id": 4,
+                "form": "DeutschKurs",
+                "lemma": "DeutschKurs",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Masc",
+                    "Number": "Sing"
+                },
+                "head": 2,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 5,
+                "form": "in",
+                "lemma": "in",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 7,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 6,
+                "form": "meine",
+                "lemma": "mein",
+                "pos": "PRON",
+                "morphology": "PPOSAT",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Fem",
+                    "Number": "Sing",
+                    "Poss": "Yes"
+                },
+                "head": 7,
+                "dep_rel": "det:poss",
+                "error": false
+            },
+            {
+                "id": 7,
+                "form": "Schule",
+                "lemma": "Schule",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 2,
+                "dep_rel": "obl",
+                "error": false
+            },
+            {
+                "id": 8,
+                "form": "also",
+                "lemma": "also",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 2,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 9,
+                "form": "habe",
+                "lemma": "haben",
+                "pos": "AUX",
+                "morphology": "VAFIN",
+                "features": {
+                    "Mood": "Ind",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "Tense": "Pres",
+                    "VerbForm": "Fin"
+                },
+                "head": 14,
+                "dep_rel": "aux",
+                "error": false
+            },
+            {
+                "id": 10,
+                "form": "ich",
+                "lemma": "ich",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "PronType": "Prs"
+                },
+                "head": 14,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 11,
+                "form": "niemals",
+                "lemma": "niemals",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 14,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 12,
+                "form": "deutsch",
+                "lemma": "deutsch",
+                "pos": "ADJ",
+                "morphology": "ADJD",
+                "head": 13,
+                "dep_rel": "amod",
+                "error": false
+            },
+            {
+                "id": 13,
+                "form": "lernen",
+                "lemma": "lernen",
+                "pos": "NOUN",
+                "morphology": "VVINF",
+                "features": {
+                    "VerbForm": "Inf"
+                },
+                "head": 14,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 14,
+                "form": "gekonnt",
+                "lemma": "konnen",
+                "pos": "VERB",
+                "morphology": "VVPP",
+                "features": {
+                    "VerbForm": "Part",
+                    "SpaceAfter": "No"
+                },
+                "head": 2,
+                "dep_rel": "parataxis",
+                "error": false
+            },
+            {
+                "id": 15,
+                "form": ".",
+                "lemma": ".",
+                "pos": "PUNCT",
+                "morphology": "$.",
+                "head": 2,
+                "dep_rel": "punct",
+                "error": false
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "6576ecd31cd1c208b7b87f05"
+        },
+        "idExercises": 1,
+        "idLexical": 3,
+        "text": "Danach, in ein Jahr von Erasmus in Spanien habe ich viele deutsche und \u00f6sterreicher Leute getroffen, die mir viel Lust gegeben haben um deutsch mehr zu lernen.",
+        "lexicalUnit": [
+            {
+                "id": 1,
+                "form": "Danach",
+                "lemma": "danach",
+                "pos": "ADV",
+                "morphology": "PAV",
+                "head": 17,
+                "dep_rel": "advmod",
+                "features": {
+                    "SpaceAfter": "No"
+                },
+                "error": false
+            },
+            {
+                "id": 2,
+                "form": ",",
+                "lemma": ",",
+                "pos": "PUNCT",
+                "morphology": "$,",
+                "head": 17,
+                "dep_rel": "punct",
+                "error": false
+            },
+            {
+                "id": 3,
+                "form": "in",
+                "lemma": "in",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 5,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 4,
+                "form": "ein",
+                "lemma": "ein",
+                "pos": "DET",
+                "morphology": "ART",
+                "features": {
+                    "Case": "Acc",
+                    "Definite": "Ind",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "PronType": "Art"
+                },
+                "head": 5,
+                "dep_rel": "det",
+                "error": false
+            },
+            {
+                "id": 5,
+                "form": "Jahr",
+                "lemma": "Jahr",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Neut",
+                    "Number": "Sing"
+                },
+                "head": 17,
+                "dep_rel": "obl",
+                "error": false
+            },
+            {
+                "id": 6,
+                "form": "von",
+                "lemma": "von",
+                "pos": "ADP",
+                "morphology": "FM",
+                "features": {
+                    "Foreign": "Yes"
+                },
+                "head": 7,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 7,
+                "form": "Erasmus",
+                "lemma": "Erasmus",
+                "pos": "NOUN",
+                "morphology": "NE",
+                "features": {
+                    "Case": "Nom",
+                    "Gender": "Masc",
+                    "Number": "Sing"
+                },
+                "head": 5,
+                "dep_rel": "nmod",
+                "error": false
+            },
+            {
+                "id": 8,
+                "form": "in",
+                "lemma": "in",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 9,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 9,
+                "form": "Spanien",
+                "lemma": "Spanien",
+                "pos": "PROPN",
+                "morphology": "NE",
+                "features": {
+                    "Case": "Dat",
+                    "Gender": "Neut",
+                    "Number": "Sing"
+                },
+                "head": 7,
+                "dep_rel": "nmod",
+                "error": false
+            },
+            {
+                "id": 10,
+                "form": "habe",
+                "lemma": "haben",
+                "pos": "AUX",
+                "morphology": "VAFIN",
+                "features": {
+                    "Mood": "Ind",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "Tense": "Pres",
+                    "VerbForm": "Fin"
+                },
+                "head": 17,
+                "dep_rel": "aux",
+                "error": false
+            },
+            {
+                "id": 11,
+                "form": "ich",
+                "lemma": "ich",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "PronType": "Prs"
+                },
+                "head": 17,
+                "dep_rel": "nsubj",
+                "error": true
+            },
+            {
+                "id": 12,
+                "form": "viele",
+                "lemma": "viel",
+                "pos": "DET",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Gen",
+                    "Gender": "Neut",
+                    "Number": "Plur"
+                },
+                "head": 16,
+                "dep_rel": "amod",
+                "error": false
+            },
+            {
+                "id": 13,
+                "form": "deutsche",
+                "lemma": "deutsch",
+                "pos": "ADJ",
+                "morphology": "ADJA",
+                "features": {
+                    "Case": "Gen",
+                    "Gender": "Masc",
+                    "Number": "Plur"
+                },
+                "head": 16,
+                "dep_rel": "amod",
+                "error": false
+            },
+            {
+                "id": 14,
+                "form": "und",
+                "lemma": "und",
+                "pos": "CCONJ",
+                "morphology": "NE",
+                "features": {
+                    "Case": "Gen",
+                    "Gender": "Masc",
+                    "Number": "Sing"
+                },
+                "head": 15,
+                "dep_rel": "cc",
+                "error": false
+            },
+            {
+                "id": 15,
+                "form": "\u00f6sterreicher",
+                "lemma": "\u00f6sterreicher",
+                "pos": "ADJ",
+                "morphology": "ADJA",
+                "features": {
+                    "Case": "Gen",
+                    "Gender": "Masc",
+                    "Number": "Plur"
+                },
+                "head": 13,
+                "dep_rel": "conj",
+                "error": false
+            },
+            {
+                "id": 16,
+                "form": "Leute",
+                "lemma": "Leute",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Gen",
+                    "Number": "Plur"
+                },
+                "head": 17,
+                "dep_rel": "obj",
+                "error": false
+            },
+            {
+                "id": 17,
+                "form": "getroffen",
+                "lemma": "treffen|triefen",
+                "pos": "VERB",
+                "morphology": "VVPP",
+                "features": {
+                    "VerbForm": "Part",
+                    "SpaceAfter": "No"
+                },
+                "head": 0,
+                "dep_rel": "root",
+                "error": false
+            },
+            {
+                "id": 18,
+                "form": ",",
+                "lemma": ",",
+                "pos": "PUNCT",
+                "morphology": "$,",
+                "head": 23,
+                "dep_rel": "punct",
+                "error": false
+            },
+            {
+                "id": 19,
+                "form": "die",
+                "lemma": "der",
+                "pos": "PRON",
+                "morphology": "PRELS",
+                "features": {
+                    "Case": "Nom",
+                    "Number": "Plur",
+                    "PronType": "Rel"
+                },
+                "head": 23,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 20,
+                "form": "mir",
+                "lemma": "ich",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Dat",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "PronType": "Prs"
+                },
+                "head": 23,
+                "dep_rel": "iobj",
+                "error": false
+            },
+            {
+                "id": 21,
+                "form": "viel",
+                "lemma": "viel",
+                "pos": "DET",
+                "morphology": "PIS",
+                "features": {
+                    "Case": "Dat",
+                    "Definite": "Ind",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "PronType": "Ind"
+                },
+                "head": 22,
+                "dep_rel": "det",
+                "error": false
+            },
+            {
+                "id": 22,
+                "form": "Lust",
+                "lemma": "Lust",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 23,
+                "dep_rel": "obj",
+                "error": false
+            },
+            {
+                "id": 23,
+                "form": "gegeben",
+                "lemma": "geben",
+                "pos": "VERB",
+                "morphology": "VVPP",
+                "features": {
+                    "VerbForm": "Part",
+                    "SpaceAfter": "No"
+                },
+                "head": 17,
+                "dep_rel": "acl",
+                "error": false
+            },
+            {
+                "id": 24,
+                "form": "haben",
+                "lemma": "haben",
+                "pos": "AUX",
+                "morphology": "VAFIN",
+                "features": {
+                    "Mood": "Ind",
+                    "Number": "Plur",
+                    "Person": "3",
+                    "Tense": "Pres",
+                    "VerbForm": "Fin"
+                },
+                "head": 23,
+                "dep_rel": "aux",
+                "error": false
+            },
+            {
+                "id": 25,
+                "form": "um",
+                "lemma": "um",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 29,
+                "dep_rel": "mark",
+                "error": false
+            },
+            {
+                "id": 26,
+                "form": "deutsch",
+                "lemma": "deutsch",
+                "pos": "ADJ",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Dat",
+                    "Gender": "Neut",
+                    "Number": "Sing"
+                },
+                "head": 29,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 27,
+                "form": "mehr",
+                "lemma": "mehr",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 29,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 28,
+                "form": "zu",
+                "lemma": "zu",
+                "pos": "PART",
+                "morphology": "PIS",
+                "features": {
+                    "Case": "Nom",
+                    "Definite": "Ind",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "PronType": "Ind"
+                },
+                "head": 29,
+                "dep_rel": "mark",
+                "error": false
+            },
+            {
+                "id": 29,
+                "form": "lernen",
+                "lemma": "lernen",
+                "pos": "VERB",
+                "morphology": "VVINF",
+                "features": {
+                    "VerbForm": "Inf",
+                    "SpaceAfter": "No"
+                },
+                "head": 23,
+                "dep_rel": "advcl",
+                "error": false
+            },
+            {
+                "id": 30,
+                "form": ".",
+                "lemma": ".",
+                "pos": "PUNCT",
+                "morphology": "$.",
+                "head": 17,
+                "dep_rel": "punct",
+                "error": false
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "6576ecd31cd1c208b7b87f06"
+        },
+        "idExercises": 1,
+        "idLexical": 4,
+        "text": " Also jetzt bin ich in einen Deutschkurs mit den Universit\u00e4t und ich lerne gerne!",
+        "lexicalUnit": [
+            {
+                "id": 1,
+                "form": "Also",
+                "lemma": "also",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 3,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 2,
+                "form": "jetzt",
+                "lemma": "jetzt",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 3,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 3,
+                "form": "bin",
+                "lemma": "sein",
+                "pos": "AUX",
+                "morphology": "VAFIN",
+                "features": {
+                    "Mood": "Ind",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "Tense": "Pres",
+                    "VerbForm": "Fin"
+                },
+                "head": 0,
+                "dep_rel": "root",
+                "error": false
+            },
+            {
+                "id": 4,
+                "form": "ich",
+                "lemma": "ich",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "PronType": "Prs"
+                },
+                "head": 7,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 5,
+                "form": "in",
+                "lemma": "in",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 7,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 6,
+                "form": "einen",
+                "lemma": "ein",
+                "pos": "DET",
+                "morphology": "ART",
+                "features": {
+                    "Case": "Acc",
+                    "Definite": "Ind",
+                    "Gender": "Masc",
+                    "Number": "Sing",
+                    "PronType": "Art"
+                },
+                "head": 7,
+                "dep_rel": "det",
+                "error": false
+            },
+            {
+                "id": 7,
+                "form": "Deutschkurs",
+                "lemma": "Deutschkurs",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Masc",
+                    "Number": "Sing"
+                },
+                "head": 3,
+                "dep_rel": "obl",
+                "error": false
+            },
+            {
+                "id": 8,
+                "form": "mit",
+                "lemma": "mit",
+                "pos": "ADP",
+                "morphology": "$(",
+                "head": 10,
+                "dep_rel": "case",
+                "error": false
+            },
+            {
+                "id": 9,
+                "form": "den",
+                "lemma": "der",
+                "pos": "DET",
+                "morphology": "ART",
+                "features": {
+                    "Case": "Dat",
+                    "Number": "Plur",
+                    "PronType": "Art"
+                },
+                "head": 10,
+                "dep_rel": "det",
+                "error": false
+            },
+            {
+                "id": 10,
+                "form": "Universit\u00e4t",
+                "lemma": "Universit\u00e4t",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Dat",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 7,
+                "dep_rel": "nmod",
+                "error": false
+            },
+            {
+                "id": 11,
+                "form": "und",
+                "lemma": "und",
+                "pos": "CCONJ",
+                "morphology": "NE",
+                "features": {
+                    "Foreign": "Yes"
+                },
+                "head": 14,
+                "dep_rel": "cc",
+                "error": false
+            },
+            {
+                "id": 12,
+                "form": "ich",
+                "lemma": "ich",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Number": "Sing",
+                    "Person": "1",
+                    "PronType": "Prs"
+                },
+                "head": 14,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 13,
+                "form": "lerne",
+                "lemma": "lerne",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 14,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 14,
+                "form": "gerne",
+                "lemma": "gerne",
+                "pos": "ADV",
+                "morphology": "ADV",
+                "head": 10,
+                "dep_rel": "conj",
+                "features": {
+                    "SpaceAfter": "No"
+                },
+                "error": false
+            },
+            {
+                "id": 15,
+                "form": "!",
+                "lemma": "!",
+                "pos": "PUNCT",
+                "morphology": "$.",
+                "head": 3,
+                "dep_rel": "punct",
+                "error": false
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "6576ecd31cd1c208b7b87f07"
+        },
+        "idExercises": 1,
+        "idLexical": 5,
+        "text": "Trotzdem ist es sehr kompliziert um das Logik zu verstehen...",
+        "lexicalUnit": [
+            {
+                "id": 1,
+                "form": "Trotzdem",
+                "lemma": "trotzdem",
+                "pos": "ADV",
+                "morphology": "PAV",
+                "head": 5,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 2,
+                "form": "ist",
+                "lemma": "sein",
+                "pos": "AUX",
+                "morphology": "VVFIN",
+                "features": {
+                    "Mood": "Ind",
+                    "Number": "Sing",
+                    "Person": "3",
+                    "Tense": "Pres",
+                    "VerbForm": "Fin"
+                },
+                "head": 5,
+                "dep_rel": "cop",
+                "error": false
+            },
+            {
+                "id": 3,
+                "form": "es",
+                "lemma": "es",
+                "pos": "PRON",
+                "morphology": "PPER",
+                "features": {
+                    "Case": "Nom",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "Person": "3",
+                    "PronType": "Prs"
+                },
+                "head": 5,
+                "dep_rel": "nsubj",
+                "error": false
+            },
+            {
+                "id": 4,
+                "form": "sehr",
+                "lemma": "sehr",
+                "pos": "ADV",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Neut",
+                    "Number": "Sing"
+                },
+                "head": 5,
+                "dep_rel": "advmod",
+                "error": false
+            },
+            {
+                "id": 5,
+                "form": "kompliziert",
+                "lemma": "kompliziert",
+                "pos": "ADJ",
+                "morphology": "ADJD",
+                "head": 0,
+                "dep_rel": "root",
+                "error": false
+            },
+            {
+                "id": 6,
+                "form": "um",
+                "lemma": "um",
+                "pos": "ADP",
+                "morphology": "APPR",
+                "head": 10,
+                "dep_rel": "mark",
+                "error": false
+            },
+            {
+                "id": 7,
+                "form": "das",
+                "lemma": "der",
+                "pos": "DET",
+                "morphology": "ART",
+                "features": {
+                    "Case": "Acc",
+                    "Definite": "Def",
+                    "Gender": "Neut",
+                    "Number": "Sing",
+                    "PronType": "Art"
+                },
+                "head": 8,
+                "dep_rel": "det",
+                "error": false
+            },
+            {
+                "id": 8,
+                "form": "Logik",
+                "lemma": "Logik",
+                "pos": "NOUN",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Fem",
+                    "Number": "Sing"
+                },
+                "head": 10,
+                "dep_rel": "obj",
+                "error": false
+            },
+            {
+                "id": 9,
+                "form": "zu",
+                "lemma": "zu",
+                "pos": "PART",
+                "morphology": "NN",
+                "features": {
+                    "Case": "Acc",
+                    "Gender": "Masc",
+                    "Number": "Plur"
+                },
+                "head": 10,
+                "dep_rel": "mark",
+                "error": false
+            },
+            {
+                "id": 10,
+                "form": "verstehen",
+                "lemma": "verstehen",
+                "pos": "VERB",
+                "morphology": "VVINF",
+                "features": {
+                    "VerbForm": "Inf",
+                    "SpaceAfter": "No"
+                },
+                "head": 5,
+                "dep_rel": "advcl",
+                "error": false
+            },
+            {
+                "id": 11,
+                "form": "...",
+                "lemma": "...",
+                "pos": "PUNCT",
+                "morphology": "$(",
+                "head": 5,
+                "dep_rel": "punct",
+                "features": {
+                    "SpacesAfter": "\n"
+                },
+                "error": false
+            }
+        ]
+    }
+]

@@ -20,6 +20,7 @@ import {
   selectLoadingExercices,
 } from "../features/exercices/exerciceSelector";
 import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
+import jsonData from "./Untitled-1.json";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -29,12 +30,15 @@ const PageTexte = () => {
   const [exerciseData, setExerciseData] = useState(null);
   const [lexical, setLexical] = useState(null);
   const [selectedTab, setSelectedTab] = useState("tab1");
-  const [displayTextInlineTab1, setDisplayTextInlineTab1] = useState(true);
-  const [displayTextInlineTab2, setDisplayTextInlineTab2] = useState(true);
-  const [displayTextInlineTab3, setDisplayTextInlineTab3] = useState(true);
-  const [conjugaisonChecked, setConjugaisonChecked] = useState(true);
-  const [ponctuationChecked, setPonctuationChecked] = useState(true);
-  const [syntaxeChecked, setSyntaxeChecked] = useState(true);
+  const [displayTextInline, setDisplayTextInline] = useState(true); // Common display text state
+  const [conjugaisonChecked, setConjugaisonChecked] = useState(false);
+  const [ponctuationChecked, setPonctuationChecked] = useState(false);
+  const [syntaxeChecked, setSyntaxeChecked] = useState(false);
+  const [verbeChecked, setVerbeChecked] = useState(false); // New checkbox state
+  const [prenomChecked, setPrenomChecked] = useState(false); // New checkbox state
+  const [nomCommunChecked, setNomCommunChecked] = useState(false); // New checkbox state
+  const [wordData, setWordData] = useState([]);
+  const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
 
   useEffect(() => {
     console.log("useEffect triggered");
@@ -55,6 +59,14 @@ const PageTexte = () => {
 
           if (idsLexical) {
             setLexical(idsLexical);
+
+            // Initialisation avec les styles par défaut
+            const wordsWithStyles = jsonData.map((word) => ({
+              ...word,
+              style: { color: "#000" }, // Couleur par défaut (noir)
+            }));
+            setWordData(wordsWithStyles);
+            setWordDataWithStyles(wordsWithStyles);
           }
         }
       }
@@ -67,21 +79,71 @@ const PageTexte = () => {
     }
   };
 
-  const handleDisplayTextInlineChangeTab1 = () => {
-    setDisplayTextInlineTab1((prev) => !prev);
-  };
-  const handleDisplayTextInlineChangeTab2 = () => {
-    setDisplayTextInlineTab2((prev) => !prev);
-  };
-  const handleDisplayTextInlineChangeTab3 = () => {
-    setDisplayTextInlineTab3((prev) => !prev);
+  const handleDisplayTextInlineChange = () => {
+    setDisplayTextInline((prev) => !prev);
   };
 
   const handleResetConjugaison = () => {
-    setConjugaisonChecked(true);
-    setPonctuationChecked(true);
-    setSyntaxeChecked(true);
+    setConjugaisonChecked(false);
+    setPonctuationChecked(false);
+    setSyntaxeChecked(false);
+    setVerbeChecked(false);
+    setPrenomChecked(false);
+    setNomCommunChecked(false);
   };
+
+  const handleConjugaisonCheckboxChange = () => {
+    // Inverser l'état de la checkbox
+    setConjugaisonChecked((prev) => !prev);
+  
+    // Mettre à jour l'état des mots avec les nouveaux styles en fonction de l'erreur
+    setWordDataWithStyles((prevWordDataWithStyles) => {
+      const isChecked = !conjugaisonChecked; // Utilisez la valeur inversée ici
+  
+      return prevWordDataWithStyles.map((word) => {
+        // Vérifier si le mot est défini
+        if (!word) {
+          return null; // Ignorer les mots non définis
+        }
+  
+        // Vérifier si le mot a une propriété lexicalUnit
+        if (word.lexicalUnit && Array.isArray(word.lexicalUnit) && word.lexicalUnit.length > 0) {
+          // Itérer sur chaque élément de lexicalUnit pour cette phrase
+          const hasError = word.lexicalUnit.some((unit) => unit.error);
+  
+          if (hasError) {
+            console.log("Unit:", word.form || "undefined", "Error:", hasError);
+            word.lexicalUnit.forEach((unit) => {
+              console.log(
+                "Unit:",
+                unit.form || "undefined",
+                "Error:",
+                unit.error
+              );
+            });
+            console.log("---");
+            return {
+              ...word,
+              style: isChecked ? { color: "#C62323" } : { color: "#000" },
+            };
+          }
+        } else if (word.error) {
+          console.log("Word:", word.form || "undefined", "Error:", word.error);
+          return {
+            ...word,
+            style: isChecked ? { color: "#C62323" } : { color: "#000" },
+          };
+        } else {
+          return {
+            ...word,
+            style: { color: "#000" },
+          };
+        }
+      });
+    });
+  };
+  
+  
 
   return (
     <>
@@ -162,17 +224,7 @@ const PageTexte = () => {
                     fontFamily: "Itim",
                   }}
                 >
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={displayTextInlineTab1}
-                        onChange={handleDisplayTextInlineChangeTab1}
-                      />
-                    }
-                    label="Afficher en ligne"
-                  />
-
-                  <p>{exerciseData.content}</p>
+                  <p>{displayTextInline && exerciseData.content}</p>
                 </Box>
               )}
 
@@ -185,23 +237,24 @@ const PageTexte = () => {
                     fontFamily: "Itim",
                   }}
                 >
-                  {/* Contenu de l'onglet 2 */}
-                  <p>
-                    Lorem ipsum dolor sit amet. Ea sunt harum qui distinctio
-                    possimus hic maxime atque quo voluptatem voluptatem. Sit
-                    aperiam itaque🤔 et accusamus illum ut pased aperiam autem
-                    et commodi quam qui uis eius eum doloribus pariatur est
-                    doloremque autem. 🤔Aut quasi corporis et sint nemo quo
-                    vitae quasi eum dolorum galisum eos quae reprehenderit est
-                    aperiam senescent id voluptatem earum ? Et accusamus 🤔
-                    assumenda in facilis soluta ut eaque facere ex placeat ipsa
-                    et galisum facere in consequatur pariatur, id quia quia. Est
-                    omnis odio et sint nobis ex dicta possimus qui enim sint ut
-                    facere ipsa eum ipsum numquam qui 🤔ratione consectetur. Non
-                    galisum molestias et natus nemo qui maiores harum est
-                    adipisci dignissimos.
-                  </p>
-                </Box>
+                    {/* Contenu de l'onglet 2 */}
+    {displayTextInline && (
+      <>
+       
+       {exerciseData.content &&
+  exerciseData.content.split(" ").map((word, index) => {
+    const wordDataItem = wordDataWithStyles[index];
+
+    return (
+      <span key={index} style={wordDataItem?.style || {}}>
+        {word}{' '}
+      </span>
+    );
+  })}
+      
+      </>
+    )}
+  </Box>
               )}
 
               {selectedTab === "tab3" && (
@@ -214,7 +267,7 @@ const PageTexte = () => {
                   }}
                 >
                   {/* Contenu de l'onglet 3 */}
-                  <p>Contenu de l'onglet 3</p>
+                  <p>{displayTextInline && exerciseData.content}</p>
                 </Box>
               )}
             </Box>
@@ -271,44 +324,90 @@ const PageTexte = () => {
                 Voir toutes les erreurs
               </Button>
               <FormGroup sx={{ width: "100%" }}>
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Conjugaison"
-                  sx={{
-                    m: "8px",
-                    background: "#fff",
-                    borderRadius: "5px",
-                    m: 0,
-                    color: "#C62323",
-                    textDecoration: "underline",
-                  }}
-                />
+                {selectedTab === "tab1" && (
+                  <>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={verbeChecked} />}
+                      label="Verbe"
+                      sx={{
+                        m: "8px",
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        color: "#C62323",
+                        textDecoration: "underline",
+                      }}
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={prenomChecked} />}
+                      label="Prénom"
+                      sx={{
+                        my: 1,
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        color: "#2364C6",
+                        textDecoration: "underline",
+                      }}
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={nomCommunChecked} />}
+                      label="Nom commun"
+                      sx={{
+                        my: 1,
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        color: "#75C623",
+                        textDecoration: "underline",
+                      }}
+                    />
+                  </>
+                )}
 
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Ponctuation"
-                  sx={{
-                    my: 1,
-                    background: "#fff",
-                    borderRadius: "5px",
-                    m: 0,
-                    color: "#2364C6",
-                    textDecoration: "underline",
-                  }}
-                />
+                {selectedTab === "tab2" && (
+                  <>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={conjugaisonChecked}
+                      onChange={handleConjugaisonCheckboxChange}  />}
+                      label="Conjugaison"
+                      sx={{
+                        m: "8px",
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        color: "#C62323",
+                        textDecoration: "underline",
+                      }}
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={ponctuationChecked} />}
+                      label="Ponctuation"
+                      sx={{
+                        my: 1,
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        color: "#2364C6",
+                        textDecoration: "underline",
+                      }}
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={syntaxeChecked} />}
+                      label="Syntaxe"
+                      sx={{
+                        my: 1,
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        color: "#75C623",
+                        textDecoration: "underline",
+                      }}
+                    />
+                  </>
+                )}
 
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Syntaxe"
-                  sx={{
-                    my: 1,
-                    background: "#fff",
-                    borderRadius: "5px",
-                    m: 0,
-                    color: "#75C623",
-                    textDecoration: "underline",
-                  }}
-                />
+                {/* Ajoutez d'autres conditions pour d'autres onglets si nécessaire */}
               </FormGroup>
             </Box>
           </Box>
