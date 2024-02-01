@@ -10,7 +10,6 @@ import FetchClasseExercises from "../../fonctions/FetchClasseExercises";
 const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
   const { loadingExercises, classeExercises } = FetchClasseExercises(classData);
-  console.log(classeExercises)
 
   return (
     <>
@@ -123,10 +122,14 @@ const DashboardClass = ({ classData, onClose }) => {
                 margin: "auto",
               }}
             >
-              <Calendar
-                classeExercises={classeExercises}
-                loadingExercises={loadingExercises}
-              />
+              {classeExercises ? (
+                <Calendar
+                  classeExercises={classeExercises}
+                  loadingExercises={loadingExercises}
+                />
+              ) : (
+                <Typography>Pas de données</Typography>
+              )}
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid

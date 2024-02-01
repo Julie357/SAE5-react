@@ -165,20 +165,20 @@ const Timeline = ({ range, data }) => {
 };
 
 const Calendar = ({ classeExercises, loadingExercises }) => {
-  const startDate = moment().add(-365, "days");
   const dateRange = [startDate, moment()];
   const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
-  console.log("ex" + classeExercises);
+
   if (!loadingExercises) {
     const dataRecup = classeExercises.map((exercise) => ({
-      date: exercise.date,
+      title: exercise.title,
       value: levelConversion[exercise.exercisesSkillLevel] || 0,
     }));
 
-    const data = Array.from(new Array(365)).map((_, index) => {
-      const dayDate = moment(startDate).add(index, "day");
+    console.log(dataRecup)
+
+    const data = Array.from(new Array(dataRecup.length)).map((_, index) => {
       const matchingDataRecup = dataRecup.filter(
-        (data) => data.date === dayDate.format("YYYY-MM-DD")
+        (data) => data.title === dayDate.format("YYYY-MM-DD")
       );
 
       if (matchingDataRecup.length > 0) {
@@ -202,7 +202,7 @@ const Calendar = ({ classeExercises, loadingExercises }) => {
         }}
       >
         <Typography variant="h6">
-          Evolution du niveau de l'élève sur l'année
+          Evolution du niveau de la classe sur l'année
         </Typography>
         <Timeline
           range={dateRange}

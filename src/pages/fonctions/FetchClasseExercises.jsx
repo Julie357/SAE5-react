@@ -28,10 +28,9 @@ const FetchClasseExercises = (classData) => {
         console.log(dataStudents);
       });
     }
-    console.log('dataStu' + dataStudents)
+
     if (dataStudents) {
       if (!loadingExercises && allExercises.length > 0) {
-        
         const foundedExercises = [];
         dataStudents.map((student) => {
           const idExercises = student.idExercises;
@@ -48,7 +47,7 @@ const FetchClasseExercises = (classData) => {
         }
       }
     }
-  }, [students, loadingExercises, allExercises]);
+  }, [students, allStudents, loadingExercises, allExercises]);
 
   return {
     loadingExercises,
