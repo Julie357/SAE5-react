@@ -49,7 +49,7 @@ const StudentData = ({
 
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
-      <Grid item xs={12} sx={{ height: "5%", width: "100%" }} />
+      {/* <Grid item xs={12} sx={{ height: "2vh", width: "100%" }} /> */}
       <Grid item xs={12} sx={{ height: "40%", width: "100%" }}>
         <Box
           sx={{
@@ -70,10 +70,11 @@ const StudentData = ({
         item
         xs={12}
         sx={{
-          height: "15%",
+          height: "20%",
           width: "100%",
           display: "flex",
           justifyContent: "end",
+          alignItems: "center"
         }}
       >
         <FormGroup>

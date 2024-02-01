@@ -4,9 +4,14 @@ import { Box, Button, Chip, Grid } from "@mui/material";
 import FilterForm from "./FilterForm";
 import RecurrentErrors from "./RecurrentErrors";
 import { Close } from "@mui/icons-material";
+import Calendar from "./Dashboards/Calendar";
+import FetchClasseExercises from "../../fonctions/FetchClasseExercises";
 
 const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
+  const { loadingExercises, classeExercises } = FetchClasseExercises(classData);
+  console.log(classeExercises)
+
   return (
     <>
       <Box
@@ -26,7 +31,15 @@ const DashboardClass = ({ classData, onClose }) => {
             margin: "auto",
           }}
         >
-          <Grid item xs={12} sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography
               fontWeight="bolder"
               sx={{
@@ -37,8 +50,8 @@ const DashboardClass = ({ classData, onClose }) => {
               Informations sur la {classData.classLevel}
               {classData.classNumber}
             </Typography>
-            <Button onClick={onClose} sx={{marginBottom: "2vh",}}>
-              <Close sx={{color:"#3D6787"}}/>
+            <Button onClick={onClose} sx={{ marginBottom: "2vh" }}>
+              <Close sx={{ color: "#3D6787" }} />
             </Button>
           </Grid>
           <Grid
@@ -85,15 +98,15 @@ const DashboardClass = ({ classData, onClose }) => {
             item
             xs={12}
             sx={{
-              height: "8vh",
+              height: "4vh",
               display: "flex",
               justifyContent: "flex-end",
               alignItems: "center",
             }}
           >
-            <Grid item xs={2}>
+            {/* <Grid item xs={2}>
               <FilterForm />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Grid
             item
@@ -109,7 +122,12 @@ const DashboardClass = ({ classData, onClose }) => {
                 height: "100%",
                 margin: "auto",
               }}
-            ></Grid>
+            >
+              <Calendar
+                classeExercises={classeExercises}
+                loadingExercises={loadingExercises}
+              />
+            </Grid>
             <Grid item xs={1}></Grid>
             <Grid
               item

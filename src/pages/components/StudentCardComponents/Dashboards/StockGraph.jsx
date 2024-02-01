@@ -2,8 +2,8 @@ import * as d3 from "d3";
 import { useEffect, useState } from "react";
 
 function LineChart({ studentExercises }) {
-  const width = 400;
-  const height = 200;
+  const width = 500;
+  const height = 300;
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function LineChart({ studentExercises }) {
       0: 0,
       1: "A1",
       2: "A2",
-      3: "A3",
+      3: "B1",
       4: "B2",
       5: "C1",
       6: "C2",
@@ -53,15 +53,23 @@ function LineChart({ studentExercises }) {
       }
     });
 
-    const chartData = Object.keys(dateMap).map((date) => ({
-      label: date,
-      value: dateMap[date].totalCount
-        ? INT_TO_LEVEL[
-            Math.round(dateMap[date].totalValue / dateMap[date].totalCount)
-          ]
-        : 0,
-      date: new Date(date),
-    }));
+    const chartData = Object.keys(dateMap).map((date) => {
+      console.log(date);
+
+      const dateObject = new Date(date); // Convert the date string to a Date object
+
+      return {
+        label: `${dateObject.getDate()}/${
+          dateObject.getMonth() + 1
+        }/${dateObject.getFullYear()}`,
+        value: dateMap[date].totalCount
+          ? INT_TO_LEVEL[
+              Math.round(dateMap[date].totalValue / dateMap[date].totalCount)
+            ]
+          : 0,
+        date: dateObject,
+      };
+    });
 
     chartData.sort((a, b) => a.date - b.date);
 
@@ -72,8 +80,8 @@ function LineChart({ studentExercises }) {
     const margin = { top: 10, right: 50, bottom: 50, left: 50 };
 
     const yValues = ["A1", "A2", "B1", "B2", "C1", "C2"];
-    const yMinValue = d3.min(data, (d) => yValues.indexOf(d.value));
-    const yMaxValue = d3.max(data, (d) => yValues.indexOf(d.value));
+    const yMinValue = 0;
+    const yMaxValue = 5;
 
     const svg = d3
       .select("#container")
@@ -93,6 +101,30 @@ function LineChart({ studentExercises }) {
       .scaleLinear()
       .domain([yMinValue, yMaxValue])
       .range([height, 0]);
+
+    // var Tooltip = d3
+    //   .select("#container")
+    //   .append("div")
+    //   .style("opacity", 0)
+    //   .attr("class", "tooltip")
+    //   .style("background-color", "white")
+    //   .style("border", "solid")
+    //   .style("border-width", "2px")
+    //   .style("border-radius", "5px")
+    //   .style("padding", "5px");
+
+    // // Three function that change the tooltip when user hover / move / leave a cell
+    // var mouseover = function (d) {
+    //   Tooltip.style("opacity", 1);
+    // };
+    // var mousemove = (event, d) => {
+    //   Tooltip.html(`Exact value: ${d.value}`)
+    //   .style("top", d3.event.pageX)
+    //   .style("left", d3.event.pageY)
+    // };
+    // var mouseleave = function (d) {
+    //   Tooltip.style("opacity", 0);
+    // };
 
     svg
       .append("g")
@@ -150,7 +182,10 @@ function LineChart({ studentExercises }) {
       .attr("cx", (d) => xScale(d.label) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(yValues.indexOf(d.value)))
       .attr("r", 5)
-      .attr("fill", "#f6c3d0");
+      .attr("fill", "#f6c3d0")
+      // .on("mouseover", mouseover)
+      // .on("mousemove", mousemove)
+      // .on("mouseleave", mouseleave);
   };
 
   return (

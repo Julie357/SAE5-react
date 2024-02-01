@@ -14,7 +14,6 @@ const lexicalSlice = createSlice({
         state.loadingLexical = true;
       })
       .addCase(loadLexical.fulfilled, (state, action) => {
-        console.log('payload'+ action.payload)
         state.lexical = action.payload;
         state.loadingLexical = false;
       })
