@@ -20,9 +20,9 @@ import {
   selectLoadingExercices,
 } from "../features/exercices/exerciceSelector";
 import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
-import jsonData from "./Untitled-1.json";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
 import { ArrowBack } from "@mui/icons-material";
+import axios from "axios";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -34,6 +34,7 @@ const PageTexte = () => {
   const [displayTextInline, setDisplayTextInline] = useState(true);
   const [conjugaisonChecked, setConjugaisonChecked] = useState(false);
   const [ponctuationChecked, setPonctuationChecked] = useState(false);
+  const [correctionChecked, setCorrectionChecked] = useState(false);
   const [syntaxeChecked, setSyntaxeChecked] = useState(false);
   const [verbeChecked, setVerbeChecked] = useState(false);
   const [prenomChecked, setPrenomChecked] = useState(false);
@@ -51,6 +52,7 @@ const PageTexte = () => {
 
       if (exerciseData) {
         setExerciseData(exerciseData);
+        setCorrectionChecked(exerciseData.correction);
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical]);
@@ -90,6 +92,17 @@ const PageTexte = () => {
     }
 
     setWordDataWithStyles(errorArray);
+  };
+
+  const changeCorrected = async () => {
+    try {
+      await axios.put(
+        `https://la-diwa-03.univ-lemans.fr/api/toggle-correction/${exerciseData.idExercises}`
+      );
+      console.log("Requête PUT réussie !");
+    } catch (error) {
+      console.error("Erreur lors de la requête PUT:", error.message);
+    }
   };
 
   return (
@@ -380,6 +393,22 @@ const PageTexte = () => {
               </FormGroup>
             </Box>
           </Box>
+          <FormControlLabel
+            control={
+              <Checkbox
+                defaultChecked={correctionChecked}
+                onChange={changeCorrected}
+              />
+            }
+            label="Corrigé"
+            sx={{
+              my: 1,
+              background: "#fff",
+              borderRadius: "5px",
+              m: 0,
+              color: "#2364C6",
+            }}
+          />
           <Box
             sx={{
               m: 8,
