@@ -169,6 +169,9 @@ const PageTexte = () => {
                     fontFamily: "Itim",
                   }}
                 >
+                  <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
+                    {exerciseData.title}
+                  </Typography>
                   <p>{displayTextInline && exerciseData.content}</p>
                 </Box>
               )}
@@ -182,9 +185,11 @@ const PageTexte = () => {
                     fontFamily: "Itim",
                   }}
                 >
-                  {/* Contenu de l'onglet 2 */}
                   {displayTextInline && (
                     <>
+                      <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
+                        {exerciseData.title}
+                      </Typography>
                       {exerciseData.content &&
                         exerciseData.content.split(" ").map((word, index) => {
                           const wordDataItem = wordDataWithStyles[index];
@@ -213,7 +218,9 @@ const PageTexte = () => {
                     fontFamily: "Itim",
                   }}
                 >
-                  {/* Contenu de l'onglet 3 */}
+                  <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
+                    {exerciseData.title}
+                  </Typography>{" "}
                   <p>{displayTextInline && exerciseData.content}</p>
                 </Box>
               )}
