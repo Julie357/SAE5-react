@@ -24,7 +24,7 @@ import jsonData from "./Untitled-1.json";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
 import { ArrowBack } from "@mui/icons-material";
 
-const PageTexte = ({ history }) => {
+const PageTexte = () => {
   const { idExercise } = useParams();
   const loadingExercises = useSelector(selectLoadingExercices);
   const allExercises = useSelector(selectExercices);
