@@ -21,6 +21,7 @@ import {
 } from "../features/exercices/exerciceSelector";
 import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
 import jsonData from "./Untitled-1.json";
+import UseFetchLexicalData from "./fonctions/FetchLexicalData";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -28,7 +29,6 @@ const PageTexte = () => {
   const allExercises = useSelector(selectExercices);
   const loadingLexical = useSelector(selectLoadingLexical);
   const [exerciseData, setExerciseData] = useState(null);
-  const [lexical, setLexical] = useState(null);
   const [selectedTab, setSelectedTab] = useState("tab1");
   const [displayTextInline, setDisplayTextInline] = useState(true); // Common display text state
   const [conjugaisonChecked, setConjugaisonChecked] = useState(false);
@@ -39,36 +39,16 @@ const PageTexte = () => {
   const [nomCommunChecked, setNomCommunChecked] = useState(false); // New checkbox state
   const [wordData, setWordData] = useState([]);
   const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
+  const { lexicalData } = UseFetchLexicalData(exerciseData);
 
   useEffect(() => {
-    console.log("useEffect triggered");
-
     if (!loadingExercises) {
       const exerciseData = allExercises.find(
         (exercise) => exercise.idExercises == idExercise
       );
 
-      console.log("exerciseData", exerciseData);
-
       if (exerciseData) {
         setExerciseData(exerciseData);
-
-        if (!loadingLexical) {
-          const idsLexical = exerciseData.idLexical;
-          console.log("idsLexical", idsLexical);
-
-          if (idsLexical) {
-            setLexical(idsLexical);
-
-            // Initialisation avec les styles par défaut
-            const wordsWithStyles = jsonData.map((word) => ({
-              ...word,
-              style: { color: "#000" }, // Couleur par défaut (noir)
-            }));
-            setWordData(wordsWithStyles);
-            setWordDataWithStyles(wordsWithStyles);
-          }
-        }
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical]);
@@ -92,58 +72,23 @@ const PageTexte = () => {
     setNomCommunChecked(false);
   };
 
-  const handleConjugaisonCheckboxChange = () => {
-    // Inverser l'état de la checkbox
-    setConjugaisonChecked((prev) => !prev);
-  
-    // Mettre à jour l'état des mots avec les nouveaux styles en fonction de l'erreur
-    setWordDataWithStyles((prevWordDataWithStyles) => {
-      const isChecked = !conjugaisonChecked; // Utilisez la valeur inversée ici
-  
-      return prevWordDataWithStyles.map((word) => {
-        // Vérifier si le mot est défini
-        if (!word) {
-          return null; // Ignorer les mots non définis
-        }
-  
-        // Vérifier si le mot a une propriété lexicalUnit
-        if (word.lexicalUnit && Array.isArray(word.lexicalUnit) && word.lexicalUnit.length > 0) {
-          // Itérer sur chaque élément de lexicalUnit pour cette phrase
-          const hasError = word.lexicalUnit.some((unit) => unit.error);
-  
-          if (hasError) {
-            console.log("Unit:", word.form || "undefined", "Error:", hasError);
-            word.lexicalUnit.forEach((unit) => {
-              console.log(
-                "Unit:",
-                unit.form || "undefined",
-                "Error:",
-                unit.error
-              );
-            });
-            console.log("---");
-            return {
-              ...word,
-              style: isChecked ? { color: "#C62323" } : { color: "#000" },
-            };
-          }
-        } else if (word.error) {
-          console.log("Word:", word.form || "undefined", "Error:", word.error);
-          return {
-            ...word,
-            style: isChecked ? { color: "#C62323" } : { color: "#000" },
-          };
-        } else {
-          return {
-            ...word,
-            style: { color: "#000" },
-          };
+  const handleConjugaisonCheckboxChange = async () => {
+    const newConjugaisonChecked = !conjugaisonChecked;
+    setConjugaisonChecked(newConjugaisonChecked);
+    const errorArray = [];
+
+    if (newConjugaisonChecked) {
+      console.log(newConjugaisonChecked);
+
+      await lexicalData.lexicalUnit.forEach((unit) => {
+        if (unit.error) {
+          errorArray.push(unit);
         }
       });
-    });
+    }
+
+    setWordDataWithStyles(errorArray);
   };
-  
-  
 
   return (
     <>
@@ -237,24 +182,26 @@ const PageTexte = () => {
                     fontFamily: "Itim",
                   }}
                 >
-                    {/* Contenu de l'onglet 2 */}
-    {displayTextInline && (
-      <>
-       
-       {exerciseData.content &&
-  exerciseData.content.split(" ").map((word, index) => {
-    const wordDataItem = wordDataWithStyles[index];
-
-    return (
-      <span key={index} style={wordDataItem?.style || {}}>
-        {word}{' '}
-      </span>
-    );
-  })}
-      
-      </>
-    )}
-  </Box>
+                  {/* Contenu de l'onglet 2 */}
+                  {displayTextInline && (
+                    <>
+                      {exerciseData.content &&
+                        exerciseData.content.split(" ").map((word, index) => {
+                          const wordDataItem = wordDataWithStyles[index];
+                          return (
+                            <span
+                              key={index}
+                              style={{
+                                color: wordDataItem ? "red" : "",
+                              }}
+                            >
+                              {word}{" "}
+                            </span>
+                          );
+                        })}
+                    </>
+                  )}
+                </Box>
               )}
 
               {selectedTab === "tab3" && (
@@ -368,8 +315,12 @@ const PageTexte = () => {
                 {selectedTab === "tab2" && (
                   <>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked={conjugaisonChecked}
-                      onChange={handleConjugaisonCheckboxChange}  />}
+                      control={
+                        <Checkbox
+                          defaultChecked={conjugaisonChecked}
+                          onChange={handleConjugaisonCheckboxChange}
+                        />
+                      }
                       label="Conjugaison"
                       sx={{
                         m: "8px",
@@ -406,8 +357,6 @@ const PageTexte = () => {
                     />
                   </>
                 )}
-
-                {/* Ajoutez d'autres conditions pour d'autres onglets si nécessaire */}
               </FormGroup>
             </Box>
           </Box>
