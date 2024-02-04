@@ -13,7 +13,7 @@ import InsightsIcon from "@mui/icons-material/Insights";
 import Button from "@mui/material/Button";
 import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
 import "../Styles/stylePage.css";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   selectExercices,
@@ -22,24 +22,26 @@ import {
 import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
 import jsonData from "./Untitled-1.json";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
+import { ArrowBack } from "@mui/icons-material";
 
-const PageTexte = () => {
+const PageTexte = ({ history }) => {
   const { idExercise } = useParams();
   const loadingExercises = useSelector(selectLoadingExercices);
   const allExercises = useSelector(selectExercices);
   const loadingLexical = useSelector(selectLoadingLexical);
   const [exerciseData, setExerciseData] = useState(null);
   const [selectedTab, setSelectedTab] = useState("tab1");
-  const [displayTextInline, setDisplayTextInline] = useState(true); // Common display text state
+  const [displayTextInline, setDisplayTextInline] = useState(true);
   const [conjugaisonChecked, setConjugaisonChecked] = useState(false);
   const [ponctuationChecked, setPonctuationChecked] = useState(false);
   const [syntaxeChecked, setSyntaxeChecked] = useState(false);
-  const [verbeChecked, setVerbeChecked] = useState(false); // New checkbox state
-  const [prenomChecked, setPrenomChecked] = useState(false); // New checkbox state
-  const [nomCommunChecked, setNomCommunChecked] = useState(false); // New checkbox state
+  const [verbeChecked, setVerbeChecked] = useState(false);
+  const [prenomChecked, setPrenomChecked] = useState(false);
+  const [nomCommunChecked, setNomCommunChecked] = useState(false);
   const [wordData, setWordData] = useState([]);
   const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
   const { lexicalData } = UseFetchLexicalData(exerciseData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -92,10 +94,21 @@ const PageTexte = () => {
 
   return (
     <>
+      <Box sx={{ ml: 4, mt: 2, mb: -1, pl: 4 }}>
+        <Link
+          onClick={() => navigate(-1)}
+          style={{ textDecoration: "none", color: "#3D6787" }}
+        >
+          <Typography sx={{ display: "flex", alignItems: "center" }}>
+            <ArrowBack sx={{ mr: 1 }} />
+            Retour à la fiche élève
+          </Typography>
+        </Link>
+      </Box>
       {exerciseData && (
         <>
           <Box sx={{ display: "flex" }}>
-            <Box sx={{ m: 4, p: 4, width: "60%" }}>
+            <Box sx={{ m: 4, mt: 0, p: 4, width: "60%" }}>
               <ToggleButtonGroup
                 value={selectedTab}
                 exclusive
