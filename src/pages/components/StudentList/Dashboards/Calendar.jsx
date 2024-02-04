@@ -165,55 +165,55 @@ const Timeline = ({ range, data }) => {
 };
 
 const Calendar = ({ classeExercises, loadingExercises }) => {
-  const dateRange = [startDate, moment()];
-  const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
+  // const dateRange = [startDate, moment()];
+  // const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
 
-  if (!loadingExercises) {
-    const dataRecup = classeExercises.map((exercise) => ({
-      title: exercise.title,
-      value: levelConversion[exercise.exercisesSkillLevel] || 0,
-    }));
+  // if (!loadingExercises) {
+  //   const dataRecup = classeExercises.map((exercise) => ({
+  //     title: exercise.title,
+  //     value: levelConversion[exercise.exercisesSkillLevel] || 0,
+  //   }));
 
-    console.log(dataRecup)
+  //   console.log(dataRecup)
 
-    const data = Array.from(new Array(dataRecup.length)).map((_, index) => {
-      const matchingDataRecup = dataRecup.filter(
-        (data) => data.title === dayDate.format("YYYY-MM-DD")
-      );
+  //   const data = Array.from(new Array(dataRecup.length)).map((_, index) => {
+  //     const matchingDataRecup = dataRecup.filter(
+  //       (data) => data.title === dayDate.format("YYYY-MM-DD")
+  //     );
 
-      if (matchingDataRecup.length > 0) {
-        const averageValue = Math.round(
-          matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) /
-            matchingDataRecup.length
-        );
-        return { date: dayDate, value: averageValue };
-      } else {
-        return { date: dayDate, value: 0 };
-      }
-    });
+  //     if (matchingDataRecup.length > 0) {
+  //       const averageValue = Math.round(
+  //         matchingDataRecup.reduce((acc, curr) => acc + curr.value, 0) /
+  //           matchingDataRecup.length
+  //       );
+  //       return { date: dayDate, value: averageValue };
+  //     } else {
+  //       return { date: dayDate, value: 0 };
+  //     }
+  //   });
 
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          height: "100%",
-        }}
-      >
-        <Typography variant="h6">
-          Evolution du niveau de la classe sur l'année
-        </Typography>
-        <Timeline
-          range={dateRange}
-          data={data}
-          classeExercises={classeExercises}
-        />
+  //   return (
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         flexDirection: "column",
+  //         justifyContent: "space-between",
+  //         height: "100%",
+  //       }}
+  //     >
+  //       <Typography variant="h6">
+  //         Evolution du niveau de la classe sur l'année
+  //       </Typography>
+  //       <Timeline
+  //         range={dateRange}
+  //         data={data}
+  //         classeExercises={classeExercises}
+  //       />
 
-        <Legend />
-      </div>
-    );
-  }
+  //       <Legend />
+  //     </div>
+    // );
+  // }
 };
 
 export default Calendar;
