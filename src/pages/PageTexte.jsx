@@ -101,7 +101,7 @@ const PageTexte = () => {
         >
           <Typography sx={{ display: "flex", alignItems: "center" }}>
             <ArrowBack sx={{ mr: 1 }} />
-            Retour à la fiche élève
+            Retour aux exercices de l'élève
           </Typography>
         </Link>
       </Box>
