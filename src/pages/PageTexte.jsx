@@ -86,7 +86,6 @@ const PageTexte = () => {
       punctErrors: [],
       grammarErrors: [],
     };
-    console.log("in");
     await lexicalData.lexicalUnit.forEach((unit) => {
       if (unit.error) {
         switch (unit.pos) {
@@ -108,10 +107,12 @@ const PageTexte = () => {
           case "PUNCT":
             errorsByCategory.punctErrors.push(unit);
             break;
+
+          default:
+            break;
         }
       }
     });
-    console.log(errorsByCategory);
     setWordDataWithStyles(errorsByCategory);
   };
   const changeCorrected = async () => {
@@ -271,6 +272,18 @@ const PageTexte = () => {
                                     wordErrorGrammar.length > 0 &&
                                     "#75C623") ||
                                   "",
+
+                                borderBottom:
+                                  (conjugaisonChecked &&
+                                    wordErrorConj.length > 0 &&
+                                    "2px dashed #C62323") ||
+                                  (ponctuationChecked &&
+                                    wordErrorPunct.length > 0 &&
+                                    "2px dotted #2364C6") ||
+                                  (grammarChecked &&
+                                    wordErrorGrammar.length > 0 &&
+                                    "2px solid #75C623") ||
+                                  "none",
                               }}
                             >
                               {word}{" "}
@@ -405,12 +418,13 @@ const PageTexte = () => {
                       }
                       label="Conjugaison"
                       sx={{
-                        m: "8px",
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
                         color: "#C62323",
-                        textDecoration: "underline",
+                        textDecorationLine: "underline",
+                        textDecorationStyle: "dashed",
+                        textDecorationThickness: "2px"
                       }}
                     />
                     <FormControlLabel
@@ -429,7 +443,9 @@ const PageTexte = () => {
                         borderRadius: "5px",
                         m: 0,
                         color: "#2364C6",
-                        textDecoration: "underline",
+                        textDecorationLine: "underline",
+                        textDecorationStyle: "dotted",
+                        textDecorationThickness: "2px"
                       }}
                     />
                     <FormControlLabel
@@ -447,6 +463,7 @@ const PageTexte = () => {
                         m: 0,
                         color: "#75C623",
                         textDecoration: "underline",
+                        textDecorationThickness: "2px"
                       }}
                     />
                   </>
