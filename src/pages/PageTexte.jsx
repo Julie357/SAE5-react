@@ -35,13 +35,13 @@ const PageTexte = () => {
   const [conjugaisonChecked, setConjugaisonChecked] = useState(false);
   const [ponctuationChecked, setPonctuationChecked] = useState(false);
   const [correctionChecked, setCorrectionChecked] = useState(false);
-  const [syntaxeChecked, setSyntaxeChecked] = useState(false);
+  const [grammarChecked, setGrammarChecked] = useState(false);
   const [verbeChecked, setVerbeChecked] = useState(false);
   const [prenomChecked, setPrenomChecked] = useState(false);
   const [nomCommunChecked, setNomCommunChecked] = useState(false);
-  const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
   const { lexicalData } = UseFetchLexicalData(exerciseData);
   const navigate = useNavigate();
+  const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -52,6 +52,11 @@ const PageTexte = () => {
       if (exerciseData) {
         setExerciseData(exerciseData);
         setCorrectionChecked(exerciseData.correction);
+      }
+
+      if (lexicalData && !loadingLexical) {
+        getWordErrors();
+        console.log(wordDataWithStyles);
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical]);
@@ -69,29 +74,46 @@ const PageTexte = () => {
   const handleResetConjugaison = () => {
     setConjugaisonChecked(false);
     setPonctuationChecked(false);
-    setSyntaxeChecked(false);
+    setGrammarChecked(false);
     setVerbeChecked(false);
     setPrenomChecked(false);
     setNomCommunChecked(false);
   };
 
-  const handleConjugaisonCheckboxChange = async () => {
-    const newConjugaisonChecked = !conjugaisonChecked;
-    setConjugaisonChecked(newConjugaisonChecked);
-    const errorArray = [];
+  const getWordErrors = async () => {
+    const errorsByCategory = {
+      conjErrors: [],
+      punctErrors: [],
+      grammarErrors: [],
+    };
+    console.log("in");
+    await lexicalData.lexicalUnit.forEach((unit) => {
+      if (unit.error) {
+        switch (unit.pos) {
+          case "NOUN":
+          case "ADJ":
+          case "PROPN":
+          case "PRON":
+          case "ADP":
+          case "PART":
+          case "SCONJ":
+            errorsByCategory.grammarErrors.push(unit);
+            break;
 
-    if (newConjugaisonChecked) {
-      await lexicalData.lexicalUnit.forEach((unit) => {
-        if (unit.error) {
-          errorArray.push(unit);
-          console.log(unit);
+          case "VERB":
+          case "AUX":
+            errorsByCategory.conjErrors.push(unit);
+            break;
+
+          case "PUNCT":
+            errorsByCategory.punctErrors.push(unit);
+            break;
         }
-      });
-    }
-
-    setWordDataWithStyles(errorArray);
+      }
+    });
+    console.log(errorsByCategory);
+    setWordDataWithStyles(errorsByCategory);
   };
-
   const changeCorrected = async () => {
     try {
       await axios.put(
@@ -183,7 +205,6 @@ const PageTexte = () => {
                 </ToggleButton>
               </ToggleButtonGroup>
 
-              {/* Contenu spécifique à chaque onglet */}
               {selectedTab === "tab1" && (
                 <Box
                   sx={{
@@ -218,20 +239,38 @@ const PageTexte = () => {
                         lexicalData.lexicalUnit.map((wordData, index) => {
                           let word = wordData["form"];
                           let wordId = wordData["id"];
-                          let wordError = wordDataWithStyles.filter(
-                            (wordUnit) => {
+                          let wordErrorConj =
+                            wordDataWithStyles.conjErrors.filter((wordUnit) => {
                               return wordUnit["id"] == wordId;
-                            }
-                          );
-                          if (wordError.length > 0) {
-                            console.log("word" + word);
-                            console.log(wordError);
-                          }
+                            });
+                          let wordErrorPunct =
+                            wordDataWithStyles.punctErrors.filter(
+                              (wordUnit) => {
+                                return wordUnit["id"] == wordId;
+                              }
+                            );
+
+                          let wordErrorGrammar =
+                            wordDataWithStyles.grammarErrors.filter(
+                              (wordUnit) => {
+                                return wordUnit["id"] == wordId;
+                              }
+                            );
                           return (
                             <span
                               key={index}
                               style={{
-                                color: wordError.length > 0 ? "red" : "",
+                                color:
+                                  (conjugaisonChecked &&
+                                    wordErrorConj.length > 0 &&
+                                    "#C62323") ||
+                                  (ponctuationChecked &&
+                                    wordErrorPunct.length > 0 &&
+                                    "#2364C6") ||
+                                  (grammarChecked &&
+                                    wordErrorGrammar.length > 0 &&
+                                    "#75C623") ||
+                                  "",
                               }}
                             >
                               {word}{" "}
@@ -359,7 +398,9 @@ const PageTexte = () => {
                       control={
                         <Checkbox
                           defaultChecked={conjugaisonChecked}
-                          onChange={handleConjugaisonCheckboxChange}
+                          onChange={() =>
+                            setConjugaisonChecked((prev) => !prev)
+                          }
                         />
                       }
                       label="Conjugaison"
@@ -373,7 +414,14 @@ const PageTexte = () => {
                       }}
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked={ponctuationChecked} />}
+                      control={
+                        <Checkbox
+                          defaultChecked={ponctuationChecked}
+                          onChange={() =>
+                            setPonctuationChecked((prev) => !prev)
+                          }
+                        />
+                      }
                       label="Ponctuation"
                       sx={{
                         my: 1,
@@ -385,8 +433,13 @@ const PageTexte = () => {
                       }}
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked={syntaxeChecked} />}
-                      label="Syntaxe"
+                      control={
+                        <Checkbox
+                          defaultChecked={grammarChecked}
+                          onChange={() => setGrammarChecked((prev) => !prev)}
+                        />
+                      }
+                      label="Grammaire"
                       sx={{
                         my: 1,
                         background: "#fff",
