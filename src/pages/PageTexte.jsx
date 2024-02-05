@@ -325,9 +325,6 @@ const PageTexte = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <p>Légende :</p>
               <Box sx={{ display: "flex" }}>
-                <Box>
-                  <p> </p>
-                </Box>
                 <Box
                   sx={{
                     width: "30px",
@@ -337,12 +334,17 @@ const PageTexte = () => {
                     borderRadius: "50%",
                   }}
                 ></Box>
-                <p>Cohésion</p>
+                {selectedTab === "tab1" && (
+                  <p>Collocation</p>
+                )}
+                {selectedTab === "tab2" && (
+                  <p>Conjugaison</p>
+                )}
+                {selectedTab === "tab3" && (
+                  <p>Vitesse lente</p>
+                )}
               </Box>
               <Box sx={{ display: "flex" }}>
-                <Box>
-                  <p> </p>
-                </Box>
                 <Box
                   sx={{
                     width: "30px",
@@ -352,12 +354,17 @@ const PageTexte = () => {
                     borderRadius: "50%",
                   }}
                 ></Box>
-                <p>Conjugaison</p>
+                {selectedTab === "tab1" && (
+                  <p>Cohésion</p>
+                )}
+                {selectedTab === "tab2" && (
+                  <p>Ponctuation</p>
+                )}
+                {selectedTab === "tab3" && (
+                  <p>Vitesse rapide</p>
+                )}
               </Box>
               <Box sx={{ display: "flex" }}>
-                <Box>
-                  <p> </p>
-                </Box>
                 <Box
                   sx={{
                     width: "30px",
@@ -367,7 +374,15 @@ const PageTexte = () => {
                     borderRadius: "50%",
                   }}
                 ></Box>
-                <p>1 erreur</p>
+                {selectedTab === "tab1" && (
+                  <p>Contenu pour l'onglet 1</p>
+                )}
+                {selectedTab === "tab2" && (
+                  <p>Syntaxe</p>
+                )}
+                {selectedTab === "tab3" && (
+                  <p>Pause</p>
+                )}
               </Box>
             </Box>
           </Box>

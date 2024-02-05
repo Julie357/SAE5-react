@@ -19,14 +19,8 @@ const ForceDirectedGraph = () => {
       .domain([1, 2, 3, 4, 5])
       .range(["#A1CDF1", "#FFB5A7", "#FFE6E2", "#3D6787", "#A1CDF1", "#D8ECFC"]);
 
-    const data1 = [
-      { "name": "nom", "group": 1, "size": 20 },
-      { "name": "conjugaison", "group": 2, "size": 60 },
-      { "name": "be + ing", "group": 3, "size": 40 },
-      { "name": "pronom", "group": 4, "size": 50 },
-      { "name": "adjectif", "group": 5, "size": 30 },
-      { "name": "verbe", "group": 6, "size": 40 }
-    ];
+    const data1 = [{ "name": "nom", "group": 1, "size": 20 }, { "name": "conjugaison", "group": 2, "size": 60 }, { "name": "be + ing", "group": 3, "size": 40 }, { "name": "pronom", "group": 4, "size": 50 }, { "name": "adjectif", "group": 5, "size": 30 }, { "name": "verbe", "group": 6, "size": 40 }];
+    
     const data = [];
     recurrentErrors.forEach((recurrentError, index) => {
       const category = Object.keys(recurrentError)[0];
