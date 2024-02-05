@@ -39,7 +39,6 @@ const PageTexte = () => {
   const [verbeChecked, setVerbeChecked] = useState(false);
   const [prenomChecked, setPrenomChecked] = useState(false);
   const [nomCommunChecked, setNomCommunChecked] = useState(false);
-  const [wordData, setWordData] = useState([]);
   const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
   const { lexicalData } = UseFetchLexicalData(exerciseData);
   const navigate = useNavigate();
@@ -82,11 +81,10 @@ const PageTexte = () => {
     const errorArray = [];
 
     if (newConjugaisonChecked) {
-      console.log(newConjugaisonChecked);
-
       await lexicalData.lexicalUnit.forEach((unit) => {
         if (unit.error) {
           errorArray.push(unit);
+          console.log(unit);
         }
       });
     }
@@ -216,14 +214,24 @@ const PageTexte = () => {
                       <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
                         {exerciseData.title}
                       </Typography>
-                      {exerciseData.content &&
-                        exerciseData.content.split(" ").map((word, index) => {
-                          const wordDataItem = wordDataWithStyles[index];
+                      {lexicalData &&
+                        lexicalData.lexicalUnit.map((wordData, index) => {
+                          let word = wordData["form"];
+                          let wordId = wordData["id"];
+                          let wordError = wordDataWithStyles.filter(
+                            (wordUnit) => {
+                              return wordUnit["id"] == wordId;
+                            }
+                          );
+                          if (wordError.length > 0) {
+                            console.log("word" + word);
+                            console.log(wordError);
+                          }
                           return (
                             <span
                               key={index}
                               style={{
-                                color: wordDataItem ? "red" : "",
+                                color: wordError.length > 0 ? "red" : "",
                               }}
                             >
                               {word}{" "}

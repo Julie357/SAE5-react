@@ -12,11 +12,11 @@ const UseFetchLexicalData = (exerciseData) => {
 
   useEffect(() => {
     if (exerciseData) {
-      const lexicalWithIdExercise1 = allLexical.find(
-        (item) => item.idExercises === exerciseData.idExercises
+      const lexicalWithIdExercise = allLexical.find(
+        (item) => item.idLexical === exerciseData.idLexical
       );
-      if (lexicalWithIdExercise1) {
-        setLexical(lexicalWithIdExercise1);
+      if (lexicalWithIdExercise) {
+        setLexical(lexicalWithIdExercise);
       }
     }
   }, [allLexical, loadingLexical]);
