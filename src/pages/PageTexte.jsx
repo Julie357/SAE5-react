@@ -324,14 +324,15 @@ const PageTexte = () => {
             <D3GraphBulle />
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <p>Légende :</p>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", marginBottom: 1, alignItems: 'center' }}>
                 <Box
                   sx={{
                     width: "30px",
                     height: "30px",
-                    backgroundColor: "#ffe6e2",
+                    backgroundColor: "#ffb5a7",
                     border: "2px solid black",
                     borderRadius: "50%",
+                    marginRight: "10px",
                   }}
                 ></Box>
                 {selectedTab === "tab1" && (
@@ -344,7 +345,7 @@ const PageTexte = () => {
                   <p>Vitesse lente</p>
                 )}
               </Box>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", marginBottom: 1, alignItems: 'center' }}>
                 <Box
                   sx={{
                     width: "30px",
@@ -352,6 +353,7 @@ const PageTexte = () => {
                     backgroundColor: "#a1cdf1",
                     border: "2px solid black",
                     borderRadius: "50%",
+                    marginRight: "10px",
                   }}
                 ></Box>
                 {selectedTab === "tab1" && (
@@ -364,14 +366,15 @@ const PageTexte = () => {
                   <p>Vitesse rapide</p>
                 )}
               </Box>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", alignItems: 'center' }}>
                 <Box
                   sx={{
                     width: "30px",
                     height: "30px",
-                    backgroundColor: "#ffb5a7",
+                    backgroundColor: "#ffe6e2",
                     border: "2px solid black",
                     borderRadius: "50%",
+                    marginRight: "10px",
                   }}
                 ></Box>
                 {selectedTab === "tab1" && (
