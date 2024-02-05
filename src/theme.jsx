@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material";
 import "@fontsource/itim";
-import { blue, pink } from "@mui/material/colors";
 
 const theme = createTheme({
   typography: {

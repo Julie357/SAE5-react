@@ -5,7 +5,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const ExerciceCard = ({ exercice }) => {
-  const dateExercise = new Date(exercice.date).toLocaleDateString('fr');
+  const dateExercise = new Date(exercice.date).toLocaleDateString("fr");
+  const titleStyle = {
+    fontSize: "1.2rem",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  };
   return (
     <>
       <Card sx={{ width: "13vw" }}>
@@ -13,7 +19,7 @@ const ExerciceCard = ({ exercice }) => {
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {dateExercise}
           </Typography>
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" style={titleStyle} title={exercice.title}>
             {exercice.title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
