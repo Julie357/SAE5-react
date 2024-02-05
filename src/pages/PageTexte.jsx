@@ -176,9 +176,9 @@ const PageTexte = () => {
                     mx: 1,
                     background:
                       selectedTab === "tab1"
-                        ? "#F9DCC4 !important"
-                        : "#F9DCC4 !important",
-                    color: selectedTab === "tab1" ? "#C29773" : "#C29773",
+                        ? "#EBD4ED !important"
+                        : "#EBD4ED !important",
+                    color: "#8C6291",
                     fontSize: "18px",
                     borderRadius: "10px 10px 0 0 !important",
                     border: 0,
@@ -225,7 +225,7 @@ const PageTexte = () => {
               {selectedTab === "tab2" && (
                 <Box
                   sx={{
-                    background: "#F9DCC4",
+                    background: "#EBD4ED",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -345,24 +345,13 @@ const PageTexte = () => {
                   width: "100%",
                   padding: 1,
                   borderRadius: 1,
+                  mb: 1,
                 }}
               >
                 <Typography>
                   Niveau général du texte: {exerciseData.exercisesSkillLevel}
                 </Typography>
               </Box>
-              <Button
-                variant="outlined"
-                sx={{
-                  color: "#000",
-                  background: "#fff",
-                  border: 0,
-                  my: 1,
-                  width: "100%",
-                }}
-              >
-                Voir toutes les erreurs
-              </Button>
               <FormGroup sx={{ width: "100%" }}>
                 {selectedTab === "tab1" && (
                   <>
@@ -370,10 +359,10 @@ const PageTexte = () => {
                       control={<Checkbox defaultChecked={verbeChecked} />}
                       label="Verbe"
                       sx={{
-                        m: "8px",
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
+                        mb: 0.5,
                         color: "#C62323",
                         textDecoration: "underline",
                       }}
@@ -382,10 +371,10 @@ const PageTexte = () => {
                       control={<Checkbox defaultChecked={prenomChecked} />}
                       label="Prénom"
                       sx={{
-                        my: 1,
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
+                        mb: 0.5,
                         color: "#2364C6",
                         textDecoration: "underline",
                       }}
@@ -394,10 +383,10 @@ const PageTexte = () => {
                       control={<Checkbox defaultChecked={nomCommunChecked} />}
                       label="Nom commun"
                       sx={{
-                        my: 1,
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
+                        mb: 0.5,
                         color: "#75C623",
                         textDecoration: "underline",
                       }}
@@ -421,10 +410,11 @@ const PageTexte = () => {
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
+                        mb: 0.5,
                         color: "#C62323",
                         textDecorationLine: "underline",
                         textDecorationStyle: "dashed",
-                        textDecorationThickness: "2px"
+                        textDecorationThickness: "2px",
                       }}
                     />
                     <FormControlLabel
@@ -438,14 +428,14 @@ const PageTexte = () => {
                       }
                       label="Ponctuation"
                       sx={{
-                        my: 1,
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
+                        mb: 0.5,
                         color: "#2364C6",
                         textDecorationLine: "underline",
                         textDecorationStyle: "dotted",
-                        textDecorationThickness: "2px"
+                        textDecorationThickness: "2px",
                       }}
                     />
                     <FormControlLabel
@@ -461,9 +451,10 @@ const PageTexte = () => {
                         background: "#fff",
                         borderRadius: "5px",
                         m: 0,
+                        mb: 0.5,
                         color: "#75C623",
                         textDecoration: "underline",
-                        textDecorationThickness: "2px"
+                        textDecorationThickness: "2px",
                       }}
                     />
                   </>
