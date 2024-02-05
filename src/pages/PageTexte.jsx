@@ -86,35 +86,33 @@ const PageTexte = () => {
       punctErrors: [],
       grammarErrors: [],
     };
-    if (lexicalData.lexicalUnit) {
-      await lexicalData.lexicalUnit.forEach((unit) => {
-        if (unit.error) {
-          switch (unit.pos) {
-            case "NOUN":
-            case "ADJ":
-            case "PROPN":
-            case "PRON":
-            case "ADP":
-            case "PART":
-            case "SCONJ":
-              errorsByCategory.grammarErrors.push(unit);
-              break;
+    await lexicalData.lexicalUnit.forEach((unit) => {
+      if (unit.error) {
+        switch (unit.pos) {
+          case "NOUN":
+          case "ADJ":
+          case "PROPN":
+          case "PRON":
+          case "ADP":
+          case "PART":
+          case "SCONJ":
+            errorsByCategory.grammarErrors.push(unit);
+            break;
 
-            case "VERB":
-            case "AUX":
-              errorsByCategory.conjErrors.push(unit);
-              break;
+          case "VERB":
+          case "AUX":
+            errorsByCategory.conjErrors.push(unit);
+            break;
 
-            case "PUNCT":
-              errorsByCategory.punctErrors.push(unit);
-              break;
+          case "PUNCT":
+            errorsByCategory.punctErrors.push(unit);
+            break;
 
-            default:
-              break;
-          }
+          default:
+            break;
         }
-      });
-    }
+      }
+    });
     setWordDataWithStyles(errorsByCategory);
   };
   const changeCorrected = async () => {
