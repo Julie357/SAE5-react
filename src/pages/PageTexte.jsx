@@ -117,7 +117,7 @@ const PageTexte = () => {
   };
   const changeCorrected = async () => {
     try {
-      await axios.put(
+      await axios.get(
         `https://la-diwa-03.univ-lemans.fr/api/toggle-correction/${exerciseData.idExercises}`
       );
       console.log("Requête PUT réussie !");
@@ -184,7 +184,7 @@ const PageTexte = () => {
                     border: 0,
                   }}
                 >
-                  Fautes
+                  Erreurs
                 </ToggleButton>
                 <ToggleButton
                   value="tab3"
