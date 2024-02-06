@@ -490,7 +490,7 @@ const PageTexte = () => {
               display: "flex",
             }}
           >
-            <D3GraphBulle tab={selectedTab} />
+            <D3GraphBulle tab={selectedTab} wordErrors={wordErrors} />
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <p>Légende :</p>
               <Box sx={{ display: "flex" }}>

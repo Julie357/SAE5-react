@@ -1,11 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import * as d3 from 'd3';
 import { useSelector } from "react-redux";
 import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
 
-const ForceDirectedGraph = () => {
+const ForceDirectedGraph = ({ tab, wordErrors }) => {
   const svgRef = useRef(null);
   const recurrentErrors = useSelector(selectRecurrentErrors);
+
+  const data = useMemo(() => {
+    const newData = [];
+    recurrentErrors.forEach((recurrentError, index) => {
+      const category = Object.keys(recurrentError)[0];
+      const errors = Object.entries(recurrentError[category]);
+
+      errors.forEach(([error, percentage]) => {
+        newData.push({
+          name: error,
+          group: index + 1,
+          size: percentage,
+        });
+      });
+    });
+    return newData;
+  }, [recurrentErrors]);
 
   useEffect(() => {
     const width = 600;
@@ -19,35 +36,10 @@ const ForceDirectedGraph = () => {
       .domain([1, 2, 3, 4, 5])
       .range(["#A1CDF1", "#FFB5A7", "#FFE6E2", "#3D6787", "#A1CDF1", "#D8ECFC"]);
 
-    const data1 = [
-      { "name": "nom", "group": 1, "size": 20 },
-      { "name": "conjugaison", "group": 2, "size": 60 },
-      { "name": "be + ing", "group": 3, "size": 40 },
-      { "name": "pronom", "group": 4, "size": 50 },
-      { "name": "adjectif", "group": 5, "size": 30 },
-      { "name": "verbe", "group": 6, "size": 40 }
-    ];
-    const data = [];
-    recurrentErrors.forEach((recurrentError, index) => {
-      const category = Object.keys(recurrentError)[0];
-      const errors = Object.entries(recurrentError[category]);
-
-      errors.forEach(([error, percentage]) => {
-        data.push({
-          name: error,
-          group: index + 1,
-          size: percentage,
-        });
-      });
-    });
-
-    console.log("Data:", data);
     const svg = d3.select("#my_dataviz");
 
-    // Remove existing SVG elements
     svg.selectAll('*').remove();
 
-    // Append SVG
     const newSvg = svg
       .append("svg")
       .attr("width", width)
@@ -61,7 +53,6 @@ const ForceDirectedGraph = () => {
       .append("g")
       .attr("transform", d => `translate(${width / 2}, ${height / 2})`); // Centered
 
-    // Ajouter le cercle à chaque groupe
     node.append("circle")
       .attr("r", d => (d.size || 29) * 1.3)
       .style("fill", d => color(d.group))
@@ -69,27 +60,25 @@ const ForceDirectedGraph = () => {
       .attr("stroke", "black")
       .style("stroke-width", 4);
 
-    // Ajouter le texte centré à chaque groupe
     node.append("text")
       .text(d => d.name)
       .attr("text-anchor", "middle")
       .attr("dy", "0.3em")
       .style("fill", "black");
 
-      const simulation = d3.forceSimulation(data)
+    const simulation = d3.forceSimulation(data)
       .force("x", d3.forceX().strength(0.05)) // Force horizontale
       .force("y", d3.forceY().strength(0.05)) // Force verticale
       .force("center", d3.forceCenter().x(width / 2).y(height / 2))
       .force("charge", d3.forceManyBody().strength(-50)) // Force de répulsion, ajustez la force ici
       .force("collide", d3.forceCollide().strength(0.1).radius(d => (d.size || 29) * 1.3).iterations(1));
 
-
     simulation
       .nodes(data)
       .on("tick", function () {
         node.attr("transform", d => `translate(${d.x || width / 2}, ${d.y || height / 2})`);
       });
-  }, []);
+  }, [data]);
 
   return <div><h2>Erreurs récurrentes :</h2><div id="my_dataviz"></div></div>;
 };
