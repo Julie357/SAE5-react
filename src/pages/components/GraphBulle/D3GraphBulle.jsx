@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useMemo } from "react";
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import * as d3 from "d3";
 import { useSelector } from "react-redux";
 import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
+import Box from "@mui/material/Box";
 
 const ForceDirectedGraph = ({ tab, wordErrors }) => {
   const svgRef = useRef(null);
   const recurrentErrors = useSelector(selectRecurrentErrors);
+  const [currentLegend, setCurrentLegend] = useState([]);
 
   const convertToObjectArray = (errors) => {
     const result = [];
@@ -34,8 +36,8 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
     if (tab === "tab2") {
       wordErrors = convertToObjectArray(wordErrors);
       let maxPercentage = 0;
+      let legends = [];
 
-      // Trouver la valeur maximale de percentage dans vos données
       wordErrors.forEach((wordError) => {
         const category = Object.keys(wordError)[0];
         const errors = Object.values(wordError[category]);
@@ -58,6 +60,23 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
             name: error,
             group: index + 1,
             size: newSize,
+          });
+        });
+        legends.push({category});
+      });
+
+      setCurrentLegend('legends'+legends);
+      console.log(currentLegend);
+    } else if (tab === "tab1") {
+      recurrentErrors.forEach((recurrentError, index) => {
+        const category = Object.keys(recurrentError)[0];
+        const errors = Object.entries(recurrentError[category]);
+
+        errors.forEach(([error, percentage]) => {
+          newData.push({
+            name: error,
+            group: index + 1,
+            size: percentage,
           });
         });
       });
@@ -168,6 +187,54 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
     <div>
       <h2>Erreurs récurrentes :</h2>
       <div id="my_dataviz"></div>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <p>Légende :</p>
+        <Box sx={{ display: "flex" }}>
+          <Box>
+            <p> </p>
+          </Box>
+          <Box
+            sx={{
+              width: "30px",
+              height: "30px",
+              backgroundColor: "#ffe6e2",
+              border: "2px solid black",
+              borderRadius: "50%",
+            }}
+          ></Box>
+          <p>{currentLegend[0]}</p>
+        </Box>
+        <Box sx={{ display: "flex" }}>
+          <Box>
+            <p> </p>
+          </Box>
+          <Box
+            sx={{
+              width: "30px",
+              height: "30px",
+              backgroundColor: "#a1cdf1",
+              border: "2px solid black",
+              borderRadius: "50%",
+            }}
+          ></Box>
+          <p>Conjugaison</p>
+        </Box>
+        <Box sx={{ display: "flex" }}>
+          <Box>
+            <p> </p>
+          </Box>
+          <Box
+            sx={{
+              width: "30px",
+              height: "30px",
+              backgroundColor: "#ffb5a7",
+              border: "2px solid black",
+              borderRadius: "50%",
+            }}
+          ></Box>
+          <p>1 erreur</p>
+        </Box>
+      </Box>
     </div>
   );
 };
