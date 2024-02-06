@@ -54,7 +54,7 @@ const PageTexte = () => {
         setCorrectionChecked(exerciseData.correction);
       }
 
-      if (lexicalData && !loadingLexical) {
+      if (lexicalData.lexicalUnit && !loadingLexical) {
         getWordErrors();
       }
     }
