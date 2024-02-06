@@ -32,16 +32,16 @@ const PageTexte = () => {
   const [exerciseData, setExerciseData] = useState(null);
   const [selectedTab, setSelectedTab] = useState("tab1");
   const [displayTextInline, setDisplayTextInline] = useState(true);
-  const [conjugaisonChecked, setConjugaisonChecked] = useState(false);
-  const [ponctuationChecked, setPonctuationChecked] = useState(false);
+  const [conjugaisonChecked, setConjugaisonChecked] = useState(true);
+  const [ponctuationChecked, setPonctuationChecked] = useState(true);
   const [correctionChecked, setCorrectionChecked] = useState(false);
-  const [grammarChecked, setGrammarChecked] = useState(false);
+  const [grammarChecked, setGrammarChecked] = useState(true);
   const [verbeChecked, setVerbeChecked] = useState(false);
   const [prenomChecked, setPrenomChecked] = useState(false);
   const [nomCommunChecked, setNomCommunChecked] = useState(false);
   const { lexicalData } = UseFetchLexicalData(exerciseData);
   const navigate = useNavigate();
-  const [wordDataWithStyles, setWordDataWithStyles] = useState([]);
+  const [wordErrors, setWordErrors] = useState([]);
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -56,7 +56,6 @@ const PageTexte = () => {
 
       if (lexicalData && !loadingLexical) {
         getWordErrors();
-        console.log(wordDataWithStyles);
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical]);
@@ -113,7 +112,7 @@ const PageTexte = () => {
         }
       }
     });
-    setWordDataWithStyles(errorsByCategory);
+    setWordErrors(errorsByCategory);
   };
   const changeCorrected = async () => {
     try {
@@ -236,51 +235,55 @@ const PageTexte = () => {
                       <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
                         {exerciseData.title}
                       </Typography>
-                      {lexicalData &&
+                      {lexicalData.lexicalUnit &&
                         lexicalData.lexicalUnit.map((wordData, index) => {
                           let word = wordData["form"];
                           let wordId = wordData["id"];
-                          let wordErrorConj =
-                            wordDataWithStyles.conjErrors.filter((wordUnit) => {
+                          let wordErrorConj = wordErrors.conjErrors?.filter(
+                            (wordUnit) => {
                               return wordUnit["id"] == wordId;
-                            });
-                          let wordErrorPunct =
-                            wordDataWithStyles.punctErrors.filter(
-                              (wordUnit) => {
-                                return wordUnit["id"] == wordId;
-                              }
-                            );
+                            }
+                          );
+                          let wordErrorPunct = wordErrors.punctErrors?.filter(
+                            (wordUnit) => {
+                              return wordUnit["id"] == wordId;
+                            }
+                          );
 
                           let wordErrorGrammar =
-                            wordDataWithStyles.grammarErrors.filter(
-                              (wordUnit) => {
-                                return wordUnit["id"] == wordId;
-                              }
-                            );
+                            wordErrors.grammarErrors?.filter((wordUnit) => {
+                              return wordUnit["id"] == wordId;
+                            });
                           return (
                             <span
                               key={index}
                               style={{
                                 color:
                                   (conjugaisonChecked &&
+                                    wordErrorConj &&
                                     wordErrorConj.length > 0 &&
                                     "#C62323") ||
                                   (ponctuationChecked &&
+                                    wordErrorPunct &&
                                     wordErrorPunct.length > 0 &&
                                     "#2364C6") ||
                                   (grammarChecked &&
+                                    wordErrorGrammar &&
                                     wordErrorGrammar.length > 0 &&
                                     "#75C623") ||
                                   "",
 
                                 borderBottom:
                                   (conjugaisonChecked &&
+                                    wordErrorConj &&
                                     wordErrorConj.length > 0 &&
                                     "2px dashed #C62323") ||
                                   (ponctuationChecked &&
+                                    wordErrorPunct &&
                                     wordErrorPunct.length > 0 &&
                                     "2px dotted #2364C6") ||
                                   (grammarChecked &&
+                                    wordErrorGrammar &&
                                     wordErrorGrammar.length > 0 &&
                                     "2px solid #75C623") ||
                                   "none",
@@ -487,7 +490,7 @@ const PageTexte = () => {
               display: "flex",
             }}
           >
-            <D3GraphBulle />
+            <D3GraphBulle tab={selectedTab} />
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <p>Légende :</p>
               <Box sx={{ display: "flex" }}>

@@ -19,6 +19,7 @@ const UseFetchLexicalData = (exerciseData) => {
         setLexical(lexicalWithIdExercise);
       }
     }
+
   }, [allLexical, loadingLexical]);
 
   return {
