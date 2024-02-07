@@ -32,10 +32,24 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
               paddingTop: "2vh",
             }}
           >
-             {currentStudent.avatar ? (
-              <Box component="img" src={currentStudent.avatar} alt="Avatar" sx={{ width: "23%", height: "100%" }} />
+            {currentStudent.avatar ? (
+              <Box
+                component="img"
+                src={currentStudent.avatar}
+                alt="Avatar"
+                sx={{ width: "23%", height: "100%" }}
+              />
             ) : (
-              <Box component="img" src="../assets/studentPicture.png" alt="Avatar" sx={{ width: "23%", padding:"10px", backgroundColor: "#FFFFFF50" }} />
+              <Box
+                component="img"
+                src="../assets/studentPicture.png"
+                alt="Avatar"
+                sx={{
+                  width: "23%",
+                  padding: "10px",
+                  backgroundColor: "#FFFFFF50",
+                }}
+              />
             )}
             {currentStudent && (
               <Box
@@ -77,14 +91,15 @@ const StudentProfile = ({ currentStudent, studentExercises }) => {
             {isThereExercice && (
               <Typography variant="h5">
                 {`${
-                      studentExercises.length > 1
-                        ? "Exercices effectués :"
-                        : "Exercice effectué :"
-                    }`} {studentExercises.length}
+                  studentExercises.length > 1
+                    ? "Exercices effectués :"
+                    : "Exercice effectué :"
+                }`}{" "}
+                {studentExercises.length}
               </Typography>
             )}
           </Box>
-          <RecurrentErrors />
+          <RecurrentErrors currentStudent={currentStudent} />
         </Box>
       ) : (
         <CircularProgress

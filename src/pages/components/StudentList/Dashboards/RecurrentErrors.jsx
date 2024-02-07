@@ -7,16 +7,14 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LinearProgress } from "@mui/material";
 
-const RecurrentErrors = ({ currentStudent }) => {
+const RecurrentErrors = ({ classData }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const recurrentErrors = currentStudent.studentsRecurrentError;
-
-  const comparePercentagesDescending = (a, b) => b.count - a.count;
+  const recurrentErrors = classData.classRecurrentError;
 
   return (
     <>
@@ -60,18 +58,17 @@ const RecurrentErrors = ({ currentStudent }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {details.length === 0 ? (
+                {Object.entries(details).length === 0 ? (
                   <Typography>
                     Pas encore assez de données pour référencer les erreurs
                     récurrentes
                   </Typography>
                 ) : (
                   <ul>
-                    {details
-                      .slice()
-                      .sort(comparePercentagesDescending)
+                    {Object.entries(details)
+                      .sort(([, a], [, b]) => b - a)
                       .slice(0, 3)
-                      .map((detail, index) => (
+                      .map(([posDetails, count], index) => (
                         <li
                           key={index}
                           style={{
@@ -91,7 +88,7 @@ const RecurrentErrors = ({ currentStudent }) => {
                           >
                             <LinearProgress
                               variant="determinate"
-                              value={detail.count}
+                              value={count}
                               sx={{
                                 height: "100%",
                                 borderRadius: "0.8vw",
@@ -112,7 +109,7 @@ const RecurrentErrors = ({ currentStudent }) => {
                                 color: "text.secondary",
                               }}
                             >
-                              {detail.posDetails}
+                              {posDetails}
                             </Typography>
                             <Typography
                               sx={{
@@ -123,7 +120,7 @@ const RecurrentErrors = ({ currentStudent }) => {
                                 color: "text.secondary",
                               }}
                             >
-                              {detail.count}%
+                              {count}%
                             </Typography>
                           </Box>
                         </li>
