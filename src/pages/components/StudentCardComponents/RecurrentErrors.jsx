@@ -5,18 +5,20 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useSelector } from "react-redux";
-import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
 import { LinearProgress } from "@mui/material";
 
-const RecurrentErrors = () => {
+const RecurrentErrors = ({ currentStudent }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const recurrentErrors = useSelector(selectRecurrentErrors);
+  const recurrentErrors = currentStudent.studentsRecurrentError;
+  console.log(recurrentErrors);
+
+  // Fonction pour comparer les pourcentages décroissants
+  const comparePercentagesDescending = (a, b) => b.count - a.count;
 
   return (
     <>
@@ -40,84 +42,96 @@ const RecurrentErrors = () => {
         >
           Erreurs récurrentes
         </Typography>
-        {recurrentErrors.map((recurrentError) => (
-          <>
+        {recurrentErrors &&
+          Object.entries(recurrentErrors).map(([category, details]) => (
             <Accordion
-              expanded={expanded === "panel" + Object.keys(recurrentError)[0]}
-              onChange={handleChange("panel" + Object.keys(recurrentError)[0])}
-              key={recurrentError.key}
+              key={category}
+              expanded={expanded === category}
+              onChange={handleChange(category)}
               sx={{ marginTop: "0.8vh" }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls={
-                  "panel" + Object.keys(recurrentError)[0] + "bh-content"
-                }
-                id={"panel" + Object.keys(recurrentError)[0] + "bh-header"}
+                aria-controls={category + "bh-content"}
+                id={category + "bh-header"}
               >
                 <Typography sx={{ width: "33%", flexShrink: 0, fontSize: "2.6vh" }}>
-                  {Object.keys(recurrentError)[0]}
+                  {category}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <ul>
-                  {Object.entries(
-                    recurrentError[Object.keys(recurrentError)[0]]
-                  ).map(([key, value]) => (
-                    <li key={key} style={{ position: "relative", listStyle: "none", marginTop:"1vh" }}>
-                      <Box
-                        width="100%"
-                        position="relative"
-                        sx={{
-                          height: "5vh",
-                          borderRadius: "0.8vw",
-                          overflow: "hidden",
-                        }}
-                      >
-                        <LinearProgress
-                          variant="determinate"
-                          value={90}
-                          sx={{
-                            height: "100%",
-                            borderRadius: "0.8vw",
-                            "& .MuiLinearProgress-barColorPrimary": {
-                              backgroundColor: "success",
-                            },
-                            "& .MuiLinearProgress-barColorSecondary": {
-                              backgroundColor: "warning",
-                            },
-                          }}
-                        />
-                        <Typography
-                          sx={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "5%",
-                            transform: "translateY(-50%)",
-                            color: "text.secondary",
+                {details.length === 0 ? (
+                  <Typography>
+                    Pas encore assez de données pour référencer les erreurs récurrentes
+                  </Typography>
+                ) : (
+                  <ul>
+                    {details
+                      .slice()
+                      .sort(comparePercentagesDescending)
+                      .slice(0, 3)
+                      .map((detail, index) => (
+                        <li
+                          key={index}
+                          style={{
+                            position: "relative",
+                            listStyle: "none",
+                            marginTop: "1vh",
                           }}
                         >
-                          {key}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            position: "absolute",
-                            top: "50%",
-                            right: "-0.8%",
-                            transform: "translate(-50%, -50%)",
-                            color: "text.secondary",
-                          }}
-                        >
-                          {value}%
-                        </Typography>
-                      </Box>
-                    </li>
-                  ))}
-                </ul>
+                          <Box
+                            width="100%"
+                            position="relative"
+                            sx={{
+                              height: "5vh",
+                              borderRadius: "0.8vw",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <LinearProgress
+                              variant="determinate"
+                              value={detail.count}
+                              sx={{
+                                height: "100%",
+                                borderRadius: "0.8vw",
+                                "& .MuiLinearProgress-barColorPrimary": {
+                                  backgroundColor: "success",
+                                },
+                                "& .MuiLinearProgress-barColorSecondary": {
+                                  backgroundColor: "warning",
+                                },
+                              }}
+                            />
+                            <Typography
+                              sx={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "5%",
+                                transform: "translateY(-50%)",
+                                color: "text.secondary",
+                              }}
+                            >
+                              {detail.posDetails}
+                            </Typography>
+                            <Typography
+                              sx={{
+                                position: "absolute",
+                                top: "50%",
+                                right: "-0.8%",
+                                transform: "translate(-50%, -50%)",
+                                color: "text.secondary",
+                              }}
+                            >
+                              {detail.count}%
+                            </Typography>
+                          </Box>
+                        </li>
+                      ))}
+                  </ul>
+                )}
               </AccordionDetails>
             </Accordion>
-          </>
-        ))}
+          ))}
       </Box>
     </>
   );
