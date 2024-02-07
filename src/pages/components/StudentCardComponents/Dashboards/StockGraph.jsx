@@ -1,10 +1,13 @@
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
+import { event } from "d3";
 
 function LineChart({ studentExercises }) {
   const width = 500;
   const height = 300;
   const [data, setData] = useState([]);
+  const [period, setPeriod] = useState("Default");
+
 
   useEffect(() => {
     if (data.length > 0) {
@@ -102,29 +105,39 @@ function LineChart({ studentExercises }) {
       .domain([yMinValue, yMaxValue])
       .range([height, 0]);
 
-    // var Tooltip = d3
-    //   .select("#container")
-    //   .append("div")
-    //   .style("opacity", 0)
-    //   .attr("class", "tooltip")
-    //   .style("background-color", "white")
-    //   .style("border", "solid")
-    //   .style("border-width", "2px")
-    //   .style("border-radius", "5px")
-    //   .style("padding", "5px");
+    var Tooltip = d3
+      .select("#container")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "5px");
 
     // // Three function that change the tooltip when user hover / move / leave a cell
-    // var mouseover = function (d) {
-    //   Tooltip.style("opacity", 1);
-    // };
-    // var mousemove = (event, d) => {
-    //   Tooltip.html(`Exact value: ${d.value}`)
-    //   .style("top", d3.event.pageX)
-    //   .style("left", d3.event.pageY)
-    // };
-    // var mouseleave = function (d) {
-    //   Tooltip.style("opacity", 0);
-    // };
+    var mouseover = function (d) {
+      Tooltip.style("opacity", 1);
+    };
+    function mousemove(event, d) {
+      const tooltipContent = `Date: ${d.label}, Niveau: ${d.value}`;
+      
+      // Calcul de la position du tooltip
+      const tooltipX = xScale(d.label) + xScale.bandwidth() / 2; // Position x du point de données
+      const tooltipY = yScale(yValues.indexOf(d.value)) - 10; // Position y du point de données avec un décalage vers le haut
+      
+      // Mise à jour de la position du tooltip
+      Tooltip.style("left", tooltipX + "px");
+      Tooltip.style("top", tooltipY + "px");
+      
+      // Mise à jour du contenu du tooltip
+      Tooltip.html(tooltipContent);
+    }
+    
+    var mouseleave = function (d) {
+      Tooltip.style("opacity", 0);
+    };
 
     svg
       .append("g")
@@ -183,14 +196,28 @@ function LineChart({ studentExercises }) {
       .attr("cy", (d) => yScale(yValues.indexOf(d.value)))
       .attr("r", 5)
       .attr("fill", "#f6c3d0")
-      // .on("mouseover", mouseover)
-      // .on("mousemove", mousemove)
-      // .on("mouseleave", mouseleave);
+       .on("mouseover", mouseover)
+       .on("mousemove", mousemove)
+       .on("mouseleave", mouseleave);
+  };
+
+  const handlePeriodChange = (event) => {
+    setPeriod(event.target.value); // Met à jour l'état de la période sélectionnée
   };
 
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       <div id="container" />
+      <form style={{ marginLeft: "20px" }}>
+        <label>
+          Période :
+          <select value={period} onChange={handlePeriodChange}>
+            <option value="Semaine">Semaine</option>
+            <option value="Mois">Mois</option>
+            <option value="Année">Année</option>
+          </select>
+        </label>
+      </form>
     </div>
   );
 }
