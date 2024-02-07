@@ -52,9 +52,9 @@ const WordChart = ({ words }) => {
     .data(words)
     .enter()
     .append('line')
-    .attr('x1', (d, i) => scale(i))
+    .attr('x1', (d, i) => scale(i) + i * 10)  // Ajustez la valeur (ici, j'ai utilisé i * 10 pour l'espace)
     .attr('y1', 80)
-    .attr('x2', (d, i) => scale(i + 1))
+    .attr('x2', (d, i) => scale(i + 1) + i * 10)  // Ajustez la valeur de la même manière
     .attr('y2', 80)
     .attr('stroke', "black")
     .attr('stroke-width', d => d.time * 1 + 3);
@@ -121,6 +121,13 @@ const WordChart = ({ words }) => {
       })
      .attr('stroke-width',d=> Math.log(d.time * 10 + 6) * 4);
 
+
+
+
+
+
+
+    
      // ligne
      svg.selectAll('line4')
      .data(words)
