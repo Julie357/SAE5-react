@@ -113,7 +113,6 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
       reccurentWords.forEach((reccurentWord, index) => {
         const category = Object.keys(reccurentWord)[0];
         const words = Object.entries(reccurentWord[category]);
-        console.log(reccurentWords);
         words.forEach(([word, percentage]) => {
           const newSize = percentage * scale;
           newData.push({
@@ -253,7 +252,6 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
               Légende :
             </Typography>
-            {console.log("legende" + currentLegend)}
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{

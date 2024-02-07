@@ -1,0 +1,46 @@
+.mapping-with-highlight {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.highlight {
+  position: relative;
+}
+
+.highlight::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.blue::before {
+  background-color: blue !important; /* Couleur pour les mots de type 'NOUN', 'ADJ', 'PROPN' avec erreur */
+}
+
+.green::before {
+  background-color: green !important; /* Couleur pour les mots de type 'VERB', 'AUX' avec erreur */
+}
+
+.orange::before {
+  background-color: orange !important; /* Couleur pour les mots de type 'PRON', 'ADP', 'PART', 'SCONJ' avec erreur */
+}
+
+.grey::before {
+  background-color: grey !important; /* Couleur pour les mots de type 'PUNCT' avec erreur */
+}
+
+.pink::before {
+  background-color: pink !important; /* Couleur pour les mots de type 'PUNCT' avec erreur */
+}
+
+.black::before {
+  background-color: rgb(191, 255, 161);
+}
+
+.invisible-text {
+  visibility: hidden;
+}

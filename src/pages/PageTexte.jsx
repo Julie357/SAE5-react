@@ -24,6 +24,7 @@ import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
 import { ArrowBack } from "@mui/icons-material";
 import axios from "axios";
+import Visu from "./components/visuMapping/VisuMapping";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -128,7 +129,6 @@ const PageTexte = () => {
       Grammaire: [],
     };
 
-    console.log("in");
     await lexicalData.lexicalUnit.forEach((unit) => {
       switch (unit.pos) {
         case "NOUN":
@@ -163,7 +163,6 @@ const PageTexte = () => {
       await axios.get(
         `https://la-diwa-03.univ-lemans.fr/api/toggle-correction/${exerciseData.idExercises}`
       );
-      console.log("Requête PUT réussie !");
     } catch (error) {
       console.error("Erreur lors de la requête PUT:", error.message);
     }
@@ -261,7 +260,9 @@ const PageTexte = () => {
                   <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
                     {exerciseData.title}
                   </Typography>
-                  <p>{displayTextInline && exerciseData.content}</p>
+                  {lexicalData.lexicalUnit && (
+                    <Visu lexicalUnit={lexicalData.lexicalUnit} />
+                  )}
                 </Box>
               )}
 
@@ -535,7 +536,6 @@ const PageTexte = () => {
               display: "flex",
             }}
           >
-            {console.log(dataReady)}
             {dataReady && reccurentWordReady ? (
               <>
                 <D3GraphBulle
