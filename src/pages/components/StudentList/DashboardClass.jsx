@@ -1,15 +1,16 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button, Chip, Grid } from "@mui/material";
+import { Box, Button, Chip, CircularProgress, Grid } from "@mui/material";
 import FilterForm from "./FilterForm";
 import RecurrentErrors from "./RecurrentErrors";
 import { Close } from "@mui/icons-material";
 import Calendar from "./Dashboards/Calendar";
 import FetchClasseExercises from "../../fonctions/FetchClasseExercises";
+import BubbleClass from "./Dashboards/BubbleClass";
 
 const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
-  const { loadingExercises, classeExercises } = FetchClasseExercises(classData);
+  // const { loadingExercises, classeExercises } = FetchClasseExercises(classData);
 
   return (
     <>
@@ -122,13 +123,12 @@ const DashboardClass = ({ classData, onClose }) => {
                 margin: "auto",
               }}
             >
-              {classeExercises ? (
-                <Calendar
-                  classeExercises={classeExercises}
-                  loadingExercises={loadingExercises}
+              {classData ? (
+                <BubbleClass
+                  recurrentErrors={classData.classRecurrentError}
                 />
               ) : (
-                <Typography>Pas de données</Typography>
+                <CircularProgress />
               )}
             </Grid>
             <Grid item xs={1}></Grid>
