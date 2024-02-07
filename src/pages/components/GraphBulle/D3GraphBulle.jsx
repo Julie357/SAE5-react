@@ -3,11 +3,14 @@ import * as d3 from "d3";
 import { useSelector } from "react-redux";
 import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
 import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
 const ForceDirectedGraph = ({ tab, wordErrors }) => {
   const svgRef = useRef(null);
   const recurrentErrors = useSelector(selectRecurrentErrors);
   const [currentLegend, setCurrentLegend] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [graphTitle, setGraphTitle] = useState("");
 
   const convertToObjectArray = (errors) => {
     const result = [];
@@ -32,6 +35,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
   };
 
   const data = useMemo(() => {
+    setIsEmpty(false);
     let newData = [];
     if (tab === "tab2") {
       wordErrors = convertToObjectArray(wordErrors);
@@ -62,11 +66,11 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
             size: newSize,
           });
         });
-        legends.push({category});
+        legends.push({ category });
       });
 
-      setCurrentLegend('legends'+legends);
-      console.log(currentLegend);
+      setCurrentLegend("legends" + legends);
+      setGraphTitle("Erreurs récurrentes :");
     } else if (tab === "tab1") {
       recurrentErrors.forEach((recurrentError, index) => {
         const category = Object.keys(recurrentError)[0];
@@ -80,6 +84,8 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
           });
         });
       });
+
+      setGraphTitle("Type de mot par récurrence :");
     } else {
       recurrentErrors.forEach((recurrentError, index) => {
         const category = Object.keys(recurrentError)[0];
@@ -93,13 +99,15 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
           });
         });
       });
+      setGraphTitle("Temps de réflexion par mot :");
+    }
+    if (newData.length == 0) {
+      setIsEmpty(true);
     }
     return newData;
   }, [tab, recurrentErrors, wordErrors]);
 
   useEffect(() => {
-    console.log(data);
-
     const width = 600;
     const height = 450;
 
@@ -185,56 +193,62 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
 
   return (
     <div>
-      <h2>Erreurs récurrentes :</h2>
-      <div id="my_dataviz"></div>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <p>Légende :</p>
-        <Box sx={{ display: "flex" }}>
-          <Box>
-            <p> </p>
+      <Typography variant="h5">{graphTitle}</Typography>
+      {!isEmpty ? (
+        <>
+          <div id="my_dataviz"></div>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <p>Légende :</p>
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <p> </p>
+              </Box>
+              <Box
+                sx={{
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "#ffe6e2",
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                }}
+              ></Box>
+              <p>{currentLegend[0]}</p>
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <p> </p>
+              </Box>
+              <Box
+                sx={{
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "#a1cdf1",
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                }}
+              ></Box>
+              <p>Conjugaison</p>
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <p> </p>
+              </Box>
+              <Box
+                sx={{
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "#ffb5a7",
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                }}
+              ></Box>
+              <p>1 erreur</p>
+            </Box>
           </Box>
-          <Box
-            sx={{
-              width: "30px",
-              height: "30px",
-              backgroundColor: "#ffe6e2",
-              border: "2px solid black",
-              borderRadius: "50%",
-            }}
-          ></Box>
-          <p>{currentLegend[0]}</p>
-        </Box>
-        <Box sx={{ display: "flex" }}>
-          <Box>
-            <p> </p>
-          </Box>
-          <Box
-            sx={{
-              width: "30px",
-              height: "30px",
-              backgroundColor: "#a1cdf1",
-              border: "2px solid black",
-              borderRadius: "50%",
-            }}
-          ></Box>
-          <p>Conjugaison</p>
-        </Box>
-        <Box sx={{ display: "flex" }}>
-          <Box>
-            <p> </p>
-          </Box>
-          <Box
-            sx={{
-              width: "30px",
-              height: "30px",
-              backgroundColor: "#ffb5a7",
-              border: "2px solid black",
-              borderRadius: "50%",
-            }}
-          ></Box>
-          <p>1 erreur</p>
-        </Box>
-      </Box>
+        </>
+      ) : (
+        <Typography variant="h6">Aucune erreur référencée</Typography>
+      )}
     </div>
   );
 };
