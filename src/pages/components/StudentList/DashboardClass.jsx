@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Button, Chip, Grid } from "@mui/material";
 import FilterForm from "./FilterForm";
-import RecurrentErrors from "./RecurrentErrors";
+import RecurrentErrors from "./Dashboards/RecurrentErrors";
 import { Close } from "@mui/icons-material";
 import Calendar from "./Dashboards/Calendar";
 import FetchClasseExercises from "../../fonctions/FetchClasseExercises";
@@ -142,7 +142,7 @@ const DashboardClass = ({ classData, onClose }) => {
                 margin: "auto",
               }}
             >
-              <RecurrentErrors />
+              <RecurrentErrors classData={classData}/>
             </Grid>
           </Grid>
         </Grid>
