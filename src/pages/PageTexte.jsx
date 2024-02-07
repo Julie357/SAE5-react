@@ -43,7 +43,9 @@ const PageTexte = () => {
   const { lexicalData } = UseFetchLexicalData(exerciseData);
   const navigate = useNavigate();
   const [wordErrors, setWordErrors] = useState([]);
+  const [recurrentWords, setRecurrentWords] = useState([]);
   const [dataReady, setDataReady] = useState(false);
+  const [reccurentWordReady, setReccurentWordReady] = useState(false);
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -57,8 +59,8 @@ const PageTexte = () => {
       }
 
       if (lexicalData.lexicalUnit && !loadingLexical) {
-        console.log("in1");
         getWordErrors();
+        getRecurrentWords();
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical, lexicalData]);
@@ -88,7 +90,6 @@ const PageTexte = () => {
       Ponctuation: [],
       Grammaire: [],
     };
-    console.log("in");
     await lexicalData.lexicalUnit.forEach((unit) => {
       if (unit.error) {
         switch (unit.pos) {
@@ -119,6 +120,44 @@ const PageTexte = () => {
     setWordErrors(errorsByCategory);
     setDataReady(true);
   };
+
+  const getRecurrentWords = async () => {
+    const reccurentWords = {
+      Conjugaison: [],
+      Ponctuation: [],
+      Grammaire: [],
+    };
+
+    console.log("in");
+    await lexicalData.lexicalUnit.forEach((unit) => {
+      switch (unit.pos) {
+        case "NOUN":
+        case "ADJ":
+        case "PROPN":
+        case "PRON":
+        case "ADP":
+        case "PART":
+        case "SCONJ":
+          reccurentWords.Grammaire.push(unit);
+          break;
+
+        case "VERB":
+        case "AUX":
+          reccurentWords.Conjugaison.push(unit);
+          break;
+
+        case "PUNCT":
+          reccurentWords.Ponctuation.push(unit);
+          break;
+
+        default:
+          break;
+      }
+    });
+    setRecurrentWords(reccurentWords);
+    setReccurentWordReady(true);
+  };
+
   const changeCorrected = async () => {
     try {
       await axios.get(
@@ -255,10 +294,11 @@ const PageTexte = () => {
                             }
                           );
 
-                          let wordErrorGrammar =
-                            wordErrors.Grammaire?.filter((wordUnit) => {
+                          let wordErrorGrammar = wordErrors.Grammaire?.filter(
+                            (wordUnit) => {
                               return wordUnit["id"] == wordId;
-                            });
+                            }
+                          );
                           return (
                             <span
                               key={index}
@@ -496,9 +536,13 @@ const PageTexte = () => {
             }}
           >
             {console.log(dataReady)}
-            {dataReady ? (
+            {dataReady && reccurentWordReady ? (
               <>
-                <D3GraphBulle tab={selectedTab} wordErrors={wordErrors} />
+                <D3GraphBulle
+                  tab={selectedTab}
+                  wordErrors={wordErrors}
+                  reccurentWords={recurrentWords}
+                />
               </>
             ) : (
               <CircularProgress />

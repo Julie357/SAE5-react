@@ -5,7 +5,7 @@ import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelec
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
-const ForceDirectedGraph = ({ tab, wordErrors }) => {
+const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
   const svgRef = useRef(null);
   const recurrentErrors = useSelector(selectRecurrentErrors);
   const [currentLegend, setCurrentLegend] = useState([]);
@@ -34,13 +34,36 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
     return result;
   };
 
+  const convertWordToObject = (words) => {
+    const result = [];
+
+    if (words) {
+      for (const category in words) {
+        const categoryObject = {};
+        const posCounts = {};
+        if (words[category]) {
+          words[category].map((word) => {
+            const { pos } = word;
+            posCounts[pos] = (posCounts[pos] || 0) + 1;
+          });
+
+          categoryObject[category] = posCounts;
+          result.push(categoryObject);
+        }
+      }
+    }
+
+    return result;
+  };
+
   const data = useMemo(() => {
     setIsEmpty(false);
+    setCurrentLegend([]);
     let newData = [];
+    let legends = [];
     if (tab === "tab2") {
       wordErrors = convertToObjectArray(wordErrors);
       let maxPercentage = 0;
-      let legends = [];
 
       wordErrors.forEach((wordError) => {
         const category = Object.keys(wordError)[0];
@@ -69,23 +92,40 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
         legends.push(category);
       });
 
-      setCurrentLegend(legends);
       setGraphTitle("Erreurs récurrentes :");
     } else if (tab === "tab1") {
-      recurrentErrors.forEach((recurrentError, index) => {
-        const category = Object.keys(recurrentError)[0];
-        const errors = Object.entries(recurrentError[category]);
+      reccurentWords = convertWordToObject(reccurentWords);
+      let maxPercentage = 0;
 
-        errors.forEach(([error, percentage]) => {
-          newData.push({
-            name: error,
-            group: index + 1,
-            size: percentage,
-          });
+      reccurentWords.forEach((reccurentWord) => {
+        const category = Object.keys(reccurentWord)[0];
+        const words = Object.values(reccurentWord[category]);
+        words.forEach((percentage) => {
+          if (percentage > maxPercentage) {
+            maxPercentage = percentage;
+          }
         });
       });
 
-      setGraphTitle("Type de mot par récurrence :");
+      const MAX_SIZE = 70;
+      const scale = MAX_SIZE / maxPercentage;
+
+      reccurentWords.forEach((reccurentWord, index) => {
+        const category = Object.keys(reccurentWord)[0];
+        const words = Object.entries(reccurentWord[category]);
+        console.log(reccurentWords);
+        words.forEach(([word, percentage]) => {
+          const newSize = percentage * scale;
+          newData.push({
+            name: word,
+            group: index + 1,
+            size: newSize,
+          });
+        });
+        legends.push(category);
+      });
+
+      setGraphTitle("Mots par récurrence :");
     } else {
       recurrentErrors.forEach((recurrentError, index) => {
         const category = Object.keys(recurrentError)[0];
@@ -104,6 +144,8 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
     if (newData.length == 0) {
       setIsEmpty(true);
     }
+
+    setCurrentLegend(legends);
     return newData;
   }, [tab, recurrentErrors, wordErrors]);
 
@@ -113,12 +155,12 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
 
     const x = d3
       .scaleOrdinal()
-      .domain([1, 2, 3, 4, 5])
-      .range([50, 150, 250, 350, 450]);
+      .domain([1, 2, 3, 4, 5, 6, 7, 8])
+      .range([50, 150, 250, 350, 450, 550, 650, 750]);
 
     const color = d3
       .scaleOrdinal()
-      .domain([1, 2, 3, 4, 5])
+      .domain([1, 2, 3, 4, 5, 6, 7, 8])
       .range([
         "#A1CDF1",
         "#FFB5A7",
@@ -126,6 +168,8 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
         "#3D6787",
         "#A1CDF1",
         "#D8ECFC",
+        "#FFD700",
+        "#8A2BE2",
       ]);
 
     const svg = d3.select("#my_dataviz");
@@ -145,7 +189,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
       .data(data)
       .enter()
       .append("g")
-      .attr("transform", (d) => `translate(${width / 2}, ${height / 2})`); // Centered
+      .attr("transform", (d) => `translate(${width / 2}, ${height / 2})`);
 
     node
       .append("circle")
@@ -164,8 +208,8 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
 
     const simulation = d3
       .forceSimulation(data)
-      .force("x", d3.forceX().strength(0.05)) // Force horizontale
-      .force("y", d3.forceY().strength(0.05)) // Force verticale
+      .force("x", d3.forceX().strength(0.05))
+      .force("y", d3.forceY().strength(0.05))
       .force(
         "center",
         d3
@@ -173,7 +217,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
           .x(width / 2)
           .y(height / 2)
       )
-      .force("charge", d3.forceManyBody().strength(-50)) // Force de répulsion, ajustez la force ici
+      .force("charge", d3.forceManyBody().strength(-50))
       .force(
         "collide",
         d3
@@ -209,6 +253,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
               Légende :
             </Typography>
+            {console.log("legende" + currentLegend)}
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{
@@ -220,7 +265,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
                   marginRight: "10px",
                 }}
               ></Box>
-              <Typography variant="body1">{currentLegend[0]}</Typography>
+              <Typography variant="body1">{currentLegend[2]}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
@@ -233,7 +278,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
                   marginRight: "10px",
                 }}
               ></Box>
-              <Typography variant="body1">{currentLegend[1]}</Typography>
+              <Typography variant="body1">{currentLegend[0]}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
@@ -246,7 +291,7 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
                   marginRight: "10px",
                 }}
               ></Box>
-              <Typography variant="body1">{currentLegend[2]}</Typography>
+              <Typography variant="body1">{currentLegend[1]}</Typography>
             </Box>
           </Box>
         </div>
