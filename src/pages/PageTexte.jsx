@@ -84,9 +84,9 @@ const PageTexte = () => {
 
   const getWordErrors = async () => {
     const errorsByCategory = {
-      conjErrors: [],
-      punctErrors: [],
-      grammarErrors: [],
+      Conjugaison: [],
+      Ponctuation: [],
+      Grammaire: [],
     };
     console.log("in");
     await lexicalData.lexicalUnit.forEach((unit) => {
@@ -99,16 +99,16 @@ const PageTexte = () => {
           case "ADP":
           case "PART":
           case "SCONJ":
-            errorsByCategory.grammarErrors.push(unit);
+            errorsByCategory.Grammaire.push(unit);
             break;
 
           case "VERB":
           case "AUX":
-            errorsByCategory.conjErrors.push(unit);
+            errorsByCategory.Conjugaison.push(unit);
             break;
 
           case "PUNCT":
-            errorsByCategory.punctErrors.push(unit);
+            errorsByCategory.Ponctuation.push(unit);
             break;
 
           default:
@@ -244,19 +244,19 @@ const PageTexte = () => {
                         lexicalData.lexicalUnit.map((wordData, index) => {
                           let word = wordData["form"];
                           let wordId = wordData["id"];
-                          let wordErrorConj = wordErrors.conjErrors?.filter(
+                          let wordErrorConj = wordErrors.Conjugaison?.filter(
                             (wordUnit) => {
                               return wordUnit["id"] == wordId;
                             }
                           );
-                          let wordErrorPunct = wordErrors.punctErrors?.filter(
+                          let wordErrorPunct = wordErrors.Ponctuation?.filter(
                             (wordUnit) => {
                               return wordUnit["id"] == wordId;
                             }
                           );
 
                           let wordErrorGrammar =
-                            wordErrors.grammarErrors?.filter((wordUnit) => {
+                            wordErrors.Grammaire?.filter((wordUnit) => {
                               return wordUnit["id"] == wordId;
                             });
                           return (

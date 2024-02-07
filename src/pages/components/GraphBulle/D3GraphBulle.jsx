@@ -66,10 +66,10 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
             size: newSize,
           });
         });
-        legends.push({ category });
+        legends.push(category);
       });
 
-      setCurrentLegend("legends" + legends);
+      setCurrentLegend(legends);
       setGraphTitle("Erreurs récurrentes :");
     } else if (tab === "tab1") {
       recurrentErrors.forEach((recurrentError, index) => {
@@ -193,16 +193,23 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
 
   return (
     <div>
-      <Typography variant="h5">{graphTitle}</Typography>
+      <Typography variant="h5" style={{ textDecoration: "underline" }}>
+        {graphTitle}
+      </Typography>
       {!isEmpty ? (
-        <>
+        <div style={{ display: "flex" }}>
           <div id="my_dataviz"></div>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <p>Légende :</p>
-            <Box sx={{ display: "flex" }}>
-              <Box>
-                <p> </p>
-              </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "20px",
+            }}
+          >
+            <Typography variant="subtitle1" sx={{ mb: 2 }}>
+              Légende :
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{
                   width: "30px",
@@ -210,14 +217,12 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
                   backgroundColor: "#ffe6e2",
                   border: "2px solid black",
                   borderRadius: "50%",
+                  marginRight: "10px",
                 }}
               ></Box>
-              <p>{currentLegend[0]}</p>
+              <Typography variant="body1">{currentLegend[0]}</Typography>
             </Box>
-            <Box sx={{ display: "flex" }}>
-              <Box>
-                <p> </p>
-              </Box>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{
                   width: "30px",
@@ -225,14 +230,12 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
                   backgroundColor: "#a1cdf1",
                   border: "2px solid black",
                   borderRadius: "50%",
+                  marginRight: "10px",
                 }}
               ></Box>
-              <p>Conjugaison</p>
+              <Typography variant="body1">{currentLegend[1]}</Typography>
             </Box>
-            <Box sx={{ display: "flex" }}>
-              <Box>
-                <p> </p>
-              </Box>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{
                   width: "30px",
@@ -240,12 +243,13 @@ const ForceDirectedGraph = ({ tab, wordErrors }) => {
                   backgroundColor: "#ffb5a7",
                   border: "2px solid black",
                   borderRadius: "50%",
+                  marginRight: "10px",
                 }}
               ></Box>
-              <p>1 erreur</p>
+              <Typography variant="body1">{currentLegend[2]}</Typography>
             </Box>
           </Box>
-        </>
+        </div>
       ) : (
         <Typography variant="h6">Aucune erreur référencée</Typography>
       )}
