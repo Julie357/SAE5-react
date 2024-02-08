@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import {
-  Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
-  Checkbox,
-  FormControlLabel,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectClasses } from "../../../features/classes/classSelector";

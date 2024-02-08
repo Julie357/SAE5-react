@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
 import "@fontsource/itim";
-import { useSelector } from "react-redux";
-import { selectLoadingExercices } from "../features/exercices/exerciceSelector";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/system/Box";
 import {
+  Badge,
+  Chip,
+  CircularProgress,
   Grid,
   Pagination,
   Stack,
-  CircularProgress,
-  Badge,
-  Chip,
 } from "@mui/material";
-import ExerciceCard from "./components/Card"
-import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/system/Box";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { selectLoadingExercices } from "../features/exercices/exerciceSelector";
+import ExerciceCard from "./components/Card";
+import ExerciceListHeader from "./components/ExercicesListComponents/ExerciceListHeader";
 import FetchStudentExercises from "./fonctions/FetchStudentExercises";
 import {
   filterByCorrection,
@@ -29,7 +29,6 @@ import {
 const ExercicesList = () => {
   const { idStudent } = useParams();
   const {
-    loadingStudents,
     currentStudent,
     studentExercises,
     studentExercisesUncorrected,
@@ -115,9 +114,9 @@ const ExercicesList = () => {
   const handleFilterChange = (newFilter) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      ["level"]: newFilter.level,
-      ["date"]: newFilter.date,
-      ["correction"]: newFilter.correction,
+      "level": newFilter.level,
+      "date": newFilter.date,
+      "correction": newFilter.correction,
     }));
   };
 

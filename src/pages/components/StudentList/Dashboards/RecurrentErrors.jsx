@@ -1,16 +1,16 @@
-import React from "react";
-import Box from "@mui/system/Box";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { LinearProgress } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { LinearProgress } from "@mui/material";
+import Box from "@mui/system/Box";
+import React from "react";
 
 const RecurrentErrors = ({ classData }) => {
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (_event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 

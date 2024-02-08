@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
 import {
-  Stack,
   Box,
-  Grid,
-  CircularProgress,
-  Pagination,
-  Typography,
-  ListItem,
-  List,
-  ListItemText,
-  Drawer,
   Button,
+  CircularProgress,
+  Drawer,
+  Grid,
+  Typography
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Eleve from "../Components/Eleve";
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link as RouterLink, useParams } from "react-router-dom";
+import DashboardClass from "./components/StudentList/DashboardClass";
 import StudentListHeader from "./components/StudentList/StudentListHeader";
 import FetchClassesData from "./fonctions/FetchClassesData";
 import {
@@ -23,8 +19,6 @@ import {
   sortByStudentsByQuery,
   sortByStudentsDescending,
 } from "./fonctions/sortFunctions";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import DashboardClass from "./components/StudentList/DashboardClass";
 
 const StudentsList = () => {
   const { idClass } = useParams();

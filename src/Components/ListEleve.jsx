@@ -10,19 +10,14 @@ import Select from '@mui/material/Select';
 import Eleve from './Eleve'
 import SearchComponent from './SearchComponent';
 import Paper from '@mui/material/Paper';
-// import { ThemeProvider } from '@mui/system';
-// import theme from '../theme';
 
 const ListEleve = () => {
-  // const ItemMenu = styled(Paper)(({ theme }) => ({
   const ItemMenu = styled()(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     padding: theme.spacing(1),
     textAlign: 'center',
     color: (theme) => theme.secondary.main,
   }));
-
-
 
   return (
     <Box>

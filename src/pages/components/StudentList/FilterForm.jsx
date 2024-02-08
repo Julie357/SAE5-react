@@ -1,15 +1,10 @@
-import React, { useState } from "react";
 import {
-  Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
-  Select,
-  TextField,
-  Checkbox,
-  FormControlLabel,
+  Select
 } from "@mui/material";
+import React, { useState } from "react";
 
 const FilterForm = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({

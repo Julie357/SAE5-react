@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { Chip, Grid, Menu, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
-import { Chip, Grid, Menu, Stack } from "@mui/material";
-import SearchComponent from "./SearchComponent";
+import React, { useState } from "react";
 import SortForm from "../ClassesListComponents/SortForm";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import FilterForm from "./FilterForm";
+import SearchComponent from "./SearchComponent";
 
 const StudentListHeader = ({
   onQueryChange,

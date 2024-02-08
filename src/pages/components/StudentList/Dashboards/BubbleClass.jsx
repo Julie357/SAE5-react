@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useMemo, useState } from "react";
-import * as d3 from "d3";
-import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import * as d3 from "d3";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const BubbleClass = ({ recurrentErrors }) => {
   const svgRef = useRef(null);
@@ -58,10 +58,6 @@ const BubbleClass = ({ recurrentErrors }) => {
     const width = 600;
     const height = 450;
 
-    const x = d3
-      .scaleOrdinal()
-      .domain([1, 2, 3, 4, 5, 6, 7, 8])
-      .range([50, 150, 250, 350, 450, 550, 650, 750]);
 
     const color = d3
       .scaleOrdinal()
@@ -85,7 +81,7 @@ const BubbleClass = ({ recurrentErrors }) => {
       .data(data)
       .enter()
       .append("g")
-      .attr("transform", (d) => `translate(${width / 2}, ${height / 2})`);
+      .attr("transform", () => `translate(${width / 2}, ${height / 2})`);
 
     node
       .append("circle")

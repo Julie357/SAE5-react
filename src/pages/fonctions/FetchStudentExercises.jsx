@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  selectLoadingStudents,
-  selectStudents,
-} from "../../features/students/studentSelector";
 import {
   selectExercices,
   selectLoadingExercices,
 } from "../../features/exercices/exerciceSelector";
+import {
+  selectLoadingStudents,
+  selectStudents,
+} from "../../features/students/studentSelector";
 
 const FetchStudentExercises = (idStudent) => {
   const students = useSelector(selectStudents);

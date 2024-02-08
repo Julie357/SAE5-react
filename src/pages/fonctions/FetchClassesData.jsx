@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { selectClasses } from "../../features/classes/classSelector";
 import {
   selectLoadingStudents,
   selectStudents,
 } from "../../features/students/studentSelector";
-import { selectClasses } from "../../features/classes/classSelector";
-import { useEffect, useState } from "react";
 
 const FetchClassesData = (idClass) => {
   const allClasses = useSelector(selectClasses);

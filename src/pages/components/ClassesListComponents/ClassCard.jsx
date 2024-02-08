@@ -1,8 +1,6 @@
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { style } from "d3";
 import { Link as RouterLink } from "react-router-dom";
 
 const ClassCard = ({ classe }) => {

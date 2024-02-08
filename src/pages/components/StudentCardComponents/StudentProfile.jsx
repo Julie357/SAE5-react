@@ -1,8 +1,8 @@
-import React from "react";
-import Box from "@mui/system/Box";
-import RecurrentErrors from "./RecurrentErrors";
-import { CircularProgress, Typography } from "@mui/material";
 import "@fontsource/itim";
+import { CircularProgress, Typography } from "@mui/material";
+import Box from "@mui/system/Box";
+import React from "react";
+import RecurrentErrors from "./RecurrentErrors";
 
 const StudentProfile = ({ currentStudent, studentExercises }) => {
   const nbExercices = studentExercises.length;

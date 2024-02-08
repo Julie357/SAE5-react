@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
 import "@fontsource/itim";
-import { useSelector } from "react-redux";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/system/Box";
 import {
+  CircularProgress,
   Grid,
   Pagination,
-  Stack,
-  CircularProgress,
-  Chip,
+  Stack
 } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/system/Box";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
+import { selectClasses, selectLoadingClasses, selectTotalClasses } from "../features/classes/classSelector";
+import ClassCard from "./components/ClassesListComponents/ClassCard";
+import ClassesListHeader from "./components/ClassesListComponents/ClassesListHeader";
 import {
-  sortByQuery,
-  filterByLevel,
+  ClassesFilterByLevel,
   sortByClasses,
   sortByClassesDescending,
-  sortClassesByQuery,
-  ClassesFilterByLevel
+  sortClassesByQuery
 } from "./fonctions/sortFunctions";
-import { selectClasses, selectLoadingClasses, selectTotalClasses } from "../features/classes/classSelector";
-import ClassesListHeader from "./components/ClassesListComponents/ClassesListHeader";
-import ClassCard from "./components/ClassesListComponents/ClassCard";
 
 const ClassesList = () => {
   const ITEMS_PER_PAGE = 15;
@@ -85,7 +82,7 @@ const ClassesList = () => {
   const handleFilterChange = (newFilter) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      ["level"]: newFilter,
+      "level": newFilter,
     }));
   };
 

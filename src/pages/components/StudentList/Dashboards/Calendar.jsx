@@ -1,48 +1,8 @@
-import React, { useState } from "react";
-import "./calendar.css";
 import "@fontsource/itim";
-import moment from "moment";
-import { fr } from "moment/locale/fr";
 import { Tooltip } from "@mui/material";
-import Typography from "@mui/material/Typography";
-
-const Legend = () => {
-  const levelPairs = [
-    { level: "A1", color: "#84CBE5" },
-    { level: "A2", color: "#316DA9" },
-    { level: "B1", color: "#FCD5CE" },
-    { level: "B2", color: "#FFA08F" },
-    { level: "C1", color: "#CF97C4" },
-    { level: "C2", color: "#9B5998" },
-  ];
-
-  const renderLegendGroups = () => {
-    const groups = [];
-    for (let i = 0; i < levelPairs.length; i += 2) {
-      const pair1 = levelPairs[i];
-      const pair2 = levelPairs[i + 1];
-      const group = (
-        <div key={i / 2} className="legend-content">
-          {renderLegendItem(pair1)}
-          {renderLegendItem(pair2)}
-        </div>
-      );
-      groups.push(group);
-    }
-    return groups;
-  };
-  const renderLegendItem = (pair) => (
-    <div key={pair.level} className="legend-item">
-      <div
-        className="legend-color"
-        style={{ backgroundColor: pair.color }}
-      ></div>
-      <div className="legend-text">{`Niveau ${pair.level}`}</div>
-    </div>
-  );
-
-  return <div className="legend">{renderLegendGroups()}</div>;
-};
+import moment from "moment";
+import React from "react";
+import "./calendar.css";
 
 const DayNames = {
   0: "Lun",
@@ -126,45 +86,8 @@ const Mois = ({ startDate, index }) => {
   );
 };
 
-const Timeline = ({ range, data }) => {
-  const days = Math.abs(range[0].diff(range[1], "days"));
-  const cells = Array.from(new Array(days));
-  const weeks = Array.from(new Array(7));
-  const mois = Array.from(new Array(Math.floor(days / 7)));
-  const startDate = range[0];
-  const DayFormat = "DDMMYYYY";
 
-  return (
-    <div className="timeline">
-      <div className="timeline-mois">
-        {mois.map((_, index) => (
-          <Mois key={index} index={index} startDate={startDate} />
-        ))}
-      </div>
-      <div className="timeline-body">
-        <div className="timeline-weeks">
-          {weeks.map((_, index) => (
-            <Week key={index} index={index} startDate={startDate} />
-          ))}
-        </div>
-        <div className="timeline-cells">
-          {cells.map((_, index) => {
-            const date = moment(startDate).add(index, "day");
-            const dataPoint = data.find(
-              (d) =>
-                moment(date).format(DayFormat) ===
-                moment(d.date).format(DayFormat)
-            );
-            const numValue = dataPoint ? dataPoint.value : 0;
-            return <Cell key={index} date={date} value={numValue} />;
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Calendar = ({ classeExercises, loadingExercises }) => {
+const Calendar = () => {
   // const dateRange = [startDate, moment()];
   // const levelConversion = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
 

@@ -6,10 +6,9 @@ import { useDispatch } from 'react-redux';
 import { loadErrorsStats, loadExercices } from './features/exercices/exerciceAction';
 import '@fontsource/itim';
 import ExercicesList from './pages/ExercicesList';
-import PageClasses from './pages/PageClasses';
 import PageTexte from './pages/PageTexte'
 import StudentsList from './pages/StudentsList';
-import Page404 from './pages/Page404';
+import Page404 from './pages/404';
 import { ThemeProvider } from "@mui/material";
 import theme from './theme';
 import D3GraphBulle from './pages/components/GraphBulle/D3GraphBulle'
@@ -38,7 +37,6 @@ const App = () => {
           <Route path="/studentsList/:idClass" element={<StudentsList />} />
           <Route path="/studentCard/:idStudent" element={<StudentCard />} />
           <Route path="/exercicesList/:idStudent" element={<ExercicesList />} />
-          <Route path="/pageClasse" element={<PageClasses/>} />
           <Route path="/texte/:idExercise" element={<PageTexte />} />
           <Route path="/vizu-j" element={<D3GraphBulle />}/>
           <Route path="/classe" element={<StudentsList />}/>

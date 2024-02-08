@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
+import { ArrowBack } from "@mui/icons-material";
+import InsightsIcon from "@mui/icons-material/Insights";
 import {
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  FormGroup,
   ToggleButton,
   ToggleButtonGroup,
-  FormGroup,
-  Checkbox,
-  FormControlLabel,
-  Switch,
-  Typography,
-  CircularProgress,
+  Typography
 } from "@mui/material";
-import InsightsIcon from "@mui/icons-material/Insights";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
-import "../Styles/stylePage.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "../Styles/stylePage.css";
 import {
   selectExercices,
   selectLoadingExercices,
 } from "../features/exercices/exerciceSelector";
 import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
+import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
-import { ArrowBack } from "@mui/icons-material";
-import axios from "axios";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -65,7 +64,7 @@ const PageTexte = () => {
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical, lexicalData]);
 
-  const handleTabChange = (event, newTab) => {
+  const handleTabChange = (_event, newTab) => {
     if (newTab !== null) {
       setSelectedTab(newTab);
     }

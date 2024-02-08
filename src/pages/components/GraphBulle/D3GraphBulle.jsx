@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useMemo, useState } from "react";
+import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 import * as d3 from "d3";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
 
 const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
   const svgRef = useRef(null);

@@ -1,16 +1,12 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import { Box, Button, Chip, CircularProgress, Grid } from "@mui/material";
-import FilterForm from "./FilterForm";
-import RecurrentErrors from "./Dashboards/RecurrentErrors";
 import { Close } from "@mui/icons-material";
-import Calendar from "./Dashboards/Calendar";
-import FetchClasseExercises from "../../fonctions/FetchClasseExercises";
+import { Box, Button, Chip, CircularProgress, Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import React from "react";
 import BubbleClass from "./Dashboards/BubbleClass";
+import RecurrentErrors from "./Dashboards/RecurrentErrors";
 
 const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
-  // const { loadingExercises, classeExercises } = FetchClasseExercises(classData);
 
   return (
     <>
@@ -104,9 +100,6 @@ const DashboardClass = ({ classData, onClose }) => {
               alignItems: "center",
             }}
           >
-            {/* <Grid item xs={2}>
-              <FilterForm />
-            </Grid> */}
           </Grid>
           <Grid
             item
