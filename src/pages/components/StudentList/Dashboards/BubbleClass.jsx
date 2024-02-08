@@ -2,160 +2,62 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectRecurrentErrors } from "../../../features/exercices/exerciceSelector";
 
-const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
+const BubbleClass = ({ recurrentErrors }) => {
   const svgRef = useRef(null);
-  const recurrentErrors = useSelector(selectRecurrentErrors);
   const [currentLegend, setCurrentLegend] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [graphTitle, setGraphTitle] = useState("");
-
-  const convertToObjectArray = (errors) => {
-    const result = [];
-
-    if (errors) {
-      for (const category in errors) {
-        const categoryObject = {};
-        const formCounts = {};
-        if (errors[category]) {
-          errors[category].map((error) => {
-            const { form } = error;
-            formCounts[form] = (formCounts[form] || 0) + 1;
-          });
-
-          categoryObject[category] = formCounts;
-          result.push(categoryObject);
-        }
-      }
-    }
-
-    return result;
-  };
-
-  const convertWordToObject = (words) => {
-    const result = [];
-
-    if (words) {
-      for (const category in words) {
-        const categoryObject = {};
-        const posCounts = {};
-        if (words[category]) {
-          words[category].map((word) => {
-            const { pos } = word;
-            posCounts[pos] = (posCounts[pos] || 0) + 1;
-          });
-
-          categoryObject[category] = posCounts;
-          result.push(categoryObject);
-        }
-      }
-    }
-
-    return result;
-  };
 
   const data = useMemo(() => {
     setIsEmpty(false);
     setCurrentLegend([]);
     let newData = [];
     let legends = [];
-    if (tab === "tab2") {
-      wordErrors = convertToObjectArray(wordErrors);
-      let maxPercentage = 0;
+    let maxPercentage = 0;
 
-      wordErrors.forEach((wordError) => {
-        const category = Object.keys(wordError)[0];
-        const errors = Object.values(wordError[category]);
-        errors.forEach((percentage) => {
-          if (percentage > maxPercentage) {
-            maxPercentage = percentage;
-          }
-        });
+    for (const category in recurrentErrors) {
+      const categoryObject = recurrentErrors[category];
+      const errors = Object.values(categoryObject);
+      errors.forEach((percentage) => {
+        if (percentage > maxPercentage) {
+          maxPercentage = percentage;
+        }
       });
+    }
 
-      const MAX_SIZE = 80;
-      const scale = MAX_SIZE / maxPercentage;
+    const MAX_SIZE = 70;
+    const scale = MAX_SIZE / maxPercentage;
 
-      wordErrors.forEach((wordError, index) => {
-        const category = Object.keys(wordError)[0];
-        const errors = Object.entries(wordError[category]);
+    if (recurrentErrors) {
+      for (const category in recurrentErrors) {
+        const categoryObject = recurrentErrors[category];
+        const errors = Object.entries(categoryObject);
         errors.forEach(([error, percentage]) => {
-          const newSize = percentage * scale;
           newData.push({
             name: error,
-            group: index + 1,
-            size: newSize,
+            group: category,
+            size: percentage * scale,
           });
         });
         legends.push(category);
-      });
+      }
 
       setGraphTitle("Erreurs récurrentes :");
-    } else if (tab === "tab1") {
-      reccurentWords = convertWordToObject(reccurentWords);
-      let maxPercentage = 0;
-
-      reccurentWords.forEach((reccurentWord) => {
-        const category = Object.keys(reccurentWord)[0];
-        const words = Object.values(reccurentWord[category]);
-        words.forEach((percentage) => {
-          if (percentage > maxPercentage) {
-            maxPercentage = percentage;
-          }
-        });
-      });
-
-      const MAX_SIZE = 70;
-      const scale = MAX_SIZE / maxPercentage;
-
-      reccurentWords.forEach((reccurentWord, index) => {
-        const category = Object.keys(reccurentWord)[0];
-        const words = Object.entries(reccurentWord[category]);
-        words.forEach(([word, percentage]) => {
-          const newSize = percentage * scale;
-          newData.push({
-            name: word,
-            group: index + 1,
-            size: newSize,
-          });
-        });
-        legends.push(category);
-      });
-
-      setGraphTitle("Mots par récurrence :");
-    } else {
-      recurrentErrors.forEach((recurrentError, index) => {
-        const category = Object.keys(recurrentError)[0];
-        const errors = Object.entries(recurrentError[category]);
-
-        errors.forEach(([error, percentage]) => {
-          newData.push({
-            name: error,
-            group: index + 1,
-            size: percentage,
-          });
-        });
-      });
-      setGraphTitle("Temps de réflexion par mot :");
     }
-    if (newData.length == 0) {
+
+    if (newData.length === 0) {
       setIsEmpty(true);
     }
 
     setCurrentLegend(legends);
     return newData;
-  }, [tab, recurrentErrors, wordErrors]);
+  }, [recurrentErrors]);
 
   useEffect(() => {
     const width = 600;
     const height = 450;
 
-    const x = d3
-      .scaleOrdinal()
-      .domain([1, 2, 3, 4, 5, 6, 7, 8])
-      .range([50, 150, 250, 350, 450, 550, 650, 750]);
 
     const color = d3
       .scaleOrdinal()
@@ -179,7 +81,7 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
       .data(data)
       .enter()
       .append("g")
-      .attr("transform", (d) => `translate(${width / 2}, ${height / 2})`);
+      .attr("transform", () => `translate(${width / 2}, ${height / 2})`);
 
     node
       .append("circle")
@@ -227,7 +129,14 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
 
   return (
     <div>
-      <Typography variant="h5" style={{ textDecoration: "underline", marginBottom:"5vh" }}>
+      <Typography
+        variant="h5"
+        style={{
+          textDecoration: "underline",
+          marginTop: "0.5vh",
+          marginLeft: "0.5vw",
+        }}
+      >
         {graphTitle}
       </Typography>
       {!isEmpty ? (
@@ -237,31 +146,19 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              marginLeft: "20px",
             }}
           >
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
               Légende :
             </Typography>
+            {console.log("legende" + currentLegend)}
+
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{
                   width: "30px",
                   height: "30px",
                   backgroundColor: "#CF97C4",
-                  border: "2px solid black",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                }}
-              ></Box>
-              <Typography variant="body1">{currentLegend[2]}</Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-              <Box
-                sx={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "#b1d5f4",
                   border: "2px solid black",
                   borderRadius: "50%",
                   marginRight: "10px",
@@ -274,13 +171,26 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
                 sx={{
                   width: "30px",
                   height: "30px",
-                  backgroundColor: "#ffb5a7",
+                  backgroundColor: "#b1d5f4",
                   border: "2px solid black",
                   borderRadius: "50%",
                   marginRight: "10px",
                 }}
               ></Box>
               <Typography variant="body1">{currentLegend[1]}</Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+              <Box
+                sx={{
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "#ffb5a7",
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                  marginRight: "10px",
+                }}
+              ></Box>
+              <Typography variant="body1">{currentLegend[2]}</Typography>
             </Box>
           </Box>
         </div>
@@ -291,4 +201,4 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
   );
 };
 
-export default ForceDirectedGraph;
+export default BubbleClass;

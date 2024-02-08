@@ -13,7 +13,7 @@ const Search = styled(Box)({
   padding: '4px',
   transition: 'width 0.3s',
   '&:focus-within': {
-    width: '100%', // La largeur maximale lorsque la boîte de recherche a le focus
+    width: '100%',
   },
 });
 

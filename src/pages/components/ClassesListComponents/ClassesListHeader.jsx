@@ -1,11 +1,11 @@
-import React, { useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { Grid, Menu } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
-import { Grid, Link, Menu } from "@mui/material";
-import SortForm from "./SortForm";
+import React, { useState } from "react";
 import FilterForm from "./FilterForm";
 import SearchComponent from "./SearchComponent";
+import SortForm from "./SortForm";
 
 const ClassesListHeader = ({ onQueryChange, updateSort, updateFilter }) => {
   const [openSort, setOpenSort] = useState(false);

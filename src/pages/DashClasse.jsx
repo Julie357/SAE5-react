@@ -1,13 +1,13 @@
-import { Button, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Chip, FormControl, InputLabel, MenuItem, Select, Stack, Typography, styled } from '@mui/material';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import React from 'react';
 import "../Styles/stylePage.css";
-import { Box, Stack, Chip, Accordion, styled , AccordionSummary, AccordionDetails, BorderLinearProgress } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+
 const DashClasse = () => {
     const [expanded, setExpanded] = React.useState(false);
 
-    const handleChange = (panel) => (event, isExpanded) => {
+    const handleChange = (panel) => (_event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
