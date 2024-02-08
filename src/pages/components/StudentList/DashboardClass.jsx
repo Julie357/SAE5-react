@@ -9,7 +9,7 @@ import BubbleRecurrentWords from "./Dashboards/BubbleRecurrentWords";
 
 const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
-  const [errorsBubble, setBubble] = useState(true);
+  const [errorsBubble, setBubble] = useState(false);
 
   return (
     <>
