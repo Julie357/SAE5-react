@@ -161,16 +161,7 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
     const color = d3
       .scaleOrdinal()
       .domain([1, 2, 3, 4, 5, 6, 7, 8])
-      .range([
-        "#A1CDF1",
-        "#FFB5A7",
-        "#FFE6E2",
-        "#3D6787",
-        "#A1CDF1",
-        "#D8ECFC",
-        "#FFD700",
-        "#8A2BE2",
-      ]);
+      .range(["#A1CDF1", "#FFB5A7", "#CF97C4"]);
 
     const svg = d3.select("#my_dataviz");
 
@@ -253,13 +244,12 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
               Légende :
             </Typography>
-            {console.log("legende" + currentLegend)}
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
               <Box
                 sx={{
                   width: "30px",
                   height: "30px",
-                  backgroundColor: "#ffe6e2",
+                  backgroundColor: "#CF97C4",
                   border: "2px solid black",
                   borderRadius: "50%",
                   marginRight: "10px",
@@ -272,7 +262,7 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
                 sx={{
                   width: "30px",
                   height: "30px",
-                  backgroundColor: "#a1cdf1",
+                  backgroundColor: "#b1d5f4",
                   border: "2px solid black",
                   borderRadius: "50%",
                   marginRight: "10px",
