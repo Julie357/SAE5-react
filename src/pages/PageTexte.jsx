@@ -564,7 +564,7 @@ const PageTexte = () => {
             <Dialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
               {textData ? (
                 <DialogContent>
-                  <Typography variant="h2">Performance</Typography>
+                  <Typography variant="h5">Performance</Typography>
                   <Divider
                     sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
                   />
@@ -588,7 +588,6 @@ const PageTexte = () => {
                         sx={{ color: "#A1CDF1" }}
                       />
                       <Typography
-                        variant="h3"
                         sx={{
                           position: "absolute",
                           top: "50%",
@@ -602,7 +601,7 @@ const PageTexte = () => {
                     </Box>
                   </Box>
 
-                  <Typography variant="h2">Nombre de Mots</Typography>
+                  <Typography variant="h5">Nombre de Mots</Typography>
                   <Divider
                     sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
                   />
@@ -636,7 +635,7 @@ const PageTexte = () => {
                     </Box>
                   </Box>
 
-                  <Typography variant="h2">Lisibilité</Typography>
+                  <Typography variant="h5">Lisibilité</Typography>
                   <Divider
                     sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
                   />
@@ -662,7 +661,7 @@ const PageTexte = () => {
                     </Box>
                   </Box>
 
-                  <Typography variant="h2">Vocabulaire</Typography>
+                  <Typography variant="h5">Vocabulaire</Typography>
                   <Divider
                     sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
                   />
