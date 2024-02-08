@@ -1,4 +1,3 @@
-import { ArrowBack } from "@mui/icons-material";
 import InsightsIcon from "@mui/icons-material/Insights";
 import {
   Checkbox,
@@ -11,7 +10,6 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -25,6 +23,7 @@ import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
 import { ArrowBack } from "@mui/icons-material";
 import axios from "axios";
+import Visu from "./components/visuMapping/visuMapping";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -239,7 +238,6 @@ const PageTexte = () => {
               {selectedTab === "tab1" && (
                 <Box
                   sx={{
-                    background: "#D8ECFC",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -258,7 +256,6 @@ const PageTexte = () => {
               {selectedTab === "tab2" && (
                 <Box
                   sx={{
-                    background: "#EBD4ED",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -337,9 +334,7 @@ const PageTexte = () => {
               {selectedTab === "tab3" && (
                 <Box
                   sx={{
-                    background: "#FCD5CE",
                     p: 4,
-                    border: "solid 10px #FCD5CE",
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
                     border: "15px solid #FCD5CE"
