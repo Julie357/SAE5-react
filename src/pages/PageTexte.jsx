@@ -252,10 +252,11 @@ const PageTexte = () => {
               {selectedTab === "tab1" && (
                 <Box
                   sx={{
-                    background: "#D8ECFC",
+                    background: "#fff",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
+                    border: "15px solid #D8ECFC"
                   }}
                 >
                   <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
@@ -268,10 +269,11 @@ const PageTexte = () => {
               {selectedTab === "tab2" && (
                 <Box
                   sx={{
-                    background: "#EBD4ED",
+                    background: "#fff",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
+                    border: "15px solid #EBD4ED"
                   }}
                 >
                   {displayTextInline && (
@@ -346,10 +348,11 @@ const PageTexte = () => {
               {selectedTab === "tab3" && (
                 <Box
                   sx={{
-                    background: "#FCD5CE",
+                    background: "#fff",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
+                    border: "15px solid #FCD5CE"
                   }}
                 >
                   <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
