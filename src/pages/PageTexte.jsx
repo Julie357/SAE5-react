@@ -372,6 +372,7 @@ const PageTexte = () => {
                 width: "20%",
                 background: "#D8ECFC",
                 borderRadius: "10px",
+                height: "100%",
               }}
             >
               <Button
@@ -409,28 +410,29 @@ const PageTexte = () => {
                   Niveau général du texte: {exerciseData.exercisesSkillLevel}
                 </Typography>
               </Box>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    defaultChecked={correctionChecked}
+                    onChange={changeCorrected}
+                  />
+                }
+                label={
+                  correctionChecked
+                    ? "Marquer comme non corrigé"
+                    : "Marquer comme corrigé"
+                }
+                sx={{
+                  m: 0,
+                  width: "100%",
+                  background: "#fff",
+                  borderRadius: "5px",
+                  mb: 1,
+                }}
+              />
               <FormGroup sx={{ width: "100%" }}>
                 {selectedTab === "tab1" && (
                   <>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          defaultChecked={correctionChecked}
-                          onChange={changeCorrected}
-                        />
-                      }
-                      label={
-                        correctionChecked
-                          ? "Marquer comme non corrigé"
-                          : "Marquer comme corrigé"
-                      }
-                      sx={{
-                        m: 0,
-                        background: "#fff",
-                        borderRadius: "5px",
-                        mb: 1,
-                      }}
-                    />
                     <FormControlLabel
                       control={<Checkbox defaultChecked={verbeChecked} />}
                       label="Verbe"
@@ -559,7 +561,7 @@ const PageTexte = () => {
             ) : (
               <CircularProgress />
             )}
-            
+
             {console.log(textData)}
             <Dialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
               {textData ? (
