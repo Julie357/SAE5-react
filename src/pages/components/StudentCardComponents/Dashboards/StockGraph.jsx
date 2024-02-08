@@ -7,14 +7,14 @@ function LineChart({ studentExercises }) {
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("Jour");
 
-
   useEffect(() => {
+    clearChart();
     if (data.length > 0) {
       drawChart();
     } else {
       fetchData();
     }
-  }, [data]);
+  }, [data, period]);
 
   const fetchData = () => {
     const dateMap = {};
@@ -43,14 +43,13 @@ function LineChart({ studentExercises }) {
       const value = exercise.exercisesSkillLevel;
       const levelINT = LEVEL_TO_INT[value];
 
-      // Selon la période sélectionnée, filtrez les données
       let key;
       if (period === "Jour") {
         key = date;
       } else if (period === "Mois") {
-        key = date.slice(0, 7); // Année et mois uniquement
+        key = date.slice(0, 7);
       } else if (period === "Année") {
-        key = date.slice(0, 4); // Année uniquement
+        key = date.slice(0, 4);
       }
 
       if (dateMap[key]) {
@@ -66,11 +65,21 @@ function LineChart({ studentExercises }) {
 
     const chartData = Object.keys(dateMap).map((key) => {
       const [year, month, day] = key.split("-").map(Number);
-      const date = period === "Jour" ? new Date(year, month - 1, day) : new Date(year, month - 1);
+      const date =
+        period === "Jour"
+          ? new Date(year, month - 1, day)
+          : new Date(year, month - 1);
       return {
-        label: period === "Jour" ? `${day}/${month}/${year}` : period === "Mois" ? `${month}/${year}` : `${year}`,
+        label:
+          period === "Jour"
+            ? `${day}/${month}/${year}`
+            : period === "Mois"
+            ? `${month}/${year}`
+            : `${year}`,
         value: dateMap[key].totalCount
-          ? INT_TO_LEVEL[Math.round(dateMap[key].totalValue / dateMap[key].totalCount)]
+          ? INT_TO_LEVEL[
+              Math.round(dateMap[key].totalValue / dateMap[key].totalCount)
+            ]
           : 0,
         date: date,
       };
@@ -119,27 +128,24 @@ function LineChart({ studentExercises }) {
       .style("border-radius", "5px")
       .style("padding", "5px");
 
-      var mouseover = function (d) {
-        Tooltip.style("opacity", 1);
-      };
-      function mousemove(event, d) {
-        const tooltipContent = `Date: ${d.label}, Niveau: ${d.value}`;
-        
-        // Calcul de la position du tooltip
-        const tooltipX = xScale(d.label) + xScale.bandwidth() / 2; // Position x du point de données
-        const tooltipY = yScale(yValues.indexOf(d.value)) - 10; // Position y du point de données avec un décalage vers le haut
-        
-        // Mise à jour de la position du tooltip
-        Tooltip.style("left", tooltipX + "px");
-        Tooltip.style("top", tooltipY + "px");
-        
-        // Mise à jour du contenu du tooltip
-        Tooltip.html(tooltipContent);
-      }
-      
-      var mouseleave = function (d) {
-        Tooltip.style("opacity", 0);
-      };
+    var mouseover = function (d) {
+      Tooltip.style("opacity", 1);
+    };
+    function mousemove(event, d) {
+      const tooltipContent = `Date: ${d.label}, Niveau: ${d.value}`;
+
+      const tooltipX = xScale(d.label) + xScale.bandwidth() / 2; 
+      const tooltipY = yScale(yValues.indexOf(d.value)) - 10;
+
+      Tooltip.style("left", tooltipX + "px");
+      Tooltip.style("top", tooltipY + "px");
+
+      Tooltip.html(tooltipContent);
+    }
+
+    var mouseleave = function (d) {
+      Tooltip.style("opacity", 0);
+    };
 
     svg
       .append("g")
@@ -198,15 +204,21 @@ function LineChart({ studentExercises }) {
       .attr("cy", (d) => yScale(yValues.indexOf(d.value)))
       .attr("r", 5)
       .attr("fill", "#f6c3d0")
-       .on("mouseover", mouseover)
-       .on("mousemove", mousemove)
-       .on("mouseleave", mouseleave);
+      .on("mouseover", mouseover)
+      .on("mousemove", mousemove)
+      .on("mouseleave", mouseleave);
   };
 
   const handlePeriodChange = (event) => {
     setPeriod(event.target.value);
+    setData([]);
   };
-  
+
+  const clearChart = () => {
+    const svg = d3.select("#container");
+    svg.selectAll("*").remove();
+  };
+
   const getLabel = (period, year, month, day) => {
     if (period === "Jour") {
       return `${day}/${month}/${year}`;
@@ -219,19 +231,19 @@ function LineChart({ studentExercises }) {
 
   return (
     <div style={{ display: "flex" }}>
-      <div id="container" /><div>
-      <form style={{ marginLeft: "20px" }}>
-        <label>
-          Période :
-          <select value={period} onChange={handlePeriodChange}>
-            <option value="Jour">Jour</option>
-            <option value="Mois">Mois</option>
-            <option value="Année">Année</option>
-          </select>
-        </label>
-      </form>
-
-    </div>
+      <div id="container" />
+      <div>
+        <form style={{ marginTop: "2vh", marginLeft: "20px" }}>
+          <label >
+            Période :
+            <select style={{ marginLeft: "5px" }} value={period} onChange={handlePeriodChange}>
+              <option value="Jour">Jour</option>
+              <option value="Mois">Mois</option>
+              <option value="Année">Année</option>
+            </select>
+          </label>
+        </form>
+      </div>
     </div>
   );
 }
