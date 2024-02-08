@@ -92,7 +92,7 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
         legends.push(category);
       });
 
-      setGraphTitle("Erreurs récurrentes :");
+      setGraphTitle("Distribution des erreurs par récurrence :");
     } else if (tab === "tab1") {
       reccurentWords = convertWordToObject(reccurentWords);
       let maxPercentage = 0;
@@ -124,7 +124,7 @@ const ForceDirectedGraph = ({ tab, wordErrors, reccurentWords }) => {
         legends.push(category);
       });
 
-      setGraphTitle("Mots par récurrence :");
+      setGraphTitle("Distribution des mots par récurrence:");
     } else {
       recurrentErrors.forEach((recurrentError, index) => {
         const category = Object.keys(recurrentError)[0];

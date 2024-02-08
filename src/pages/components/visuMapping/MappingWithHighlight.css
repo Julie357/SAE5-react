@@ -5,28 +5,46 @@
 
 .highlight {
   position: relative;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
 .highlight::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: -1;
+}
+
+.highlight:hover {
+  text-decoration: underline;
+}
+
+.different-color-before::before {
+  border-radius: 5px 0 0 5px; /* Ajoute le border-radius uniquement lorsque la couleur change */
+}
+
+.different-color-after::before {
+  border-radius: 0 5px 5px 0; /* Ajoute le border-radius uniquement lorsque la couleur change */
+}
+
+.different-color::before {
+  border-radius: 5px;
+}
+
+.purple::before {
+  background-color: #cf97c4 !important; /* Couleur pour les mots de type 'NOUN', 'ADJ', 'PROPN' avec erreur */
+}
+
+.pink::before {
+  background-color: #ffb5a7 !important; /* Couleur pour les mots de type 'VERB', 'AUX' avec erreur */
 }
 
 .blue::before {
-  background-color: blue !important; /* Couleur pour les mots de type 'NOUN', 'ADJ', 'PROPN' avec erreur */
-}
-
-.green::before {
-  background-color: green !important; /* Couleur pour les mots de type 'VERB', 'AUX' avec erreur */
-}
-
-.orange::before {
-  background-color: orange !important; /* Couleur pour les mots de type 'PRON', 'ADP', 'PART', 'SCONJ' avec erreur */
+  background-color: #a1cdf1 !important; /* Couleur pour les mots de type 'PRON', 'ADP', 'PART', 'SCONJ' avec erreur */
 }
 
 .grey::before {
@@ -39,8 +57,4 @@
 
 .black::before {
   background-color: rgb(191, 255, 161);
-}
-
-.invisible-text {
-  visibility: hidden;
 }
