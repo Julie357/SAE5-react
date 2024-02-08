@@ -72,19 +72,6 @@ const PageTexte = () => {
     }
   };
 
-  const handleDisplayTextInlineChange = () => {
-    setDisplayTextInline((prev) => !prev);
-  };
-
-  const handleResetConjugaison = () => {
-    setConjugaisonChecked(false);
-    setPonctuationChecked(false);
-    setGrammarChecked(false);
-    setVerbeChecked(false);
-    setPrenomChecked(false);
-    setNomCommunChecked(false);
-  };
-
   const getWordErrors = async () => {
     const errorsByCategory = {
       Conjugaison: [],
@@ -163,6 +150,7 @@ const PageTexte = () => {
       await axios.get(
         `https://la-diwa-03.univ-lemans.fr/api/toggle-correction/${exerciseData.idExercises}`
       );
+      setCorrectionChecked(!correctionChecked)
     } catch (error) {
       console.error("Erreur lors de la requête PUT:", error.message);
     }
@@ -405,6 +393,25 @@ const PageTexte = () => {
                 {selectedTab === "tab1" && (
                   <>
                     <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked={correctionChecked}
+                          onChange={changeCorrected}
+                        />
+                      }
+                      label={
+                        correctionChecked
+                          ? "Marquer comme non corrigé"
+                          : "Marquer comme corrigé"
+                      }
+                      sx={{
+                        m: 0,
+                        background: "#fff",
+                        borderRadius: "5px",
+                        mb: 1,
+                      }}
+                    />
+                    <FormControlLabel
                       control={<Checkbox defaultChecked={verbeChecked} />}
                       label="Verbe"
                       sx={{
@@ -511,22 +518,7 @@ const PageTexte = () => {
               </FormGroup>
             </Box>
           </Box>
-          <FormControlLabel
-            control={
-              <Checkbox
-                defaultChecked={correctionChecked}
-                onChange={changeCorrected}
-              />
-            }
-            label="Corrigé"
-            sx={{
-              my: 1,
-              background: "#fff",
-              borderRadius: "5px",
-              m: 0,
-              color: "#2364C6",
-            }}
-          />
+
           <Box
             sx={{
               m: 8,
