@@ -534,13 +534,14 @@ const PageTexte = () => {
                     }}
                   >
                     <Typography variant="body1">
-                      score du texte : 75 sur 100. Ce score représente votre
-                      qualité d'écriture dans ce texte.
+                      Score du texte : {textData.note} sur 100. Ce score
+                      représente la qualité du texte en calculant le taux
+                      d'erreurs par rapport au nombre de mots.
                     </Typography>
                     <Box sx={{ position: "relative", display: "inline-flex" }}>
                       <CircularProgress
                         variant="determinate"
-                        value={75}
+                        value={textData.note}
                         size={50}
                         thickness={4}
                         sx={{ color: "#A1CDF1" }}
@@ -552,14 +553,15 @@ const PageTexte = () => {
                           left: "50%",
                           transform: "translate(-50%, -50%)",
                           color: "#A1CDF1",
+                          fontSize: "12px",
                         }}
                       >
-                        {75}%
+                        {textData.note}%
                       </Typography>
                     </Box>
                   </Box>
 
-                  <Typography variant="h5">Nombre de Mots</Typography>
+                  <Typography variant="h5">Quantification du texte</Typography>
                   <Divider
                     sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
                   />
@@ -578,9 +580,11 @@ const PageTexte = () => {
                         Caractères : {textData.nbCaractere}
                       </Typography>
                       <Typography variant="body1">
-                        Phrases : A calculer
+                        Phrases : {textData.nbSentence}
                       </Typography>
-                      <Typography variant="body1">Mots : A calculer</Typography>
+                      <Typography variant="body1">
+                        Mots : {textData.nbWord}
+                      </Typography>
                     </Box>
 
                     <Box>
@@ -618,39 +622,13 @@ const PageTexte = () => {
                       </Typography>
                     </Box>
                   </Box>
-
-                  <Typography variant="h5">Vocabulaire</Typography>
-                  <Divider
-                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
-                  />
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: "2fr 1fr",
-                      gap: 1,
-                      alignItems: "center",
-                      m: 2,
-                    }}
-                  >
-                    <Box>
-                      <Typography variant="body1">
-                        Mots communs : on a pas les données
-                      </Typography>
-                      <Typography variant="body1">
-                        Mots peu utilisés : on a pas les données
-                      </Typography>
-                      <Typography variant="body1">
-                        Score Total : on a pas les données
-                      </Typography>
-                    </Box>
-                  </Box>
                 </DialogContent>
               ) : (
                 <CircularProgress />
               )}
 
               <DialogActions>
-                <Button onClick={() => setPopupOpen(false)}>Fermer</Button>
+                <Button onClick={() => setPopupOpen(false)} sx={{color:"#316DA9"}}>Fermer</Button>
               </DialogActions>
             </Dialog>
           </Box>
