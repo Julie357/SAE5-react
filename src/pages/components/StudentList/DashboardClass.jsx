@@ -1,12 +1,15 @@
 import { Close } from "@mui/icons-material";
 import { Box, Button, Chip, CircularProgress, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, { useState } from "react";
 import BubbleClass from "./Dashboards/BubbleClass";
 import RecurrentErrors from "./Dashboards/RecurrentErrors";
+import { FormControlLabel, Switch } from "@mui/material";
+import BubbleRecurrentWords from "./Dashboards/BubbleRecurrentWords";
 
 const DashboardClass = ({ classData, onClose }) => {
   const totalStudents = classData.studentOfClassById.length;
+  const [errorsBubble, setBubble] = useState(true);
 
   return (
     <>
@@ -99,8 +102,7 @@ const DashboardClass = ({ classData, onClose }) => {
               justifyContent: "flex-end",
               alignItems: "center",
             }}
-          >
-          </Grid>
+          ></Grid>
           <Grid
             item
             xs={12}
@@ -117,9 +119,31 @@ const DashboardClass = ({ classData, onClose }) => {
               }}
             >
               {classData ? (
-                <BubbleClass
-                  recurrentErrors={classData.classRecurrentError}
-                />
+                <>
+                  {!errorsBubble ? (
+                    <BubbleClass
+                      recurrentErrors={classData.classRecurrentError}
+                    />
+                  ) : (
+                    <BubbleRecurrentWords
+                      allRecurrentWords={classData.ClassRecurrentPosUse}
+                    />
+                  )}
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={errorsBubble}
+                        onChange={() => setBubble(!errorsBubble)}
+                      />
+                    }
+                    labelPlacement="start"
+                    label={`${
+                      !errorsBubble
+                        ? "Voir les types de mots récurrents"
+                        : "Voir les erreurs récurrentes"
+                    }`}
+                  />
+                </>
               ) : (
                 <CircularProgress />
               )}
@@ -135,7 +159,7 @@ const DashboardClass = ({ classData, onClose }) => {
                 margin: "auto",
               }}
             >
-              <RecurrentErrors classData={classData}/>
+              <RecurrentErrors classData={classData} />
             </Grid>
           </Grid>
         </Grid>

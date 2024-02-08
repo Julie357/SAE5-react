@@ -43,7 +43,7 @@ const BubbleClass = ({ recurrentErrors }) => {
         legends.push(category);
       }
 
-      setGraphTitle("Erreurs récurrentes :");
+      setGraphTitle("Distribution des erreurs par récurrence :");
     }
 
     if (newData.length === 0) {
