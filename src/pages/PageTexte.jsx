@@ -251,7 +251,7 @@ const PageTexte = () => {
               {selectedTab === "tab1" && (
                 <Box
                   sx={{
-                    background: "#D8ECFC",
+                    border: "solid 10px #D8ECFC",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -269,7 +269,7 @@ const PageTexte = () => {
               {selectedTab === "tab2" && (
                 <Box
                   sx={{
-                    background: "#EBD4ED",
+                    border: "solid 10px #EBD4ED",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -347,8 +347,8 @@ const PageTexte = () => {
               {selectedTab === "tab3" && (
                 <Box
                   sx={{
-                    background: "#FCD5CE",
                     p: 4,
+                    border: "solid 10px #FCD5CE",
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
                   }}
