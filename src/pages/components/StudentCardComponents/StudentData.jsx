@@ -49,7 +49,6 @@ const StudentData = ({
 
   return (
     <Grid container spacing={5} sx={{ height: "100%", width: "60vw" }}>
-      {/* <Grid item xs={12} sx={{ height: "2vh", width: "100%" }} /> */}
       <Grid item xs={12} sx={{ height: "40%", width: "100%" }}>
         <Box
           sx={{
