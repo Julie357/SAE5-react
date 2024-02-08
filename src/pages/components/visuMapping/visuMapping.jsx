@@ -131,7 +131,6 @@ const Legend = () => {
 };
 
 const MappingWithHighlightWithText = ({ exercice, isMasked }) => {
-  console.log(exercice);
   const getHoverInfoText = (index) => {
     return `Type: ${exercice[index].pos} `;
   };
