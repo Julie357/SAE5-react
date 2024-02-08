@@ -24,7 +24,7 @@ import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
 import { ArrowBack } from "@mui/icons-material";
 import axios from "axios";
-import Visu from "./components/visuMapping/VisuMapping";
+import Visu from "./components/visuMapping/visuMapping";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
