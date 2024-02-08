@@ -6,7 +6,11 @@ import {
   FormGroup,
   ToggleButton,
   ToggleButtonGroup,
-  Typography
+  Typography,
+  Dialog,
+  DialogActions,
+  Divider,
+  DialogContent,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -46,6 +50,8 @@ const PageTexte = () => {
   const [recurrentWords, setRecurrentWords] = useState([]);
   const [dataReady, setDataReady] = useState(false);
   const [reccurentWordReady, setReccurentWordReady] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [textData, setTextData] = useState([]);
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -149,9 +155,20 @@ const PageTexte = () => {
       await axios.get(
         `https://la-diwa-03.univ-lemans.fr/api/toggle-correction/${exerciseData.idExercises}`
       );
-      setCorrectionChecked(!correctionChecked)
+      setCorrectionChecked(!correctionChecked);
     } catch (error) {
-      console.error("Erreur lors de la requête PUT:", error.message);
+      console.error("Erreur lors de la requête :", error.message);
+    }
+  };
+
+  const fetchTextData = async () => {
+    try {
+      let dataImp = await axios.get(
+        `https://la-diwa-03.univ-lemans.fr/api/get-all-text/${exerciseData.idExercises}`
+      );
+      setTextData(dataImp.data);
+    } catch (error) {
+      console.error("Erreur lors de la requête GET:", error.message);
     }
   };
 
@@ -241,7 +258,7 @@ const PageTexte = () => {
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
-                    border: "15px solid #D8ECFC"
+                    border: "15px solid #D8ECFC",
                   }}
                 >
                   <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
@@ -259,7 +276,7 @@ const PageTexte = () => {
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
-                    border: "15px solid #EBD4ED"
+                    border: "15px solid #EBD4ED",
                   }}
                 >
                   {displayTextInline && (
@@ -337,7 +354,7 @@ const PageTexte = () => {
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
-                    border: "15px solid #FCD5CE"
+                    border: "15px solid #FCD5CE",
                   }}
                 >
                   <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
@@ -369,6 +386,10 @@ const PageTexte = () => {
                   paddingLeft: 0,
                   textTransform: "none",
                   fontSize: 16,
+                }}
+                onClick={() => {
+                  setPopupOpen(true);
+                  fetchTextData();
                 }}
               >
                 Statistiques du texte
@@ -538,6 +559,143 @@ const PageTexte = () => {
             ) : (
               <CircularProgress />
             )}
+            
+            {console.log(textData)}
+            <Dialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
+              {textData ? (
+                <DialogContent>
+                  <Typography variant="h2">Performance</Typography>
+                  <Divider
+                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      m: 2,
+                    }}
+                  >
+                    <Typography variant="body1">
+                      score du texte : 75 sur 100. Ce score représente votre
+                      qualité d'écriture dans ce texte.
+                    </Typography>
+                    <Box sx={{ position: "relative", display: "inline-flex" }}>
+                      <CircularProgress
+                        variant="determinate"
+                        value={75}
+                        size={50}
+                        thickness={4}
+                        sx={{ color: "#A1CDF1" }}
+                      />
+                      <Typography
+                        variant="h3"
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          color: "#A1CDF1",
+                        }}
+                      >
+                        {75}%
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Typography variant="h2">Nombre de Mots</Typography>
+                  <Divider
+                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                  />
+
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: 1,
+                      alignItems: "center",
+                      m: 2,
+                    }}
+                  >
+                    <Box>
+                      <Typography variant="body1">
+                        Caractères : {textData.nbCaractere}
+                      </Typography>
+                      <Typography variant="body1">
+                        Phrases : A calculer
+                      </Typography>
+                      <Typography variant="body1">Mots : A calculer</Typography>
+                    </Box>
+
+                    <Box>
+                      <Typography variant="body1">
+                        Temps de lecture : {textData.readingTime} sec
+                      </Typography>
+                      <Typography variant="body1">
+                        Temps de lecture orale : {textData.oralReadingTime} sec
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Typography variant="h2">Lisibilité</Typography>
+                  <Divider
+                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                  />
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr", // Deux colonnes égales
+                      gap: 1, // Espace entre les colonnes
+                      alignItems: "center",
+                      m: 2,
+                    }}
+                  >
+                    <Box>
+                      <Typography variant="body1">
+                        Taille des mots : {textData.wordLength} caractères
+                      </Typography>
+                      <Typography variant="body1">
+                        Taille des phrases : {textData.sentenceLength}
+                      </Typography>
+                      <Typography variant="body1">
+                        Score Total : A calculer
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Typography variant="h2">Vocabulaire</Typography>
+                  <Divider
+                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                  />
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "2fr 1fr",
+                      gap: 1,
+                      alignItems: "center",
+                      m: 2,
+                    }}
+                  >
+                    <Box>
+                      <Typography variant="body1">
+                        Mots communs : on a pas les données
+                      </Typography>
+                      <Typography variant="body1">
+                        Mots peu utilisés : on a pas les données
+                      </Typography>
+                      <Typography variant="body1">
+                        Score Total : on a pas les données
+                      </Typography>
+                    </Box>
+                  </Box>
+                </DialogContent>
+              ) : (
+                <CircularProgress />
+              )}
+
+              <DialogActions>
+                <Button onClick={() => setPopupOpen(false)}>Fermer</Button>
+              </DialogActions>
+            </Dialog>
           </Box>
         </>
       )}
