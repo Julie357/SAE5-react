@@ -212,7 +212,7 @@ const PageTexte = () => {
                     border: 0,
                   }}
                 >
-                  Cohésion/Niveau
+                  Construction
                 </ToggleButton>
                 <ToggleButton
                   value="tab2"
@@ -312,30 +312,30 @@ const PageTexte = () => {
                                   (conjugaisonChecked &&
                                     wordErrorConj &&
                                     wordErrorConj.length > 0 &&
-                                    "#C62323") ||
+                                    "#62BFED") ||
                                   (ponctuationChecked &&
                                     wordErrorPunct &&
                                     wordErrorPunct.length > 0 &&
-                                    "#2364C6") ||
+                                    "#FFB5A7") ||
                                   (grammarChecked &&
                                     wordErrorGrammar &&
                                     wordErrorGrammar.length > 0 &&
-                                    "#75C623") ||
+                                    "#BF73B1") ||
                                   "",
 
                                 borderBottom:
                                   (conjugaisonChecked &&
                                     wordErrorConj &&
                                     wordErrorConj.length > 0 &&
-                                    "2px dashed #C62323") ||
+                                    "2px dashed #62BFED") ||
                                   (ponctuationChecked &&
                                     wordErrorPunct &&
                                     wordErrorPunct.length > 0 &&
-                                    "2px dotted #2364C6") ||
+                                    "2px dotted #FFB5A7") ||
                                   (grammarChecked &&
                                     wordErrorGrammar &&
                                     wordErrorGrammar.length > 0 &&
-                                    "2px solid #75C623") ||
+                                    "2px solid #BF73B1") ||
                                   "none",
                               }}
                             >
@@ -431,49 +431,26 @@ const PageTexte = () => {
                 }}
               />
               <FormGroup sx={{ width: "100%" }}>
-                {selectedTab === "tab1" && (
-                  <>
-                    <FormControlLabel
-                      control={<Checkbox defaultChecked={verbeChecked} />}
-                      label="Verbe"
-                      sx={{
-                        background: "#fff",
-                        borderRadius: "5px",
-                        m: 0,
-                        mb: 0.5,
-                        color: "#C62323",
-                        textDecoration: "underline",
-                      }}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox defaultChecked={prenomChecked} />}
-                      label="Prénom"
-                      sx={{
-                        background: "#fff",
-                        borderRadius: "5px",
-                        m: 0,
-                        mb: 0.5,
-                        color: "#2364C6",
-                        textDecoration: "underline",
-                      }}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox defaultChecked={nomCommunChecked} />}
-                      label="Nom commun"
-                      sx={{
-                        background: "#fff",
-                        borderRadius: "5px",
-                        m: 0,
-                        mb: 0.5,
-                        color: "#75C623",
-                        textDecoration: "underline",
-                      }}
-                    />
-                  </>
-                )}
-
                 {selectedTab === "tab2" && (
                   <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked={grammarChecked}
+                          onChange={() => setGrammarChecked((prev) => !prev)}
+                        />
+                      }
+                      label="Grammaire"
+                      sx={{
+                        background: "#fff",
+                        borderRadius: "5px",
+                        m: 0,
+                        mb: 0.5,
+                        color: "#BF73B1",
+                        textDecoration: "underline",
+                        textDecorationThickness: "2px",
+                      }}
+                    />
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -489,7 +466,7 @@ const PageTexte = () => {
                         borderRadius: "5px",
                         m: 0,
                         mb: 0.5,
-                        color: "#C62323",
+                        color: "#62BFED",
                         textDecorationLine: "underline",
                         textDecorationStyle: "dashed",
                         textDecorationThickness: "2px",
@@ -510,28 +487,9 @@ const PageTexte = () => {
                         borderRadius: "5px",
                         m: 0,
                         mb: 0.5,
-                        color: "#2364C6",
+                        color: "#FFB5A7",
                         textDecorationLine: "underline",
                         textDecorationStyle: "dotted",
-                        textDecorationThickness: "2px",
-                      }}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          defaultChecked={grammarChecked}
-                          onChange={() => setGrammarChecked((prev) => !prev)}
-                        />
-                      }
-                      label="Grammaire"
-                      sx={{
-                        my: 1,
-                        background: "#fff",
-                        borderRadius: "5px",
-                        m: 0,
-                        mb: 0.5,
-                        color: "#75C623",
-                        textDecoration: "underline",
                         textDecorationThickness: "2px",
                       }}
                     />
@@ -561,8 +519,6 @@ const PageTexte = () => {
             ) : (
               <CircularProgress />
             )}
-
-            {console.log(textData)}
             <Dialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
               {textData ? (
                 <DialogContent>

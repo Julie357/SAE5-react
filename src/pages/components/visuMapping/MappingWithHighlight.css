@@ -5,6 +5,8 @@
 
 .highlight {
   position: relative;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
 .highlight::before {
@@ -15,6 +17,10 @@
   top: 0;
   left: 0;
   z-index: -1;
+}
+
+.highlight:hover {
+  text-decoration: underline;
 }
 
 .different-color-before::before {

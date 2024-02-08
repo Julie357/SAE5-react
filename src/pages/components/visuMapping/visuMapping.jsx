@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./MappingWithHighlight.css";
 import { FormControlLabel, Switch } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
+
 const Visu = ({ lexicalUnit }) => {
   const [isMasked, setMasked] = useState(false);
 
@@ -11,7 +13,7 @@ const Visu = ({ lexicalUnit }) => {
           <Switch checked={isMasked} onChange={() => setMasked(!isMasked)} />
         }
         labelPlacement="start"
-        label={`${isMasked ? "Masquer le texte" : "Afficher le texte"}`}
+        label={`${!isMasked ? "Masquer le texte" : "Afficher le texte"}`}
       />
 
       <MappingWithHighlightWithText
@@ -129,6 +131,10 @@ const Legend = () => {
 };
 
 const MappingWithHighlightWithText = ({ exercice, isMasked }) => {
+  console.log(exercice);
+  const getHoverInfoText = (index) => {
+    return `Type: ${exercice[index].pos} `;
+  };
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {exercice.map((item, index) => (
@@ -136,39 +142,41 @@ const MappingWithHighlightWithText = ({ exercice, isMasked }) => {
           {index > 0 &&
             getWordCategoryColor(exercice[index - 1].pos) !==
               getWordCategoryColor(item.pos) && <span>&nbsp;</span>}
-          <span
-            className={`highlight ${getWordCategoryColor(item.pos)} ${
-              index > 0 &&
-              getWordCategoryColor(exercice[index - 1].pos) !==
-                getWordCategoryColor(item.pos)
-                ? "different-color-before"
-                : ""
-            } ${
-              index < exercice.length - 1 &&
-              getWordCategoryColor(item.pos) !==
-                getWordCategoryColor(exercice[index + 1].pos)
-                ? "different-color-after"
-                : ""
-            } ${
-              index > 0 &&
-              index < exercice.length - 1 &&
-              getWordCategoryColor(exercice[index - 1].pos) !==
-                getWordCategoryColor(item.pos) &&
-              getWordCategoryColor(exercice[index + 1].pos) !==
-                getWordCategoryColor(item.pos)
-                ? "different-color"
-                : ""
-            }`}
-          >
+          <Tooltip title={getHoverInfoText(index)} arrow placement="top">
             <span
-              style={{
-                color: "black",
-                visibility: isMasked ? "hidden" : "visible",
-              }}
+              className={`highlight ${getWordCategoryColor(item.pos)} ${
+                index > 0 &&
+                getWordCategoryColor(exercice[index - 1].pos) !==
+                  getWordCategoryColor(item.pos)
+                  ? "different-color-before"
+                  : ""
+              } ${
+                index < exercice.length - 1 &&
+                getWordCategoryColor(item.pos) !==
+                  getWordCategoryColor(exercice[index + 1].pos)
+                  ? "different-color-after"
+                  : ""
+              } ${
+                index > 0 &&
+                index < exercice.length - 1 &&
+                getWordCategoryColor(exercice[index - 1].pos) !==
+                  getWordCategoryColor(item.pos) &&
+                getWordCategoryColor(exercice[index + 1].pos) !==
+                  getWordCategoryColor(item.pos)
+                  ? "different-color"
+                  : ""
+              }`}
             >
-              {item.form}&nbsp;
+              <span
+                style={{
+                  color: "black",
+                  visibility: isMasked ? "hidden" : "visible",
+                }}
+              >
+                {item.form}&nbsp;
+              </span>
             </span>
-          </span>
+          </Tooltip>
         </React.Fragment>
       ))}
     </div>
