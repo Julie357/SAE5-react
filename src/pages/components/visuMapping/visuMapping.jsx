@@ -1,6 +1,5 @@
 import React from 'react';
-import './MappingWithHighlight.css'; // Ajoutez le fichier CSS pour ce composant
-import { color } from 'd3';
+import './MappingWithHighlight.css';
 
 const Visu = ({lexicalUnit}) => {
   
