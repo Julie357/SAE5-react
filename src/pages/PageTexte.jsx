@@ -1,4 +1,3 @@
-import { ArrowBack } from "@mui/icons-material";
 import InsightsIcon from "@mui/icons-material/Insights";
 import {
   Checkbox,
@@ -11,7 +10,6 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -23,6 +21,9 @@ import {
 import { selectLoadingLexical } from "../features/lexical/lexicalSelector";
 import D3GraphBulle from "./components/GraphBulle/D3GraphBulle";
 import UseFetchLexicalData from "./fonctions/FetchLexicalData";
+import { ArrowBack } from "@mui/icons-material";
+import axios from "axios";
+import Visu from "./components/visuMapping/visuMapping";
 
 const PageTexte = () => {
   const { idExercise } = useParams();
@@ -70,19 +71,6 @@ const PageTexte = () => {
     }
   };
 
-  const handleDisplayTextInlineChange = () => {
-    setDisplayTextInline((prev) => !prev);
-  };
-
-  const handleResetConjugaison = () => {
-    setConjugaisonChecked(false);
-    setPonctuationChecked(false);
-    setGrammarChecked(false);
-    setVerbeChecked(false);
-    setPrenomChecked(false);
-    setNomCommunChecked(false);
-  };
-
   const getWordErrors = async () => {
     const errorsByCategory = {
       Conjugaison: [],
@@ -127,7 +115,6 @@ const PageTexte = () => {
       Grammaire: [],
     };
 
-    console.log("in");
     await lexicalData.lexicalUnit.forEach((unit) => {
       switch (unit.pos) {
         case "NOUN":
@@ -162,7 +149,7 @@ const PageTexte = () => {
       await axios.get(
         `https://la-diwa-03.univ-lemans.fr/api/toggle-correction/${exerciseData.idExercises}`
       );
-      console.log("Requête PUT réussie !");
+      setCorrectionChecked(!correctionChecked)
     } catch (error) {
       console.error("Erreur lors de la requête PUT:", error.message);
     }
@@ -251,7 +238,6 @@ const PageTexte = () => {
               {selectedTab === "tab1" && (
                 <Box
                   sx={{
-                    background: "#fff",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -261,14 +247,15 @@ const PageTexte = () => {
                   <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
                     {exerciseData.title}
                   </Typography>
-                  <p>{displayTextInline && exerciseData.content}</p>
+                  {lexicalData.lexicalUnit && (
+                    <Visu lexicalUnit={lexicalData.lexicalUnit} />
+                  )}
                 </Box>
               )}
 
               {selectedTab === "tab2" && (
                 <Box
                   sx={{
-                    background: "#fff",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -347,7 +334,6 @@ const PageTexte = () => {
               {selectedTab === "tab3" && (
                 <Box
                   sx={{
-                    background: "#fff",
                     p: 4,
                     borderRadius: "0 10px 10px 10px ",
                     fontFamily: "Itim",
@@ -405,6 +391,25 @@ const PageTexte = () => {
               <FormGroup sx={{ width: "100%" }}>
                 {selectedTab === "tab1" && (
                   <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked={correctionChecked}
+                          onChange={changeCorrected}
+                        />
+                      }
+                      label={
+                        correctionChecked
+                          ? "Marquer comme non corrigé"
+                          : "Marquer comme corrigé"
+                      }
+                      sx={{
+                        m: 0,
+                        background: "#fff",
+                        borderRadius: "5px",
+                        mb: 1,
+                      }}
+                    />
                     <FormControlLabel
                       control={<Checkbox defaultChecked={verbeChecked} />}
                       label="Verbe"
@@ -512,22 +517,7 @@ const PageTexte = () => {
               </FormGroup>
             </Box>
           </Box>
-          <FormControlLabel
-            control={
-              <Checkbox
-                defaultChecked={correctionChecked}
-                onChange={changeCorrected}
-              />
-            }
-            label="Corrigé"
-            sx={{
-              my: 1,
-              background: "#fff",
-              borderRadius: "5px",
-              m: 0,
-              color: "#2364C6",
-            }}
-          />
+
           <Box
             sx={{
               m: 8,
@@ -537,7 +527,6 @@ const PageTexte = () => {
               display: "flex",
             }}
           >
-            {console.log(dataReady)}
             {dataReady && reccurentWordReady ? (
               <>
                 <D3GraphBulle
