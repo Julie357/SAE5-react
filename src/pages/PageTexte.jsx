@@ -68,6 +68,8 @@ const PageTexte = () => {
       if (lexicalData.lexicalUnit && !loadingLexical) {
         getWordErrors();
         getRecurrentWords();
+        console.log(lexicalData.lexicalUnit[1].time);
+
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical, lexicalData]);
@@ -85,6 +87,17 @@ const PageTexte = () => {
       setColor("#FCD5CE");
     }
   };
+  
+  function insertSpaces(lexicalUnits) {
+    let formattedText = '';
+    for (let i = 0; i < lexicalUnits.length; i++) {
+        let lexicalUnit = lexicalUnits[i];
+        let spaceCount = Math.floor(lexicalUnit.time / 200);
+        formattedText += `${'-'.repeat(spaceCount)}${lexicalUnit.form}`;
+    }
+    return formattedText;
+}
+
 
   const getWordErrors = async () => {
     const errorsByCategory = {
@@ -357,21 +370,22 @@ const PageTexte = () => {
                 </Box>
               )}
 
-              {selectedTab === "tab3" && (
-                <Box
-                  sx={{
-                    p: 4,
-                    borderRadius: "0 10px 10px 10px ",
-                    fontFamily: "Itim",
-                    border: "15px solid #FCD5CE",
-                  }}
-                >
-                  <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
-                    {exerciseData.title}
-                  </Typography>{" "}
-                  <p>{displayTextInline && exerciseData.content}</p>
-                </Box>
-              )}
+{selectedTab === "tab3" && (
+  <Box
+    sx={{
+      p: 4,
+      borderRadius: "0 10px 10px 10px ",
+      fontFamily: "Itim",
+      border: "15px solid #FCD5CE"
+    }}
+  >
+    {/*Zone Vitesse*/}
+    <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>  
+      {exerciseData.title}
+    </Typography>{" "}
+    <p>{displayTextInline && insertSpaces(lexicalData.lexicalUnit)}</p>
+  </Box>
+)}
             </Box>
 
             <Box
