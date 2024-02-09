@@ -1,5 +1,10 @@
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
+import {
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Box,
+} from "@mui/material";
 import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
@@ -8,6 +13,7 @@ const BubbleClass = ({ recurrentErrors }) => {
   const [currentLegend, setCurrentLegend] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [graphTitle, setGraphTitle] = useState("");
+  const [selectedBubble, setSelectedBubble] = useState(null);
 
   const data = useMemo(() => {
     setIsEmpty(false);
@@ -57,7 +63,6 @@ const BubbleClass = ({ recurrentErrors }) => {
   useEffect(() => {
     const width = 600;
     const height = 450;
-
 
     const color = d3
       .scaleOrdinal()
@@ -125,79 +130,102 @@ const BubbleClass = ({ recurrentErrors }) => {
         (d) => `translate(${d.x || width / 2}, ${d.y || height / 2})`
       );
     });
+
+    node.on("click", (event, d) => {
+      setSelectedBubble(d);
+    });
   }, [data]);
 
   return (
-    <div>
-      <Typography
-        variant="h5"
-        style={{
-          textDecoration: "underline",
-          marginTop: "0.5vh",
-          marginLeft: "0.5vw",
-        }}
-      >
-        {graphTitle}
-      </Typography>
-      {!isEmpty ? (
-        <div style={{ display: "flex" }}>
-          <div id="my_dataviz"></div>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Typography variant="subtitle1" sx={{ mb: 2 }}>
-              Légende :
-            </Typography>
-            {console.log("legende" + currentLegend)}
+    <>
+      <div>
+        <Typography
+          variant="h5"
+          style={{
+            textDecoration: "underline",
+            marginTop: "0.5vh",
+            marginLeft: "0.5vw",
+          }}
+        >
+          {graphTitle}
+        </Typography>
+        {!isEmpty ? (
+          <div style={{ display: "flex" }}>
+            <div id="my_dataviz"></div>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="subtitle1" sx={{ mb: 2 }}>
+                Légende :
+              </Typography>
+              {console.log("legende" + currentLegend)}
 
-            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-              <Box
-                sx={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "#CF97C4",
-                  border: "2px solid black",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                }}
-              ></Box>
-              <Typography variant="body1">{currentLegend[0]}</Typography>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#CF97C4",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                    marginRight: "10px",
+                  }}
+                ></Box>
+                <Typography variant="body1">{currentLegend[0]}</Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#b1d5f4",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                    marginRight: "10px",
+                  }}
+                ></Box>
+                <Typography variant="body1">{currentLegend[1]}</Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+                <Box
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#ffb5a7",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                    marginRight: "10px",
+                  }}
+                ></Box>
+                <Typography variant="body1">{currentLegend[2]}</Typography>
+              </Box>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-              <Box
-                sx={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "#b1d5f4",
-                  border: "2px solid black",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                }}
-              ></Box>
-              <Typography variant="body1">{currentLegend[1]}</Typography>
+          </div>
+        ) : (
+          <Typography variant="h6">Aucune erreur référencée</Typography>
+        )}
+      </div>
+      <Dialog
+        open={selectedBubble !== null}
+        onClose={() => setSelectedBubble(null)}
+      >
+        <DialogTitle>Informations</DialogTitle>
+        <DialogContent>
+          {selectedBubble && (
+            <Box>
+              <Typography>Type de mot: {selectedBubble.name}</Typography>
+              <Typography>Catégorie: {selectedBubble.group}</Typography>
+              <Typography>
+                Nombre de mots: {Math.round(selectedBubble.size)}
+              </Typography>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-              <Box
-                sx={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "#ffb5a7",
-                  border: "2px solid black",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                }}
-              ></Box>
-              <Typography variant="body1">{currentLegend[2]}</Typography>
-            </Box>
-          </Box>
-        </div>
-      ) : (
-        <Typography variant="h6">Aucune erreur référencée</Typography>
-      )}
-    </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
