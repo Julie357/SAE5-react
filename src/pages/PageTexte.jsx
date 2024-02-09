@@ -52,6 +52,7 @@ const PageTexte = () => {
   const [reccurentWordReady, setReccurentWordReady] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [textData, setTextData] = useState([]);
+  const [currentColor, setColor] = useState("#D8ECFC");
 
   useEffect(() => {
     if (!loadingExercises) {
@@ -74,6 +75,14 @@ const PageTexte = () => {
   const handleTabChange = (_event, newTab) => {
     if (newTab !== null) {
       setSelectedTab(newTab);
+    }
+    console.log(newTab)
+    if (newTab == "tab1") {
+      setColor("#D8ECFC");
+    } else if (newTab == "tab2") {
+      setColor("#EBD4ED");
+    } else {
+      setColor("#FCD5CE");
     }
   };
 
@@ -370,7 +379,7 @@ const PageTexte = () => {
                 m: 8,
                 p: 2,
                 width: "20%",
-                background: "#D8ECFC",
+                background: currentColor,
                 borderRadius: "10px",
                 height: "100%",
               }}
@@ -503,7 +512,7 @@ const PageTexte = () => {
             sx={{
               m: 8,
               p: 4,
-              background: "#D8ECFC",
+              background: currentColor,
               borderRadius: "10px",
               display: "flex",
             }}
@@ -628,7 +637,12 @@ const PageTexte = () => {
               )}
 
               <DialogActions>
-                <Button onClick={() => setPopupOpen(false)} sx={{color:"#316DA9"}}>Fermer</Button>
+                <Button
+                  onClick={() => setPopupOpen(false)}
+                  sx={{ color: "#316DA9" }}
+                >
+                  Fermer
+                </Button>
               </DialogActions>
             </Dialog>
           </Box>
