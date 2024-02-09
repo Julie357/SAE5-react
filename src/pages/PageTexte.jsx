@@ -69,7 +69,6 @@ const PageTexte = () => {
         getWordErrors();
         getRecurrentWords();
         console.log(lexicalData.lexicalUnit[1].time);
-
       }
     }
   }, [loadingExercises, allExercises, idExercise, loadingLexical, lexicalData]);
@@ -78,7 +77,7 @@ const PageTexte = () => {
     if (newTab !== null) {
       setSelectedTab(newTab);
     }
-    console.log(newTab)
+    console.log(newTab);
     if (newTab == "tab1") {
       setColor("#D8ECFC");
     } else if (newTab == "tab2") {
@@ -87,17 +86,16 @@ const PageTexte = () => {
       setColor("#FCD5CE");
     }
   };
-  
+
   function insertSpaces(lexicalUnits) {
-    let formattedText = '';
+    let formattedText = "";
     for (let i = 0; i < lexicalUnits.length; i++) {
-        let lexicalUnit = lexicalUnits[i];
-        let spaceCount = Math.floor(lexicalUnit.time / 200);
-        formattedText += `${'-'.repeat(spaceCount)}${lexicalUnit.form}`;
+      let lexicalUnit = lexicalUnits[i];
+      let spaceCount = Math.floor(lexicalUnit.time / 200);
+      formattedText += `${"-".repeat(spaceCount)}${lexicalUnit.form}`;
     }
     return formattedText;
-}
-
+  }
 
   const getWordErrors = async () => {
     const errorsByCategory = {
@@ -370,22 +368,24 @@ const PageTexte = () => {
                 </Box>
               )}
 
-{selectedTab === "tab3" && (
-  <Box
-    sx={{
-      p: 4,
-      borderRadius: "0 10px 10px 10px ",
-      fontFamily: "Itim",
-      border: "15px solid #FCD5CE"
-    }}
-  >
-    {/*Zone Vitesse*/}
-    <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>  
-      {exerciseData.title}
-    </Typography>{" "}
-    <p>{displayTextInline && insertSpaces(lexicalData.lexicalUnit)}</p>
-  </Box>
-)}
+              {selectedTab === "tab3" && (
+                <Box
+                  sx={{
+                    p: 4,
+                    borderRadius: "0 10px 10px 10px ",
+                    fontFamily: "Itim",
+                    border: "15px solid #FCD5CE",
+                  }}
+                >
+                  {/*Zone Vitesse*/}
+                  <Typography variant="h4" sx={{ fontSize: 22, mb: 2 }}>
+                    {exerciseData.title}
+                  </Typography>{" "}
+                  <p>
+                    {displayTextInline && insertSpaces(lexicalData.lexicalUnit)}
+                  </p>
+                </Box>
+              )}
             </Box>
 
             <Box
@@ -522,144 +522,145 @@ const PageTexte = () => {
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              m: 8,
-              p: 4,
-              background: currentColor,
-              borderRadius: "10px",
-              display: "flex",
-            }}
-          >
-            {dataReady && reccurentWordReady ? (
-              <>
+          {selectedTab !== "tab3" ? (
+            <Box
+              sx={{
+                m: 8,
+                p: 4,
+                background: currentColor,
+                borderRadius: "10px",
+                display: "flex",
+              }}
+            >
+              {dataReady && reccurentWordReady ? (
                 <D3GraphBulle
                   tab={selectedTab}
                   wordErrors={wordErrors}
                   reccurentWords={recurrentWords}
                 />
-              </>
-            ) : (
-              <CircularProgress />
-            )}
-            <Dialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
-              {textData ? (
-                <DialogContent>
-                  <Typography variant="h5">Performance</Typography>
-                  <Divider
-                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
-                  />
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      m: 2,
-                    }}
-                  >
-                    <Typography variant="body1">
-                      Score du texte : {textData.note} sur 100. Ce score
-                      représente la qualité du texte en calculant le taux
-                      d'erreurs par rapport au nombre de mots.
-                    </Typography>
-                    <Box sx={{ position: "relative", display: "inline-flex" }}>
-                      <CircularProgress
-                        variant="determinate"
-                        value={textData.note}
-                        size={50}
-                        thickness={4}
-                        sx={{ color: "#A1CDF1" }}
-                      />
-                      <Typography
-                        sx={{
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
-                          color: "#A1CDF1",
-                          fontSize: "12px",
-                        }}
-                      >
-                        {textData.note}%
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Typography variant="h5">Quantification du texte</Typography>
-                  <Divider
-                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
-                  />
-
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: 1,
-                      alignItems: "center",
-                      m: 2,
-                    }}
-                  >
-                    <Box>
-                      <Typography variant="body1">
-                        Caractères : {textData.nbCaractere}
-                      </Typography>
-                      <Typography variant="body1">
-                        Phrases : {textData.nbSentence}
-                      </Typography>
-                      <Typography variant="body1">
-                        Mots : {textData.nbWord}
-                      </Typography>
-                    </Box>
-
-                    <Box>
-                      <Typography variant="body1">
-                        Temps de lecture : {textData.readingTime} sec
-                      </Typography>
-                      <Typography variant="body1">
-                        Temps de lecture orale : {textData.oralReadingTime} sec
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Typography variant="h5">Lisibilité</Typography>
-                  <Divider
-                    sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
-                  />
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr", // Deux colonnes égales
-                      gap: 1, // Espace entre les colonnes
-                      alignItems: "center",
-                      m: 2,
-                    }}
-                  >
-                    <Box>
-                      <Typography variant="body1">
-                        Taille des mots : {textData.wordLength} caractères
-                      </Typography>
-                      <Typography variant="body1">
-                        Taille des phrases : {textData.sentenceLength}
-                      </Typography>
-                      <Typography variant="body1">
-                        Score Total : A calculer
-                      </Typography>
-                    </Box>
-                  </Box>
-                </DialogContent>
               ) : (
                 <CircularProgress />
               )}
+            </Box>
+          ) : null}
 
-              <DialogActions>
-                <Button
-                  onClick={() => setPopupOpen(false)}
-                  sx={{ color: "#316DA9" }}
+          <Dialog open={isPopupOpen} onClose={() => setPopupOpen(false)}>
+            {textData ? (
+              <DialogContent>
+                <Typography variant="h5">Performance</Typography>
+                <Divider
+                  sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    m: 2,
+                  }}
                 >
-                  Fermer
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </Box>
+                  <Typography variant="body1">
+                    Score du texte : {textData.note} sur 100. Ce score
+                    représente la qualité du texte en calculant le taux
+                    d'erreurs par rapport au nombre de mots.
+                  </Typography>
+                  <Box sx={{ position: "relative", display: "inline-flex" }}>
+                    <CircularProgress
+                      variant="determinate"
+                      value={textData.note}
+                      size={50}
+                      thickness={4}
+                      sx={{ color: "#A1CDF1" }}
+                    />
+                    <Typography
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        color: "#A1CDF1",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {textData.note}%
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Typography variant="h5">Quantification du texte</Typography>
+                <Divider
+                  sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                />
+
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 1,
+                    alignItems: "center",
+                    m: 2,
+                  }}
+                >
+                  <Box>
+                    <Typography variant="body1">
+                      Caractères : {textData.nbCaractere}
+                    </Typography>
+                    <Typography variant="body1">
+                      Phrases : {textData.nbSentence}
+                    </Typography>
+                    <Typography variant="body1">
+                      Mots : {textData.nbWord}
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography variant="body1">
+                      Temps de lecture : {textData.readingTime} sec
+                    </Typography>
+                    <Typography variant="body1">
+                      Temps de lecture orale : {textData.oralReadingTime} sec
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Typography variant="h5">Lisibilité</Typography>
+                <Divider
+                  sx={{ backgroundColor: "#A1CDF1", height: 2, my: 0.25 }}
+                />
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr", // Deux colonnes égales
+                    gap: 1, // Espace entre les colonnes
+                    alignItems: "center",
+                    m: 2,
+                  }}
+                >
+                  <Box>
+                    <Typography variant="body1">
+                      Taille des mots : {textData.wordLength} caractères
+                    </Typography>
+                    <Typography variant="body1">
+                      Taille des phrases : {textData.sentenceLength}
+                    </Typography>
+                    <Typography variant="body1">
+                      Score Total : A calculer
+                    </Typography>
+                  </Box>
+                </Box>
+              </DialogContent>
+            ) : (
+              <CircularProgress />
+            )}
+
+            <DialogActions>
+              <Button
+                onClick={() => setPopupOpen(false)}
+                sx={{ color: "#316DA9" }}
+              >
+                Fermer
+              </Button>
+            </DialogActions>
+          </Dialog>
         </>
       )}
     </>
